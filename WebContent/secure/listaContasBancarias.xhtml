@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<ui:composition
+	template="/WEB-INF/templates/layout4/basicTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:cc="http://java.sun.com/jsf/composite/components">
+
+
+	<ui:define name="title">Contas Bancárias</ui:define>
+
+	<ui:define name="content">
+ 
+		<div class="page-content-wrapper">
+			<div class="page-content">
+				<div class="col-md-12">
+					<div style="margin-top:-9px !important" class="portlet box red">
+						<div class="portlet-title">
+							<div class="caption"><i class="icon-calculator"></i>Consulta Contas a Bancárias</div>
+						</div>
+						<div class="portlet-body">
+							<div class="table-toolbar">
+								<h:form id="form">
+									<div class="row">
+										<div class="col-md-2"> 
+											<h:outputLabel class="control-label-custom" value="Descrição" />
+										</div>
+										<div class="col-md-4">
+											<h:inputText maxlength="150" class="form-control form-control-custom" value="#{contaBancaria.filter.filter.descricao}" />
+										</div>
+										
+										<div class="col-md-2">
+											<h:outputLabel class="control-label-custom" value="Empresa" />
+										</div>
+										<div class="col-md-4">
+											<h:selectOneMenu  class="form-control form-control-combo-custom" id="empresa" converter="entityConverter" value="#{contaBancaria.filter.filter.empresa}">
+												<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+												<f:selectItems value="#{contaBancaria.empresaList}" var="empresa" itemLabel="#{empresa.descricao}" />
+											</h:selectOneMenu>
+										</div>
+									</div>
+									
+									<div class="row">
+									
+									</div>
+									
+									<div class="row" style="margin-top: 15px;">
+										<div class="col-md-3 col-md-offset-9" >
+											<div style="float: right;">
+												<p:commandButton value="Pesquisar" action="#{contaBancaria.pesquisar()}" update="tabelaContasBancarias" ajax="false" process="@form" />
+												<p:commandButton value="Limpar" ajax="false" process="@form" update="form" action="#{contaBancaria.filter.limpaFiltro()}" />
+											</div>
+										</div>
+									</div>
+								</h:form>
+									
+								<p:separator />
+								
+								<div class="row">
+									<div class="col-md-12" >
+										<div id="grid">
+											<p:button  value="Novo" outcome="contaBancaria" />
+											<div style="padding: 5px 0px" class="row" />
+											
+											<p:dataTable id="tabelaContasBancarias" var="conta" value="#{contaBancaria.gridLazyLoader}" paginator="true" reflow="true" rows="#{componentsConstants.getGridRowsDefault()}"
+												 rowsPerPageTemplate="#{componentsConstants.getRowsPerPageTemplate()}" lazy="true">
+												 
+										 			<p:column style="width:5%; text-align:center">
+														<p:button  icon="ui-icon-pencil" outcome="contaBancaria">
+															<f:param name="id" value="#{conta.id}"></f:param>
+														</p:button>
+													</p:column>
+													
+													<p:column style="width:5%; text-align:center">
+														<p:commandButton icon="ui-icon-close" actionListener="#{contaBancaria.excluir(conta)}" update=":tabelaContasBancarias" process="@this">
+															<p:confirm header="Confirmar Exclusão" message="Deseja Excluir o Registro?" icon="ui-icon-alert" />
+														</p:commandButton>
+													</p:column>
+												 
+													<p:column style="width:20%" headerText="Descrição">
+														<h:outputText value="#{conta.descricao}" />
+													</p:column>
+							
+													<p:column style="width:10%; text-align:right" headerText="Valor Total">
+														<h:outputText value="#{conta.saldoAtual}">
+															<f:convertNumber minFractionDigits="2" />
+														</h:outputText>
+													</p:column>
+													
+													<p:column style="width:20%" headerText="Banco">
+														<h:outputText value="#{conta.banco}" />
+													</p:column>
+													
+													<p:column style="width:20%" headerText="N° da Conta">
+														<h:outputText value="#{conta.numeroConta}" />
+													</p:column>
+													
+													<p:column style="width:20%" headerText="Empresa">
+														<h:outputText value="#{conta.empresa.descricao}" />
+													</p:column>
+													
+													<p:column style="width:8%; text-align:center" headerText="Ativo">
+														<h:outputText value="#{componentsConstants.getSimNaoBoolean(conta.ativo)}" />
+													</p:column>
+
+											</p:dataTable>
+					
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">  
+						<p:commandButton value="Sim" update=":tabelaContasBancarias" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+						<p:commandButton value="Não" update=":tabelaContasBancarias" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+					</p:confirmDialog>
+ 
+				</div>
+			</div>
+		</div>
+
+	</ui:define>
+</ui:composition>

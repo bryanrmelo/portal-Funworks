@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<ui:composition
+	template="/WEB-INF/templates/layout4/basicTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:cc="http://java.sun.com/jsf/composite/components">
+
+	<ui:define name="title">Contas a Pagar</ui:define>
+
+	<ui:define name="content">
+
+		<div class="page-content-wrapper">
+			<div class="page-content">
+
+				<div class="col-md-12">
+					<div style="margin-top:-9px !important" class="portlet box red">
+						<div class="portlet-title">
+							<div class="caption"><i class="icon-calculator"></i>Conta Bancária</div>
+						</div>
+						<div class="portlet-body">
+							<h:form id="form">
+								<p:messages id="messages"  showDetail="false" autoUpdate="true" closable="true" />
+								
+								<div class="row">
+									<div class="col-md-2">
+										<p:outputLabel class="control-label-custom" value="Código" rendered="#{contaBancariaEditar.contaBancaria.id ne null}"/>
+									</div>
+									<div class="col-md-2">
+										<p:outputLabel value="#{contaBancariaEditar.contaBancaria.id}" rendered="#{contaBancariaEditar.contaBancaria.id ne null}"/>
+									</div>
+									<div class="col-md-8" >
+									</div>
+								</div>
+								
+								<div style="padding: 5px 0px" class="row" />
+								
+								<div class="row">
+									<div class="col-md-2">
+										<h:outputLabel class="control-label-custom" value="Descrição" />
+									</div>
+									<div class="col-md-6">
+										<h:inputText class="form-control form-control-custom" value="#{contaBancariaEditar.contaBancaria.descricao}" maxlength="150" immediate="true" required="true"  requiredMessage="Descrição obrigatória" />
+									</div>
+									<div class="col-md-4" />
+								</div>
+								
+								<div style="padding: 5px 0px" class="row" />
+								
+								<div class="row">
+									<div class="col-md-2">
+										<h:outputLabel class="control-label-custom" value="Banco" />
+									</div>
+									<div class="col-md-2">
+										<h:inputText class="form-control form-control-custom" value="#{contaBancariaEditar.contaBancaria.banco}" maxlength="50"  immediate="true" required="true"  requiredMessage="Banco obrigatório" />
+									</div>
+									<div class="col-md-8" />
+								</div>
+								
+								<div style="padding: 5px 0px" class="row" />
+								
+								<div class="row">
+									<div class="col-md-2">
+										<h:outputLabel class="control-label-custom" value="Agência" />
+									</div>
+									<div class="col-md-2">
+										<h:inputText class="form-control form-control-custom" value="#{contaBancariaEditar.contaBancaria.agencia}" maxlength="50"  immediate="true" required="true"  requiredMessage="Agência obrigatória" />
+									</div>
+									<div class="col-md-8" />
+								</div>
+								
+								<div style="padding: 5px 0px" class="row" />
+
+								<div class="row">
+									<div class="col-md-2">
+										<h:outputLabel class="control-label-custom" value="N° da Conta" />
+									</div>
+									<div class="col-md-2">
+										<h:inputText class="form-control form-control-custom" value="#{contaBancariaEditar.contaBancaria.numeroConta}" maxlength="50"  immediate="true" required="true"  requiredMessage="N° da Conta obrigatório" />
+									</div>
+									<div class="col-md-8" />
+								</div>
+								
+								<div style="padding: 5px 0px" class="row" />
+								
+								<div class="row" >
+									
+									<div class="col-md-2">
+										<h:outputLabel class="control-label-custom" value="Empresa" />
+									</div>
+									<div class="col-md-2">
+										<h:selectOneMenu class="form-control form-control-combo-custom" id="empresa" converter="entityConverter" immediate="true"
+											value="#{contaBancariaEditar.contaBancaria.empresa}" required="true" requiredMessage="Empresa obrigatório" >
+											<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+											<f:selectItems value="#{contaBancariaEditar.empresaList}" var="empresa" itemLabel="#{empresa.descricao}" />
+										</h:selectOneMenu>
+									</div>
+									<div class="col-md-8" />
+			
+								</div>
+								
+								<div style="padding: 5px 0px" class="row" />
+								
+								<div class="row">
+									<div class="col-md-2">
+										<h:outputLabel class="control-label-custom" value="Saldo Inicial" />
+									</div>
+									<div class="col-md-2">
+										<h:inputText class="form-control form-control-custom" required="true" immediate="true"  requiredMessage="Saldo Inicial obrigatório" value="#{contaBancariaEditar.contaBancaria.saldoInicial}">
+											  <f:convertNumber type="number" currencySymbol="$" groupingUsed="true" maxFractionDigits="2" />
+										</h:inputText>
+									</div>
+									<div class="col-md-8" >
+										 
+									</div>
+								</div>
+								
+								<div style="padding: 5px 0px" class="row" />
+								
+								<div class="row">
+									<div class="col-md-2">
+										<h:outputLabel class="control-label-custom" value="Saldo Atual" />
+									</div>
+									<div class="col-md-2">
+										<p:outputLabel value="#{contaBancariaEditar.contaBancaria.saldoAtual}"></p:outputLabel>
+									</div>
+									<div class="col-md-8" >
+										 
+									</div>
+								</div>
+								
+								<div style="padding: 5px 0px" class="row" />
+									 
+									<div class="row">
+									 
+									 	<div class="col-md-2">
+										<h:outputLabel class="control-label-custom" style="padding:0px 5px" value="Ativo" />
+									</div>
+									 
+									 	 <div class="col-md-10">
+										<p:selectBooleanCheckbox style="margin-top:5px" value="#{contaBancariaEditar.contaBancaria.ativo}" immediate="true" required="true" >
+										</p:selectBooleanCheckbox>
+									</div>
+										 
+								</div>
+								
+								<div style="padding: 5px 0px" class="row" />
+									 
+									<div class="row">
+									<div class="col-md-2 col-md-offset-10" >
+										<div style="float: right;">
+											<p:commandButton process="@form" action="#{contaBancariaEditar.salvar()}" value="Salvar" />
+											<p:button value="Voltar" outcome="listaContasBancarias">
+												<f:param name="pesquisar" value="true"></f:param>
+											</p:button>
+										</div>
+									</div>
+								</div>
+							</h:form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</ui:define>
+</ui:composition>

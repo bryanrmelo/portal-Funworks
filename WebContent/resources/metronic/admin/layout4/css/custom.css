@@ -1,0 +1,45 @@
+/* here you can put your own css to customize and override the theme */
+
+/*
+.ui-datepicker {
+width: 17em;
+padding: .2em .2em 0;
+display: none;
+background-color: #ffffff;
+}
+
+
+*/
+.form-control-custom{
+	
+	font-size: 12px !important;
+	height: 28px !important;
+}
+
+.control-label-custom{
+	font-size: 14px !important;
+}
+
+
+.form-control-calendar{
+	font-size: 12px !important;
+	height: 15px !important;
+}
+
+.ui-datepicker-calendar .ui-state-hover {
+	color: #1C4257;
+	font-size: 12px !important;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+.ui-datepicker-calendar .ui-state-default {
+	background: none;
+	border: none;
+	color: #5F83B9;
+}
+.form-control-combo-custom{
+	font-size: 12px !important;
+	height: 30px !important;
+}

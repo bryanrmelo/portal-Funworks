@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html lang="en" class="no-js" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:cc="http://java.sun.com/jsf/composite/components">
+
+<h:head>
+	<meta charset="utf-8" />
+	<title>Portal - Login</title>
+	<link rel="icon" href="../resources/imagens/fun-icon.png" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta content="width=device-width, initial-scale=1" name="viewport" />
+	<link rel="stylesheet" href="../resources/css/loginStyle.css" />
+	<link rel="stylesheet" href="../resources/css/FacesMessageStyle.css" />
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+		rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+		crossorigin="anonymous" />
+	<link href='http://fonts.googleapis.com/css?family=Roboto'
+		rel='stylesheet' type='text/css' />
+	<style>
+body {
+	background-color: #e1e1e1;
+	font-family: 'Roboto', sans-serif;
+}
+</style>
+</h:head>
+
+<h:body>
+	<div id="wrapper">
+		<div class="container">
+			<h:form>
+				<div class="imagem-topo">
+					<img src="../resources/imagens/funworks-logo.png" />
+					<h4 class="text-center text-white"><b>PORTAL DA TRANSPARÊNCIA</b></h4>
+				</div>
+
+				<div class="mb-3">
+					<p:messages id="messages" showDetail="false" autoUpdate="true"
+						closable="false" />
+					<div class="usuario" style="margin-top: 30px;">
+						<label for="usuario" class="form-label"><b>Usuário:</b></label>
+						<p:inputText value="#{login.nome}" styleClass="form-control"
+							required="true" type="text" autocomplete="off" name="username"
+							requiredMessage="É necessário inserir um usuário!" />
+					</div>
+					<div class="mb-3 usuario">
+						<label for="senha" class="form-label"><b>Senha:</b></label>
+						<p:inputText value="#{login.senha}" styleClass="form-control"
+							required="true" requiredMessage="É necessário inserir a senha!"
+							type="password" autocomplete="off" name="password"
+							onkeypress="if (event.keyCode == 13) { enter(); return false; }" />
+					</div>
+				</div>
+				<div class="d-flex justify-content-center lista-control">
+					<h:commandButton
+						styleClass="botoes justify-content-center text-white"
+						type="submit" value="Acessar" action="#{login.login()}" />	
+				</div>
+			</h:form>
+			<h:form>
+				<div class="d-flex justify-content-center lista-control"
+					style="margin-bottom: 30px">
+					<h:commandLink styleClass="link-recuperar text-dark"
+						action="#{login.trocarSenha()}">
+						<b>Recuperar senha</b>
+						</h:commandLink>
+				</div>
+			</h:form>
+		</div>
+	</div>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+
+</h:body>
+</html>

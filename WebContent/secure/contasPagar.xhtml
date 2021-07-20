@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<ui:composition
+	template="/WEB-INF/templates/layout4/basicTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:cc="http://java.sun.com/jsf/composite/components">
+
+	<ui:define name="title">Contas a Pagar</ui:define>
+
+	<ui:define name="content">
+
+		<div class="page-content-wrapper">
+			<div class="page-content">
+			
+			
+
+				<div class="col-md-12">
+					<div style="margin-top:-9px !important" class="portlet box red">
+						<div class="portlet-title">
+							<div class="caption"><i class="icon-calculator"></i>Contas a Pagar</div>
+						</div>
+						<div class="portlet-body">
+							
+								<h:form id="form">
+									<p:messages id="messages"  showDetail="false" autoUpdate="true" closable="true" />
+									
+									
+									<div class="row" >
+										
+										<div class="col-md-2">
+											<h:outputLabel class="control-label-custom"  value="Sacado" />
+										</div>
+										<div class="col-md-6">
+											<h:selectOneMenu class="form-control form-control-combo-custom" id="empresa" converter="entityConverter" immediate="true"
+												value="#{contasPagarEditar.contaPagarSel.empresa}" required="true" requiredMessage="Sacado obrigatório" >
+												<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+												<f:selectItems value="#{contasPagarEditar.empresaList}"
+													var="empresa" itemLabel="#{empresa.descricao}" />
+											</h:selectOneMenu>
+										</div>
+										<div class="col-md-4" />
+				
+									</div>
+									
+									<div style="padding: 5px 0px" class="row" />
+
+									<div class="row">
+				
+										<div class="col-md-2">
+											<h:outputLabel class="control-label-custom" value="Fornecedor" />
+										</div>
+										<div class="col-md-6">
+											<h:selectOneMenu class="form-control form-control-combo-custom"  id="fornecedor" converter="entityConverter" immediate="true"  required="true" requiredMessage="Fornecedor obrigatório"
+												value="#{contasPagarEditar.contaPagarSel.fornecedor}">
+												<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+												<f:selectItems value="#{contasPagarEditar.fornecedorList}"
+													var="fornecedor" itemLabel="#{fornecedor.descricao}" />
+											</h:selectOneMenu>
+										</div>
+										<div class="col-md-4" />
+									</div>
+									
+									<div style="padding: 5px 0px" class="row" />
+
+									<div class="row">
+				
+										<div class="col-md-2">
+											<h:outputLabel class="control-label-custom" value="Descrição" />
+										</div>
+										<div class="col-md-6">
+											<h:inputText class="form-control form-control-custom" value="#{contasPagarEditar.contaPagarSel.descricao}"  immediate="true" required="true"  requiredMessage="Descrição obrigatória" />
+										</div>
+										<div class="col-md-4" />
+				
+									</div>
+									
+									<div style="padding: 5px 0px" class="row" />
+
+									<div class="row">
+				
+										<div class="col-md-2">
+											<h:outputLabel class="control-label-custom" value="Conta" />
+										</div>
+										<div class="col-md-6">
+											<h:selectOneMenu  class="form-control form-control-combo-custom" id="contas" converter="entityConverter" immediate="true" required="true"  requiredMessage="Conta obrigatório" 
+												value="#{contasPagarEditar.contaPagarSel.conta}">
+												<f:selectItem itemLabel="Selecione" itemValue="" />
+												<f:selectItems value="#{contasPagarEditar.listaContas}" />
+											</h:selectOneMenu>
+										</div>
+										<div class="col-md-4" />
+				
+									</div>
+									
+									<div style="padding: 5px 0px" class="row" />
+
+									<div class="row">
+				
+										<div class="col-md-2">
+											<h:outputLabel class="control-label-custom" value="Valor Total" />
+										</div>
+										<div class="col-md-2">
+											<h:inputText class="form-control form-control-custom" style="width:120px"  required="true" immediate="true"  requiredMessage="Valor obrigatório" 
+												value="#{contasPagarEditar.contaPagarSel.valor}">
+												  <f:convertNumber type="number" currencySymbol="$" groupingUsed="true" maxFractionDigits="2" />
+											</h:inputText>
+										</div>
+										<div class="col-md-8" />
+									</div>
+									
+									<div style="padding: 5px 0px" class="row" />
+
+									<div class="row">
+				
+										<div class="col-md-2">
+											<h:outputLabel class="control-label-custom" value="Vencimento" />
+										</div>
+										<div class="col-md-3">
+											<p:calendar pattern="dd/MM/yyyy" showOn="button" locale="pt_BR" required="true" immediate="true" requiredMessage="Vencimento obrigatório" 
+												 styleClass="form-control-calendar" size="7"
+												value="#{contasPagarEditar.contaPagarSel.dataVencimento}" mask="true">
+											</p:calendar>
+										</div> 
+										<div class="col-md-7" />
+									</div>
+									
+									<div style="padding: 5px 0px" class="row" />
+
+									<div class="row">
+				
+										<div class="col-md-2">
+											<h:outputLabel class="control-label-custom" value="Data Prev. Pagamento" />
+										</div>
+										<div class="col-md-3">
+											<p:calendar pattern="dd/MM/yyyy" showOn="button" locale="pt_BR" required="true" immediate="true"  requiredMessage="Data Prev. Pagamento obrigatório" 
+												 styleClass="form-control-calendar"  size="7"
+												value="#{contasPagarEditar.contaPagarSel.dataPrevista}" mask="true">
+											</p:calendar>
+										</div>
+										<div class="col-md-7" />
+									</div>
+									
+									<div style="padding: 5px 0px" class="row" />
+
+									<div class="row">
+										<div class="col-md-12">
+											<p:outputPanel  id="periodoReplicacao">
+						
+												<div class="col-md-4">
+													<p:selectBooleanCheckbox style="margin-top:5px" value="#{contasPagarEditar.contaPagarSel.replicaMeses}" immediate="true" required="true" requiredMessage="Replicar conta obrigatório"  >
+													  	<p:ajax process="@this" event="change" update="periodoReplicacao"  /> 
+													</p:selectBooleanCheckbox>
+													<h:outputLabel class="control-label-custom" style="padding:0px 5px" value="Replicar conta para os próximos meses?" />
+												</div>
+												
+												<p:outputPanel  layout="block" rendered="#{contasPagarEditar.contaPagarSel.replicaMeses}">
+													<div style="text-align:right;" class="col-md-2">  
+															<h:outputLabel class="control-label-custom" style="padding:5px 0px" value="Qtd de meses" />
+													</div>
+													<div class="col-md-4">   
+															<h:inputText style="width:80px"  value="#{contasPagarEditar.contaPagarSel.qtdReplicaMeses}"
+																	class="form-control form-control-custom">
+															</h:inputText>
+													</div>
+													<div class="col-md-4" />   
+												</p:outputPanel>
+													
+							 					
+											</p:outputPanel>	
+										</div>
+									</div>
+									
+									<div style="padding: 5px 0px" class="row" />
+
+									<div class="row">
+										<div class="col xs-12 col-md-12">
+											<div  class="portlet box red">
+												<div class="portlet-title">
+													<div class="caption">
+														<i class="fa fa-tasks"></i> Rateios
+													</div>
+												</div>
+												<div class="portlet-body form">
+													<div class="form-body">
+														<p:outputPanel id="paneEmpresas">
+															<div class="row">
+																<div class="col-md-12">
+																	<div class="col-md-1">
+																		<h:outputLabel class="control-label-custom" value="Tipo:"
+																			style="padding:0px 5px" /> 
+																	</div>
+																	<div class="col-md-3">
+																			<h:selectOneRadio id="tpRdateio" 
+																				value="#{contasPagarEditar.contaPagarSel.contaPagarRateio.tipoRateio}">
+																				<f:selectItem itemLabel="Valor" itemValue="0" />
+																				<f:selectItem itemLabel="Percentual" itemValue="1" />
+																				<f:ajax execute="@this" render="paneEmpresas"
+																					listener="#{contasPagarEditar.resetRateios()}" />
+																			</h:selectOneRadio>
+															        </div>
+															        <div class="col-md-8" />
+																		
+																</div>
+															</div>
+										
+															<p:separator rendered="#{contasPagarEditar.contaPagarSel.contaPagarRateio.tipoRateio eq 0 ? 'false' : 'true'}" />
+															
+															<p:outputPanel  layout="block"
+																rendered="#{contasPagarEditar.contaPagarSel.contaPagarRateio.tipoRateio eq 0 ? 'false' : 'true'}"
+																id="divRateioPref">
+																<div class="row">
+																	<div class="col-md-12">
+																		<div class="col-md-4">
+											
+																			<p:selectBooleanCheckbox style="margin-top:5px"
+																				value="#{contasPagarEditar.contaPagarSel.contaPagarRateio.rateioPreSelecionado}">
+																				<p:ajax listener="#{contasPagarEditar.preparaPreRateio()}"
+																					update="rateioPreConfigurados rateiosEmpresas" event="change" />
+																			</p:selectBooleanCheckbox>
+																			<h:outputLabel class="control-label-custom" style="padding:0px 5px"
+																				value="Selecionar rateio pré-configurado?" />
+																		</div>
+																		<div class="col-md-4">
+																			<h:selectOneMenu class="form-control control-label-custom " id="rateioPreConfigurados"
+																				converter="entityConverter"
+																				value="#{contasPagarEditar.contaPagarSel.contaPagarRateio.rateioPreSelecionadoId}">
+																				<f:selectItem itemLabel="Selecione" itemValue="#{null}"	noSelectionOption="true" />
+																				<f:selectItems
+																					value="#{contasPagarEditar.tipoRateioPreConfiguradosList}"
+																					itemValue="#{tipoRateio}"  var="tipoRateio"
+																					itemLabel="#{tipoRateio.descricao}" />
+																				<p:ajax listener="#{contasPagarEditar.rateiaEmpresas()}"
+																					update="rateiosEmpresas" event="change" />
+																			</h:selectOneMenu>
+																		</div> 
+																		<div class="col-md-4" />
+																	</div>
+																</div>
+															</p:outputPanel>
+										
+															<p:separator />
+															
+															<p:outputPanel layout="block" id="rateiosEmpresas">
+																<div class="row">
+																		<div class="col xs-12 col-md-12">
+																		<ui:repeat var="o"
+																			value="#{contasPagarEditar.listaRateioEmpresa}"
+																			varStatus="status">
+																				
+																				<div class="col-md-4">
+																					<label  class="control-label-custom">#{o.empresa.descricao}:</label>
+																					<h:inputText style="width:110px"  value="#{o.valor}"
+																							readonly="#{contasPagarEditar.contaPagarSel.contaPagarRateio.rateioPreSelecionado eq true ? 'true' : 'false'}"
+																							class="form-control form-control-custom">
+																							<f:convertNumber type="number" currencySymbol="$" groupingUsed="true" maxFractionDigits="2" />
+																					</h:inputText>
+																				</div>
+																			
+																		</ui:repeat>
+																	</div>
+																</div>
+															</p:outputPanel>
+															
+														</p:outputPanel>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12">
+											<div class="col-md-10" />
+											<div  class="col-md-1">
+												<p:commandButton  process="@form"
+													action="#{contasPagarEditar.salvar()}" value="Salvar" />
+											</div>
+											<div class="col-md-1">
+												<p:button value="Voltar" outcome="listaContasPagar">
+													<f:param name="pesquisar" value="true"></f:param>
+												</p:button>
+											</div>
+										</div>
+									</div>
+								</h:form>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</ui:define>
+</ui:composition>

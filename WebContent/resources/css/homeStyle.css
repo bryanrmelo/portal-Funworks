@@ -1,0 +1,51 @@
+.barra-cima {
+	border-top: 2px solid black;
+}
+
+.wrapper {
+	width: 98%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-right: auto;
+	margin-left: auto;
+	border: 2px solid black;
+	background-color: #ffffff;
+}
+
+.dropdown-menu-lista {
+	list-style-type: none;
+}
+
+nav p, h3 {
+	margin: 0;
+}
+
+.dropdown-menu {
+	width: 80px !important;
+}
+
+.dropdown-item {
+	background-color: #e1e1e1;
+	margin-top: 2px;
+	margin-left: 4px;
+	margin-right: 4px;
+}
+
+.vertical-nav a, .vertical-nav p {
+	background-color: #e1e1e1;
+	padding: 2px;
+	margin: 10px;
+}
+
+.vertical-nav a:hover, .vertical-nav p:hover {
+	background-color: #ffffff;
+}
+
+.sidebar-size {
+	min-width: 250px;
+	max-width: 250px;
+}
+
+input {
+	border: 2px solid black !important;
+}

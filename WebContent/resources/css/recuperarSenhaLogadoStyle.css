@@ -1,0 +1,38 @@
+.senha-requisitos {
+	border: 2px solid black;
+	color: crimson;
+	width: 70%;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 40px;
+	font-weight: bold;
+}
+
+.usuario {
+	padding: 10px 20px 10px 20px;
+	margin-left: 50px;
+	margin-right: 50px;
+}
+
+.botoes {
+	padding: 5px 10px 5px 10px;
+	background-color: crimson;
+}
+
+.botoes:hover {
+	background-color: #ad102f;
+}
+
+.wrapper-input {
+	width: 70%;
+	margin: auto;
+}
+
+.input-stretch {
+	width: 70%;
+}
+
+.label-stretch {
+	max-width: 30%;
+	min-width: 30%;
+}

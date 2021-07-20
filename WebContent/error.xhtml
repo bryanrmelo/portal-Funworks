@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<!-- 
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.1
+Version: 3.6.1
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en"
+	class="no-js"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:a="http://xmlns.jcp.org/jsf/passthrough" 
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<h:head>
+<meta charset="utf-8"/>
+<title><ui:insert name="title">Página não encontrada</ui:insert></title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="" name="description"/>
+<meta content="" name="author"/>
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=all" rel="stylesheet" type="text/css"/>
+<h:outputStylesheet library="metronic" name="global/plugins/font-awesome/css/font-awesome.min.css"/>
+<h:outputStylesheet library="metronic" name="global/plugins/simple-line-icons/simple-line-icons.min.css"/>
+<h:outputStylesheet library="metronic" name="global/plugins/bootstrap/css/bootstrap.min.css"/>
+<h:outputStylesheet library="metronic" name="global/plugins/uniform/css/uniform.default.css"/>
+<h:outputStylesheet library="metronic" name="global/plugins/bootstrap-switch/css/bootstrap-switch.min.css"/>
+<h:outputStylesheet library="resources" name="css/error.css"/>
+<h:outputStylesheet library="metronic" name="global/css/components-rounded.css" id="style_components"/>
+<h:outputStylesheet library="metronic" name="global/css/components.css" id="style_components"/>
+<h:outputStylesheet library="metronic" name="global/css/plugins.css"/>
+<h:outputStylesheet library="metronic" name="admin/layout3/css/layout.css"/>
+<h:outputStylesheet library="metronic" name="admin/layout3/css/themes/light.css" id="style_color"/>
+<h:outputStylesheet library="metronic" name="admin/layout3/css/custom.css"/>
+<!-- END THEME STYLES -->
+<link rel="shortcut icon" href="favicon.ico"/>
+</h:head>
+
+
+
+<h:body styleClass="page-404-full-page"> 
+	
+	<div class="row">
+	<div class="col-md-12 page-404">
+		<div class="number">
+			 404
+		</div>
+		<div class="details">
+			<h3>Oops! Página não encontrada.</h3>
+			<p>
+				 Nós não podemos encontrar a página que você está procurando.
+				<a href="/portal/secure/home">
+				Retorne a página principal </a>
+			</p>
+		</div>
+	</div>
+</div>
+	
+	
+<!-- <[if lt IE 9]> -->
+<h:outputScript library="metronic" name="global/plugins/respond.min.js"/>
+<h:outputScript library="metronic" name="global/plugins/excanvas.min.js"/> 
+<!-- <![endif]> -->
+<h:outputScript library="metronic" name="global/plugins/jquery.min.js" type="text/javascript"/>
+<h:outputScript library="metronic" name="global/plugins/jquery-migrate.min.js" type="text/javascript"/>
+<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<h:outputScript library="metronic" name="global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"/>
+<h:outputScript library="metronic" name="global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"/>
+<h:outputScript library="metronic" name="global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"/>
+<h:outputScript library="metronic" name="global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"/>
+<h:outputScript library="metronic" name="global/plugins/jquery.blockui.min.js" type="text/javascript"/>
+<h:outputScript library="metronic" name="global/plugins/jquery.cokie.min.js" type="text/javascript"/>
+<h:outputScript library="metronic" name="global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"/>
+<h:outputScript library="metronic" name="global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"/>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<ui:define name="page-plugins"></ui:define>
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<h:outputScript library="metronic" name="global/scripts/metronic.js" type="text/javascript"/>
+<h:outputScript library="metronic" name="admin/layout3/scripts/layout.js" type="text/javascript"/>
+<h:outputScript library="metronic" name="admin/pages/scripts/index.js" type="text/javascript"/>
+<ui:define name="page-scripts"></ui:define>
+<!-- END PAGE LEVEL SCRIPTS -->
+<script>
+jQuery(document).ready(function() {    
+   	Metronic.init(); // init metronic core components
+	Layout.init(); // init current layout
+});
+	
+</script>
+<!-- END JAVASCRIPTS -->
+</h:body>
+<!-- END BODY -->
+</html>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<ui:composition template="/WEB-INF/templates/layout4/basicTemplate.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="title">Lista de Rateios</ui:define>
+
+	<ui:define name="content">
+ 
+		<div class="table-responsive">
+			
+			<p:dataTable var="rateio" value="#{listaRateioBack.rateios()}" border="1" styleClass="table table-hover"
+				cellpadding="2" cellspacing="0" paginator="true"
+				rows="10" paginatorPosition="bottom"
+				paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+				currentPageReportTemplate="({startRecord} - {endRecord} de {totalRecords})"
+				id="rateioTable" lazy="true"  emptyMessage="Nenhum registro encontrado" >
+
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Tipo de Rateio" />
+					</f:facet>
+					<h:outputText value="#{rateio.tipoRateio.descricao}" />
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Empresa" />
+					</f:facet>
+					<h:outputText value="#{rateio.empresa.descricao}" />
+				</p:column>
+				
+				<p:column>
+					<f:facet name="header">
+						<h:outputText value="Percentual" />
+					</f:facet>
+					<h:outputText value="#{rateio.percentual}" />
+				</p:column>
+				
+			</p:dataTable>
+			
+		</div>
+		
+	</ui:define>
+</ui:composition>

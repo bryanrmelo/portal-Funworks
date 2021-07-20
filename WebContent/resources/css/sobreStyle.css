@@ -1,0 +1,22 @@
+.sobre-titulo {
+	background-color: #999999;
+	border-bottom: 2px solid black;
+	padding: 0;
+}
+
+.sobre-titulo i {
+	margin-left: 20px;
+}
+
+.sobre-buffer {
+	background-color: #dc3545;
+	min-height: 30px;
+	max-height: 30px;
+	border-top: 2px solid black;
+	border-bottom: 2px solid black;
+	min-height: 30px;
+}
+
+.sobre-conteudo h5 {
+	margin: 0;
+}

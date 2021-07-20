@@ -1,0 +1,22 @@
+1. Copiar o arquivo "postgresql-9.3-1102.jdbc41.jar" para a pasta "deployments" do WildFly.
+
+2. Adicionar a seguinte definição de datasource no arquivo "standalone.xml":
+
+	<datasource jndi-name="java:jboss/datasources/tomasi-ds" pool-name="tomasi-ds" enabled="true" use-java-context="true">
+		<connection-url>jdbc:postgresql://192.168.1.208/tomasi_desenv</connection-url>
+		<driver-class>org.postgresql.Driver</driver-class>
+		<driver>postgresql-9.3-1102.jdbc41.jar</driver>
+		<security>
+			<user-name>postgres</user-name>
+			<password>postgres</password>
+		</security>
+		<validation>
+			<validate-on-match>false</validate-on-match>
+			<background-validation>false</background-validation>
+			<background-validation-millis>1</background-validation-millis>
+		</validation>
+		<statement>
+			<prepared-statement-cache-size>0</prepared-statement-cache-size>
+			<share-prepared-statements>false</share-prepared-statements>
+		</statement>
+	</datasource>

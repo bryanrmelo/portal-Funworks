@@ -1,0 +1,31 @@
+<ui:component
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:cc="http://xmlns.jcp.org/jsf/composite">
+    
+    <cc:interface>
+		<cc:attribute name="value" type="java.util.Date"/>
+		<cc:attribute name="format" required="false" default="dd/MM/yyyy"/>
+    </cc:interface>
+    
+    <cc:implementation>
+        
+        <h:inputText styleClass="form-control form-control-inline input-small date-picker" value="#{cc.attrs.value}">
+			<f:convertDateTime pattern="#{cc.attrs.format}"/>
+		</h:inputText>
+		
+		<script>
+	        jQuery(document).ready(function() {       
+	           ComponentsPickers.init();
+	        });   
+		</script>
+		
+		<h:outputStylesheet library="metronic" name="global/plugins/bootstrap-datepicker/css/datepicker3.css" target="head"/>
+		<h:outputScript library="metronic" name="global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript" target="head"/>
+		<h:outputScript library="metronic" name="admin/pages/scripts/components-pickers.js" type="text/javascript" target="head"/>
+		
+    </cc:implementation>
+    
+</ui:component>
