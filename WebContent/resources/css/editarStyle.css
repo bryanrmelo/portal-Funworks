@@ -1,6 +1,6 @@
 .label-stretch {
-	min-width: 150px;
-	max-width: 150px;
+	min-width: 160px;
+	max-width: 180px;
 }
 
 input[type=date] {

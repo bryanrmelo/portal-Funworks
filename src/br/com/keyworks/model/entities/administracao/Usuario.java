@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -47,6 +48,10 @@ public class Usuario implements Serializable {
 	@NotNull
 	@Column(name = "whatsapp", nullable = false)
 	private String whatsapp;
+
+	@Lob
+	@Column(name = "imagem")
+	private byte[] image;
 
 	@NotNull
 	@Column(name = "endereco", nullable = false)
@@ -167,6 +172,14 @@ public class Usuario implements Serializable {
 
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
+	}
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
 	}
 
 	public String getNascimento() {

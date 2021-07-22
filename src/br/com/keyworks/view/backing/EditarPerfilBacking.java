@@ -1,9 +1,16 @@
 package br.com.keyworks.view.backing;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
+import org.primefaces.model.UploadedFile;
 import br.com.keyworks.exceptions.ObservacaoInvalidaException;
 import br.com.keyworks.exceptions.QuantidadeInvalidaException;
 import br.com.keyworks.exceptions.UsuarioNaoEncontradoException;
@@ -29,6 +36,8 @@ public class EditarPerfilBacking extends AbstractBacking {
 	private String whatsapp;
 
 	private String endereco;
+
+	private UploadedFile imagem;
 
 	private String nascimento;
 
@@ -83,6 +92,12 @@ public class EditarPerfilBacking extends AbstractBacking {
 		this.celular = u.getCelular();
 		this.whatsapp = u.getWhatsapp();
 		this.endereco = u.getEndereco();
+		try {
+			this.imagem = getImagemAtual(u);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.nascimento = u.getNascimento();
 		this.estadoCivil = u.getEstadoCivil();
 		this.admissao = u.getAdmissao();
@@ -105,9 +120,9 @@ public class EditarPerfilBacking extends AbstractBacking {
 
 	public void editarPerfil() {
 		try {
-			usuarioService.editar(login, nome, email, celular, whatsapp, nascimento, estadoCivil, admissao, genero, dependentes, qtdDependentes,
-							animais, qtdAnimais, obsAnimais, orientacaoAlimentar, obsOrientacaoAlimentar, alergias, obsAlergias, intolerancias,
-							obsIntolerancias, preferencias, dicas);
+			usuarioService.editar(login, nome, email, celular, whatsapp, endereco, imagem, nascimento, estadoCivil, admissao, genero, dependentes,
+							qtdDependentes, animais, qtdAnimais, obsAnimais, orientacaoAlimentar, obsOrientacaoAlimentar, alergias, obsAlergias,
+							intolerancias, obsIntolerancias, preferencias, dicas);
 		} catch (QuantidadeInvalidaException e) {
 			FacesMessageUtils.addErrorMessage("Quantidade precisa ser preenchida!");
 		} catch (ObservacaoInvalidaException e) {
@@ -116,6 +131,12 @@ public class EditarPerfilBacking extends AbstractBacking {
 			System.out.println("Usuario não encontrado");
 		}
 
+	}
+
+	public UploadedFile getImagemAtual(Usuario usuario) throws IOException {
+		byte[] imagem = usuario.getImage();
+		UploadedFile file = imagem.
+		
 	}
 
 	public String getLogin() {
@@ -164,6 +185,14 @@ public class EditarPerfilBacking extends AbstractBacking {
 
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
+	}
+
+	public StreamedContent getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(StreamedContent imagem) {
+		this.imagem = imagem;
 	}
 
 	public String getNascimento() {

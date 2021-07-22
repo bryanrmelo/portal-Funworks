@@ -2,6 +2,7 @@ package br.com.keyworks.services;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import org.primefaces.model.UploadedFile;
 import br.com.keyworks.exceptions.ObservacaoInvalidaException;
 import br.com.keyworks.exceptions.QuantidadeInvalidaException;
 import br.com.keyworks.exceptions.UsuarioNaoEncontradoException;
@@ -16,17 +17,21 @@ public class UsuarioService {
 	private UsuarioRepository usuarioRepo;
 
 	// Editar perfil
-	public void editar(String login, String nome, String email, String celular, String whatsapp, String nascimento, String estadoCivil,
-					String admissao, String genero, String dependentes, Integer qtdDependentes, String animais, Integer qtdAnimais, String obsAnimais,
-					String orientacaoAlimentar, String obsOrientacaoAlimentar, String alergias, Integer obsAlergias, String intolerancias,
-					Integer obsIntolerancias, String preferencias, String dicas)
+	public void editar(String login, String nome, String email, String celular, String whatsapp, String endereco, UploadedFile imagem,
+					String nascimento, String estadoCivil, String admissao, String genero, String dependentes, Integer qtdDependentes, String animais,
+					Integer qtdAnimais, String obsAnimais, String orientacaoAlimentar, String obsOrientacaoAlimentar, String alergias,
+					Integer obsAlergias, String intolerancias, Integer obsIntolerancias, String preferencias, String dicas)
 					throws UsuarioNaoEncontradoException, QuantidadeInvalidaException, ObservacaoInvalidaException {
+
+		byte[] image = converterImagem(imagem);
 
 		Usuario usuario = usuarioRepo.buscarUsuario(login);
 		usuario.setNome(nome);
 		usuario.setEmail(email);
 		usuario.setCelular(celular);
 		usuario.setWhatsapp(whatsapp);
+		usuario.setEndereco(endereco);
+		usuario.setImage(image);
 		usuario.setNascimento(nascimento);
 		usuario.setEstadoCivil(estadoCivil);
 		usuario.setAdmissao(admissao);
@@ -64,6 +69,31 @@ public class UsuarioService {
 		// usuario.setQtdAnimais(qtdAnimais);
 		// usuario.setObsAnimais(obsAnimais);
 		// }
+	}
+
+	private byte[] converterImagem(UploadedFile imagem) {
+		// String fileName = imagem.getFileName();
+		// String contentType = imagem.getContentType();
+		byte[] contents = imagem.getContents();
+		return contents;
+
+		// try {
+		//
+		// UploadedFile filePath = imagem;
+		//
+		// // file to bytes[]
+		// byte[] bytes = Files.readAllBytes(Paths.get(filePath));
+		//
+		// bytes[] to file
+		// Path path = Paths.get(imagem);
+		// Files.write(path, bytes);
+		//
+		// System.out.println("Done");
+		//
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
+
 	}
 
 	public Usuario getDadosExistentes(String login) {
