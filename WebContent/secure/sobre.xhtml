@@ -36,8 +36,8 @@ body {
 	<div class="wrapper">
 
 		<!-- Navbar -->
-		<nav class="navbar navbar-light bg-danger ">
-			<div class="container-fluid sticky-top">
+		<nav class="navbar navbar-light bg-danger">
+			<div class="container-fluid">
 				<a href="../secure/home.xhtml">
 					<img class="navbar-brand"
 						src="../resources/imagens/funworks-logo.png" alt="Logo Funworks"
@@ -48,37 +48,35 @@ body {
 				<p class="nav-item text-white align-text-top">
 					<i class="fas fa-user" style="padding-right: 5px;"></i>
 
-					<h:outputText value="Olá, #{home.primeiroNome()}" />
-
+					<h:outputText value="Olá, #{alterarSenhaLogado.nomeParcial()}" />
 				</p>
-				<ul class="m-0 dropdown-menu-lista">
-					<li class="nav-item dropdown">
+				<ul class="m-0">
+					<li class="nav-item dropdown" style="list-style-type: none;">
 						<p class="dropdown-toggle text-white align-text-top"
 							id="navbarDropdown" role="button" data-bs-toggle="dropdown"
 							aria-expanded="false">
 							Configurações
 							<i class="fas fa-cog"></i>
 						</p>
-						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<ul class="dropdown-menu p-2 mt-1" aria-labelledby="navbarDropdown">
 							<li>
-								<a class="dropdown-item" href="../secure/home.xhtml">
+								<a class="dropdown-item m-0" style="width: 150px;" href="../secure/home.xhtml">
 									Página inicial
-									<i class="fas fa-home"></i>
+									<i class="fas fa-home float-end"></i>
 								</a>
 							</li>
 							<li>
-								<a class="dropdown-item"
+								<a class="dropdown-item m-0 mt-2"
 									href="../secure/recuperarSenhaLogado.xhtml">
 									Alterar senha
-									<i class="fas fa-key"></i>
+									<i class="fas fa-key float-end"></i>
 								</a>
 							</li>
 							<li>
-								<h:form>
-									<p:commandLink styleClass="dropdown-item"
-										action="#{login.logout()}">
-										Sair	<i class="fas fa-sign-out-alt text-end"></i>
-
+								<h:form class="m-0">
+									<p:commandLink styleClass="dropdown-item m-0 mt-2"
+										action="#{login.logout()}"> Sair <i
+											class="fas fa-sign-out-alt float-end"></i>
 									</p:commandLink>
 								</h:form>
 							</li>
@@ -90,25 +88,34 @@ body {
 
 		<!-- Navbar vertical -->
 		<div class="d-flex align-items-stretch barra-cima">
-			<div class="p-2 flex-fill sidebar-size">
+			<div class="p-2 flex-fill bd-highlight sidebar-size">
 				<div class="sticky-top vertical-nav bg-white" id="sidebar"
-					style="border: 2px solid black">
+					style="border: 2px solid black;">
 					<ul class="nav flex-column bg-white mb-0">
 						<li class="nav-item">
 							<a href="../secure/sobre.xhtml" class="nav-link text-dark">
-								<b>A Funworks </b>
+								<b>A Funworks</b>
 							</a>
 						</li>
 						<li class="nav-item">
 							<a href="#" class="nav-link text-dark">
 								<b>Minhas Mensalidades</b>
+
 							</a>
 						</li>
-						<li class="nav-item">
-							<a href="#" class="nav-link text-dark">
+						<li class="nav-item dropdown">
+							<p class="p1 dropdown-toggle nav-link text-dark"
+								id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+								aria-expanded="false">
 								<b>Meu Cadastro</b>
-								<i class="fas fa-angle-right float-right" />
-							</a>
+								<i class="fas fa-angle-down float-end" />
+							</p>
+							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<li>
+									<a class="dropdown-item m-0 pt-0 pb-0 ps-3 pe-3" style="background-color: #ffffff!important;" href="../secure/editarPerfil.xhtml">
+										Editar perfil </a>
+								</li>
+							</ul>
 						</li>
 					</ul>
 				</div>

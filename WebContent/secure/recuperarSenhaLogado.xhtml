@@ -49,7 +49,7 @@ body {
 				<p class="nav-item text-white align-text-top">
 					<i class="fas fa-user" style="padding-right: 5px;"></i>
 
-					<h:outputText value="Olá, #{alterarSenhaLogado.primeiroNome()}" />
+					<h:outputText value="Olá, #{alterarSenhaLogado.nomeParcial()}" />
 				</p>
 				<ul class="m-0">
 					<li class="nav-item dropdown" style="list-style-type: none;">
@@ -59,25 +59,27 @@ body {
 							Configurações
 							<i class="fas fa-cog"></i>
 						</p>
-						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<ul class="dropdown-menu p-2 mt-1"
+							aria-labelledby="navbarDropdown">
 							<li>
-								<a class="dropdown-item" href="../secure/home.xhtml">
+								<a class="dropdown-item m-0" style="width: 150px;"
+									href="../secure/home.xhtml">
 									Página inicial
-									<i class="fas fa-home"></i>
+									<i class="fas fa-home float-end"></i>
 								</a>
 							</li>
 							<li>
-								<a class="dropdown-item"
+								<a class="dropdown-item m-0 mt-2"
 									href="../secure/recuperarSenhaLogado.xhtml">
 									Alterar senha
-									<i class="fas fa-key"></i>
+									<i class="fas fa-key float-end"></i>
 								</a>
 							</li>
 							<li>
-								<h:form>
-									<p:commandLink styleClass="dropdown-item"
+								<h:form class="m-0">
+									<p:commandLink styleClass="dropdown-item m-0 mt-2"
 										action="#{login.logout()}"> Sair <i
-											class="fas fa-sign-out-alt text-end"></i>
+											class="fas fa-sign-out-alt float-end"></i>
 									</p:commandLink>
 								</h:form>
 							</li>
@@ -101,20 +103,20 @@ body {
 						<li class="nav-item">
 							<a href="#" class="nav-link text-dark">
 								<b>Minhas Mensalidades</b>
-								
+
 							</a>
 						</li>
 						<li class="nav-item dropdown">
-							<p class="p1 dropdown-toggle nav-link text-dark" id="navbarDropdown"
-								role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<p class="p1 dropdown-toggle nav-link text-dark"
+								id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+								aria-expanded="false">
 								<b>Meu Cadastro</b>
-								<i class="fas fa-angle-right float-right" />
+								<i class="fas fa-angle-down float-end" />
 							</p>
 							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<li>
-									<a class="dropdown-item"
-										href="../secure/editarPerfil.xhtml"> Editar perfil
-									</a>
+									<a class="dropdown-item m-0 pt-0 pb-0 ps-3 pe-3" style="background-color: #ffffff!important;" href="../secure/editarPerfil.xhtml">
+										Editar perfil </a>
 								</li>
 							</ul>
 						</li>
@@ -130,7 +132,7 @@ body {
 						<div>
 							<h2 class="text-white m-0 p-3">
 								<h:outputText
-									value="Alterar Senha > #{alterarSenhaLogado.primeiroNome()} #{alterarSenhaLogado.ultimoNome()}" />
+									value="Alterar Senha > #{alterarSenhaLogado.nomeCompleto()}" />
 							</h2>
 						</div>
 					</div>

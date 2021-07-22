@@ -19,16 +19,20 @@
 nav p, h3 {
 	margin: 0;
 }
-
-.dropdown-menu {
-	width: 80px !important;
+.dropdown-menu[data-bs-popper] {
+    
+    left: -25!important;
+  
 }
-
 .dropdown-item {
-	background-color: #e1e1e1;
+	background-color: #e1e1e1!important;
 	margin-top: 2px;
 	margin-left: 4px;
 	margin-right: 4px;
+}
+
+.dropdown-item:hover {
+	background-color: #ffffff!important;
 }
 
 .vertical-nav a, .vertical-nav p {
@@ -46,6 +50,6 @@ nav p, h3 {
 	max-width: 250px;
 }
 
-input {
+input, textarea{
 	border: 2px solid black !important;
 }

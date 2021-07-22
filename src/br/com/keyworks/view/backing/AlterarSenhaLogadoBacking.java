@@ -1,7 +1,6 @@
 package br.com.keyworks.view.backing;
 
 import javax.annotation.PostConstruct;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -14,7 +13,7 @@ import br.com.keyworks.exceptions.SenhasNaoCoincidemException;
 import br.com.keyworks.exceptions.UsuarioNaoEncontradoException;
 import br.com.keyworks.framework.faces.backing.AbstractBacking;
 import br.com.keyworks.services.SenhaService;
-import br.com.keyworks.util.ConverterNomeUtil;
+import br.com.keyworks.services.UsuarioService;
 import br.com.keyworks.util.ExpiracaoUtil;
 import br.com.keyworks.util.FacesMessageUtils;
 import br.com.keyworks.util.LogoutUtil;
@@ -31,6 +30,9 @@ public class AlterarSenhaLogadoBacking extends AbstractBacking {
 	@Inject
 	private SenhaService senhaService;
 
+	@Inject
+	private UsuarioService usuarioService;
+
 	private String nome;
 
 	private String senhaAtual;
@@ -45,7 +47,6 @@ public class AlterarSenhaLogadoBacking extends AbstractBacking {
 		if (!ExpiracaoUtil.ValidaExpiracao(sessao.getDataCriacao())) {
 			FacesMessageUtils.addErrorMessage("Sessão expirada!");
 			try {
-				FacesContext.getCurrentInstance().getPartialViewContext().getExecuteIds().add("alert('Sessão inválida!');");
 				LogoutUtil.logout();
 			} catch (Exception e) {
 
@@ -53,14 +54,12 @@ public class AlterarSenhaLogadoBacking extends AbstractBacking {
 		}
 	}
 
-	public String primeiroNome() {
-		return ConverterNomeUtil.converterPrimeiroNome(nome);
-
+	public String nomeParcial() {
+		return usuarioService.gerenciarNomeParaView("parcial", nome);
 	}
 
-	public String ultimoNome() {
-		return ConverterNomeUtil.converterUltimoNome(nome);
-
+	public String nomeCompleto() {
+		return usuarioService.gerenciarNomeParaView("completo", nome);
 	}
 
 	public void alterar() {

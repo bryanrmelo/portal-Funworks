@@ -1,0 +1,19 @@
+.label-stretch {
+	min-width: 150px;
+	max-width: 150px;
+}
+
+input[type=date] {
+	font-size: 1rem;
+	width: 50%;
+}
+
+.td label {
+	padding-right: 10px;
+}
+
+.borda {
+	border: 2px solid black!important;
+	border-radius: 0;
+}
+

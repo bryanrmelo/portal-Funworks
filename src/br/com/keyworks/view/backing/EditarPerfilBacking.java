@@ -9,7 +9,7 @@ import br.com.keyworks.exceptions.QuantidadeInvalidaException;
 import br.com.keyworks.exceptions.UsuarioNaoEncontradoException;
 import br.com.keyworks.framework.faces.backing.AbstractBacking;
 import br.com.keyworks.model.entities.administracao.Usuario;
-import br.com.keyworks.services.EditarService;
+import br.com.keyworks.services.UsuarioService;
 import br.com.keyworks.util.FacesMessageUtils;
 
 @Named("editar")
@@ -17,12 +17,6 @@ import br.com.keyworks.util.FacesMessageUtils;
 public class EditarPerfilBacking extends AbstractBacking {
 
 	private static final long serialVersionUID = 1L;
-
-	@Inject
-	private IdentidadeSessao sessao;
-
-	@Inject
-	private EditarService editarService;
 
 	private String login;
 
@@ -70,10 +64,16 @@ public class EditarPerfilBacking extends AbstractBacking {
 
 	private String dicas;
 
+	@Inject
+	private IdentidadeSessao sessao;
+
+	@Inject
+	private UsuarioService usuarioService;
+
 	@PostConstruct
 	public void ini() {
 		this.login = sessao.getNome();
-		Usuario usuario = editarService.getDadosExistentes(login);
+		Usuario usuario = usuarioService.getDadosExistentes(login);
 		preencher(usuario);
 	}
 
@@ -105,7 +105,7 @@ public class EditarPerfilBacking extends AbstractBacking {
 
 	public void editarPerfil() {
 		try {
-			editarService.editar(login, nome, email, celular, whatsapp, nascimento, estadoCivil, admissao, genero, dependentes, qtdDependentes,
+			usuarioService.editar(login, nome, email, celular, whatsapp, nascimento, estadoCivil, admissao, genero, dependentes, qtdDependentes,
 							animais, qtdAnimais, obsAnimais, orientacaoAlimentar, obsOrientacaoAlimentar, alergias, obsAlergias, intolerancias,
 							obsIntolerancias, preferencias, dicas);
 		} catch (QuantidadeInvalidaException e) {

@@ -5,7 +5,7 @@ import java.util.Date;
 public class ExpiracaoUtil {
 
 	public static boolean ValidaExpiracao(Date data) {
-		return (new Date().getTime() - data.getTime()) < 18000000;
+		return (new Date().getTime() - data.getTime()) < 1800000;
 
 		// 18000000
 	}
