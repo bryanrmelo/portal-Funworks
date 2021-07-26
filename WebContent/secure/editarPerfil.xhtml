@@ -152,7 +152,7 @@ body {
 										<label for="nome" class="col-4 label-stretch text-end pe-3">
 											<b>Nome completo: *</b>
 										</label>
-										<p:inputText name="nome" value="#{editar.nome}"
+										<p:inputText name="nome" value="#{editar.usuario.nome}"
 											styleClass="col-8" required="true"
 											requiredMessage="É necessário inserir um nome!" type="text" />
 									</div>
@@ -162,8 +162,8 @@ body {
 										<label for="email" class="col-4 label-stretch text-end pe-3">
 											<b>E-mail: </b>
 										</label>
-										<p:inputText value="#{editar.email}" styleClass="col-8"
-											type="email" name="email" />
+										<p:inputText value="#{editar.usuario.email}"
+											styleClass="col-8" type="email" name="email" />
 									</div>
 								</div>
 							</div>
@@ -173,8 +173,8 @@ body {
 										<label for="celular" class="col-4 label-stretch text-end pe-3">
 											<b>Celular: *</b>
 										</label>
-										<p:inputText value="#{editar.celular}" styleClass="col-8"
-											required="true"
+										<p:inputText value="#{editar.usuario.celular}"
+											styleClass="col-8" required="true"
 											requiredMessage="É necessário um número de celular!"
 											type="tel" name="celular" placeholder="XX X XXXXXXXX"
 											pattern="[0-9]{2} [0-9]{9}" />
@@ -186,8 +186,8 @@ body {
 											class="col-4 label-stretch text-end pe-3">
 											<b>Whatsapp: *</b>
 										</label>
-										<p:inputText value="#{editar.whatsapp}" styleClass="col-8"
-											required="true"
+										<p:inputText value="#{editar.usuario.whatsapp}"
+											styleClass="col-8" required="true"
 											requiredMessage="É necessário inserir um número de Whatsapp!"
 											type="tel" autocomplete="off" name="whatsapp"
 											pattern="[0-9]{2} [0-9]{9}" />
@@ -201,21 +201,17 @@ body {
 											class="col-2 align-top label-stretch text-end pe-3">
 											<b>Endereço: *</b>
 										</label>
-										<p:inputTextarea rows="2" col="12" value="#{editar.endereco}"
-											styleClass="col-10" required="true"
+										<p:inputTextarea rows="2" col="12"
+											value="#{editar.usuario.endereco}" styleClass="col-10"
+											required="true"
 											requiredMessage="É necessário inserir o nome completo!"
 											type="text" autocomplete="off" name="endereço" />
 									</div>
 								</div>
 							</div>
 
-							<p:fileUpload mode="simple" value="#{editar.imagemEnviada}" />
-							<!-- 
-							<p:graphicImage cache="false"
-                                        rendered="#{not empty enviar.imagem}"
-                                        value="#{enviar.imagem}"/>
-                            <img src="data:image/png;base64,#{​enviar.imagem}​"/>
-                             -->
+
+							<p:fileUpload mode="simple" value="#{editar.imagem}"/>
 
 
 							<div class="row mt-3">
@@ -225,8 +221,8 @@ body {
 											class="col label-stretch text-end pe-3">
 											<b>Nascimento: *</b>
 										</label>
-										<p:inputText value="#{editar.nascimento}" styleClass="col-4"
-											required="true"
+										<p:inputText value="#{editar.usuario.nascimento}"
+											styleClass="col-4" required="true"
 											requiredMessage="É necessário inserir o nome completo!"
 											type="date" autocomplete="off" name="nascimento" />
 									</div>
@@ -236,7 +232,7 @@ body {
 										<label for="genero" class="col text-end pe-3">
 											<b>Gênero:</b>
 										</label>
-										<p:selectOneRadio value="#{editar.genero}"
+										<p:selectOneRadio value="#{editar.usuario.genero}"
 											styleClass="col d-inline align-middle" name="genero">
 											<f:selectItem itemLabel="Masculino" itemValue="masculino" />
 											<f:selectItem itemLabel="Feminino" itemValue="feminino" />
@@ -254,7 +250,7 @@ body {
 											class="col-2 label-stretch text-end pe-3">
 											<b>Estado civil:</b>
 										</label>
-										<p:selectOneMenu value="#{editar.estadoCivil}"
+										<p:selectOneMenu value="#{editar.usuario.estadoCivil}"
 											styleClass="col-10 borda" name="estadoCivil">
 											<f:selectItem itemLabel="" itemValue="" />
 											<f:selectItem itemLabel="Casado(a)" itemValue="casado" />
@@ -272,7 +268,7 @@ body {
 											class="col label-stretch text-end pe-3">
 											<b>Dependentes? </b>
 										</label>
-										<p:selectOneRadio value="#{editar.dependentes}"
+										<p:selectOneRadio value="#{editar.usuario.dependentes}"
 											styleClass="col d-inline align-middle" name="dependentes">
 											<f:selectItem itemLabel="Sim" itemValue="sim" />
 											<f:selectItem itemLabel="Não" itemValue="nao" />
@@ -281,8 +277,9 @@ body {
 											class="col label-stretch text-end pe-3 ps-5">
 											<b>Qntd: </b>
 										</label>
-										<p:inputText value="#{editar.qtdDependentes}" type="number"
-											name="qtdDependentes" class="col" style="width: 50px;" />
+										<p:inputText value="#{editar.usuario.qtdDependentes}"
+											type="number" name="qtdDependentes" class="col"
+											style="width: 50px;" />
 									</div>
 								</div>
 							</div>
@@ -292,8 +289,8 @@ body {
 										<label for="admissao" class="col label-stretch text-end pe-3">
 											<b>Admissão: *</b>
 										</label>
-										<p:inputText value="#{editar.admissao}" styleClass="col"
-											required="true"
+										<p:inputText value="#{editar.usuario.admissao}"
+											styleClass="col" required="true"
 											requiredMessage="É necessário inserir uma data de admissão!"
 											type="date" autocomplete="off" name="admissao" />
 									</div>
@@ -312,7 +309,7 @@ body {
 									<label for="animais" class="col label-stretch text-end pe-3">
 										<b>Animais de estimação: </b>
 									</label>
-									<p:selectOneRadio value="#{editar.animais}"
+									<p:selectOneRadio value="#{editar.usuario.animais}"
 										styleClass="col d-inline align-middle">
 										<f:selectItem itemLabel="Sim" itemValue="sim" />
 										<f:selectItem itemLabel="Não" itemValue="nao" />
@@ -324,8 +321,8 @@ body {
 									<label for="obsAnimais" class="col text-end pe-3">
 										<b>Obs: </b>
 									</label>
-									<p:inputText value="#{editar.obsAnimais}" styleClass="col"
-										type="text" name="animaisObs" />
+									<p:inputText value="#{editar.usuario.obsAnimais}"
+										styleClass="col" type="text" name="animaisObs" />
 								</div>
 							</div>
 							<div class="form-group col">
@@ -333,8 +330,9 @@ body {
 									<label for="qtdAnimais" class="col text-end pe-3">
 										<b>Qntd: </b>
 									</label>
-									<p:inputText value="#{editar.qtdAnimais}" styleClass="col"
-										style="width: 50px;" type="number" name="qtdAnimais" />
+									<p:inputText value="#{editar.usuario.qtdAnimais}"
+										styleClass="col" style="width: 50px;" type="number"
+										name="qtdAnimais" />
 								</div>
 							</div>
 						</div>
@@ -344,7 +342,7 @@ body {
 									<label for="orientacaoAlimentar" class="col text-end pe-3">
 										<b>Orientação alimentar: </b>
 									</label>
-									<p:selectOneRadio value="#{editar.orientacaoAlimentar}"
+									<p:selectOneRadio value="#{editar.usuario.orientacaoAlimentar}"
 										styleClass="col d-inline align-middle">
 										<f:selectItem itemLabel="Sim" itemValue="sim" />
 										<f:selectItem itemLabel="Não" itemValue="nao" />
@@ -356,7 +354,7 @@ body {
 									<label for="obsOrientacaoAlimentar" class="col text-end pe-3">
 										<b>Obs: </b>
 									</label>
-									<p:inputText value="#{editar.obsOrientacaoAlimentar}"
+									<p:inputText value="#{editar.usuario.obsOrientacaoAlimentar}"
 										styleClass="col" type="text" name="obsOrientacaoAlimentar" />
 								</div>
 							</div>
@@ -367,7 +365,7 @@ body {
 									<label for="orientacaoAlimentar" class="col text-end pe-3">
 										<b>Alergias: </b>
 									</label>
-									<p:selectOneRadio value="#{editar.alergias}"
+									<p:selectOneRadio value="#{editar.usuario.alergias}"
 										styleClass="col d-inline align-middle">
 										<f:selectItem itemLabel="Sim" itemValue="sim" />
 										<f:selectItem itemLabel="Não" itemValue="nao" />
@@ -379,8 +377,8 @@ body {
 									<label for="obsAlergias" class="col text-end pe-3">
 										<b>Obs: </b>
 									</label>
-									<p:inputText value="#{editar.obsAlergias}" styleClass="col"
-										type="text" name="obsAlergias" />
+									<p:inputText value="#{editar.usuario.obsAlergias}"
+										styleClass="col" type="text" name="obsAlergias" />
 								</div>
 							</div>
 						</div>
@@ -390,7 +388,7 @@ body {
 									<label for="orientacaoAlimentar" class="col text-end pe-3">
 										<b>Intolerâncias: </b>
 									</label>
-									<p:selectOneRadio value="#{editar.intolerancias}"
+									<p:selectOneRadio value="#{editar.usuario.intolerancias}"
 										styleClass="col d-inline align-middle">
 										<f:selectItem itemLabel="Sim" itemValue="sim" />
 										<f:selectItem itemLabel="Não" itemValue="nao" />
@@ -402,7 +400,7 @@ body {
 									<label for="obsIntolerancias" class="col text-end pe-3">
 										<b>Obs: </b>
 									</label>
-									<p:inputText value="#{editar.obsIntolerancias}"
+									<p:inputText value="#{editar.usuario.obsIntolerancias}"
 										styleClass="col" type="text" name="obsIntolerancias" />
 								</div>
 							</div>
@@ -415,7 +413,8 @@ body {
 										<b>Preferências: </b>
 									</label>
 									<p:inputTextarea cols="48" rows="2"
-										value="#{editar.preferencias}" type="text" name="preferencias" />
+										value="#{editar.usuario.preferencias}" type="text"
+										name="preferencias" />
 								</div>
 							</div>
 						</div>
@@ -426,8 +425,9 @@ body {
 										class="col-2 align-top label-stretch text-end pe-3">
 										<b>Dicas de Presente de Aniversário: </b>
 									</label>
-									<p:inputTextarea cols="48" rows="2" value="#{editar.dicas}"
-										styleClass="col" type="text" name="dicas" />
+									<p:inputTextarea cols="48" rows="2"
+										value="#{editar.usuario.dicas}" styleClass="col" type="text"
+										name="dicas" />
 								</div>
 							</div>
 						</div>

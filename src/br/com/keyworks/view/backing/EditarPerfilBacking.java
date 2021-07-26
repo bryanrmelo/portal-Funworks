@@ -4,6 +4,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.apache.commons.codec.binary.Base64;
 import org.primefaces.model.UploadedFile;
 import br.com.keyworks.exceptions.ObservacaoInvalidaException;
 import br.com.keyworks.exceptions.QuantidadeInvalidaException;
@@ -21,53 +22,9 @@ public class EditarPerfilBacking extends AbstractBacking {
 
 	private String login;
 
-	private String nome;
+	private Usuario usuario;
 
-	private String email;
-
-	private String celular;
-
-	private String whatsapp;
-
-	private String endereco;
-
-	private UploadedFile imagemEnviada;
-
-	private String imagem;
-
-	private String nascimento;
-
-	private String estadoCivil;
-
-	private String admissao;
-
-	private String genero;
-
-	private String dependentes;
-
-	private Integer qtdDependentes;
-
-	private String animais;
-
-	private Integer qtdAnimais;
-
-	private String obsAnimais;
-
-	private String orientacaoAlimentar;
-
-	private String obsOrientacaoAlimentar;
-
-	private String alergias;
-
-	private Integer obsAlergias;
-
-	private String intolerancias;
-
-	private Integer obsIntolerancias;
-
-	private String preferencias;
-
-	private String dicas;
+	private UploadedFile imagem;
 
 	@Inject
 	private IdentidadeSessao sessao;
@@ -78,42 +35,13 @@ public class EditarPerfilBacking extends AbstractBacking {
 	@PostConstruct
 	public void ini() {
 		this.login = sessao.getNome();
-		Usuario usuario = usuarioService.getDadosExistentes(login);
-		preencher(usuario);
-	}
-
-	private void preencher(Usuario u) {
-		this.nome = u.getNome();
-		this.email = u.getEmail();
-		this.celular = u.getCelular();
-		this.whatsapp = u.getWhatsapp();
-		this.endereco = u.getEndereco();
-		this.imagem = getImagemAtual(u);
-		this.nascimento = u.getNascimento();
-		this.estadoCivil = u.getEstadoCivil();
-		this.admissao = u.getAdmissao();
-		this.genero = u.getGenero();
-		this.dependentes = u.getDependentes();
-		this.qtdDependentes = u.getQtdDependentes();
-		this.animais = u.getAnimais();
-		this.qtdAnimais = u.getQtdAnimais();
-		this.obsAnimais = u.getObsAnimais();
-		this.orientacaoAlimentar = u.getOrientacaoAlimentar();
-		this.obsOrientacaoAlimentar = u.getObsOrientacaoAlimentar();
-		this.alergias = u.getAlergias();
-		this.obsAlergias = u.getObsAlergias();
-		this.intolerancias = u.getIntolerancias();
-		this.obsIntolerancias = u.getObsIntolerancias();
-		this.preferencias = u.getPreferencias();
-		this.dicas = u.getDicas();
-
+		usuario = usuarioService.getDadosExistentes(login);
 	}
 
 	public void editarPerfil() {
 		try {
-			usuarioService.editar(login, nome, email, celular, whatsapp, endereco, imagemEnviada, nascimento, estadoCivil, admissao, genero,
-							dependentes, qtdDependentes, animais, qtdAnimais, obsAnimais, orientacaoAlimentar, obsOrientacaoAlimentar, alergias,
-							obsAlergias, intolerancias, obsIntolerancias, preferencias, dicas);
+			usuario.setImage(imagem.getContents());
+			usuarioService.editar(usuario);
 		} catch (QuantidadeInvalidaException e) {
 			FacesMessageUtils.addErrorMessage("Quantidade precisa ser preenchida!");
 		} catch (ObservacaoInvalidaException e) {
@@ -127,9 +55,13 @@ public class EditarPerfilBacking extends AbstractBacking {
 	public String getImagemAtual(Usuario usuario) {
 		byte[] imagem = usuario.getImage();
 		System.out.println(imagem);
-		String imageString = new String(Base64.encodeBase64(imagem));
-		// String imageString = new String(Base64.getEncoder().encodeToString(imagem));
-		return null;
+		if (imagem != null) {
+			String imageString = new String(Base64.encodeBase64(imagem));
+			// String imageString = new String(Base64.getEncoder().encodeToString(imagem));
+			return imageString;
+		} else {
+			return null;
+		}
 
 	}
 
@@ -141,196 +73,20 @@ public class EditarPerfilBacking extends AbstractBacking {
 		this.login = login;
 	}
 
-	public String getNome() {
-		return nome;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getCelular() {
-		return celular;
-	}
-
-	public void setCelular(String celular) {
-		this.celular = celular;
-	}
-
-	public String getWhatsapp() {
-		return whatsapp;
-	}
-
-	public void setWhatsapp(String whatsapp) {
-		this.whatsapp = whatsapp;
-	}
-
-	public String getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
-	}
-
-	public UploadedFile getImagemEnviada() {
-		return imagemEnviada;
-	}
-
-	public void setImagemEnviada(UploadedFile imagemEnviada) {
-		this.imagemEnviada = imagemEnviada;
-	}
-
-	public String getImagem() {
+	public UploadedFile getImagem() {
 		return imagem;
 	}
 
-	public void setImagem(String imagem) {
+	public void setImagem(UploadedFile imagem) {
 		this.imagem = imagem;
-	}
-
-	public String getNascimento() {
-		return nascimento;
-	}
-
-	public void setNascimento(String nascimento) {
-		this.nascimento = nascimento;
-	}
-
-	public String getEstadoCivil() {
-		return estadoCivil;
-	}
-
-	public void setEstadoCivil(String estadoCivil) {
-		this.estadoCivil = estadoCivil;
-	}
-
-	public String getAdmissao() {
-		return admissao;
-	}
-
-	public void setAdmissao(String admissao) {
-		this.admissao = admissao;
-	}
-
-	public String getGenero() {
-		return genero;
-	}
-
-	public void setGenero(String genero) {
-		this.genero = genero;
-	}
-
-	public String getDependentes() {
-		return dependentes;
-	}
-
-	public void setDependentes(String dependentes) {
-		this.dependentes = dependentes;
-	}
-
-	public Integer getQtdDependentes() {
-		return qtdDependentes;
-	}
-
-	public void setQtdDependentes(Integer qtdDependentes) {
-		this.qtdDependentes = qtdDependentes;
-	}
-
-	public String getAnimais() {
-		return animais;
-	}
-
-	public void setAnimais(String animais) {
-		this.animais = animais;
-	}
-
-	public Integer getQtdAnimais() {
-		return qtdAnimais;
-	}
-
-	public void setQtdAnimais(Integer qtdAnimais) {
-		this.qtdAnimais = qtdAnimais;
-	}
-
-	public String getObsAnimais() {
-		return obsAnimais;
-	}
-
-	public void setObsAnimais(String obsAnimais) {
-		this.obsAnimais = obsAnimais;
-	}
-
-	public String getOrientacaoAlimentar() {
-		return orientacaoAlimentar;
-	}
-
-	public void setOrientacaoAlimentar(String orientacaoAlimentar) {
-		this.orientacaoAlimentar = orientacaoAlimentar;
-	}
-
-	public String getObsOrientacaoAlimentar() {
-		return obsOrientacaoAlimentar;
-	}
-
-	public void setObsOrientacaoAlimentar(String obsOrientacaoAlimentar) {
-		this.obsOrientacaoAlimentar = obsOrientacaoAlimentar;
-	}
-
-	public String getAlergias() {
-		return alergias;
-	}
-
-	public void setAlergias(String alergias) {
-		this.alergias = alergias;
-	}
-
-	public Integer getObsAlergias() {
-		return obsAlergias;
-	}
-
-	public void setObsAlergias(Integer obsAlergias) {
-		this.obsAlergias = obsAlergias;
-	}
-
-	public String getIntolerancias() {
-		return intolerancias;
-	}
-
-	public void setIntolerancias(String intolerancias) {
-		this.intolerancias = intolerancias;
-	}
-
-	public Integer getObsIntolerancias() {
-		return obsIntolerancias;
-	}
-
-	public void setObsIntolerancias(Integer obsIntolerancias) {
-		this.obsIntolerancias = obsIntolerancias;
-	}
-
-	public String getPreferencias() {
-		return preferencias;
-	}
-
-	public void setPreferencias(String preferencias) {
-		this.preferencias = preferencias;
-	}
-
-	public String getDicas() {
-		return dicas;
-	}
-
-	public void setDicas(String dicas) {
-		this.dicas = dicas;
 	}
 
 }

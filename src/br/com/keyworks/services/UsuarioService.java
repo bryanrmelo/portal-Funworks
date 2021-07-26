@@ -17,38 +17,7 @@ public class UsuarioService {
 	private UsuarioRepository usuarioRepo;
 
 	// Editar perfil
-	public void editar(String login, String nome, String email, String celular, String whatsapp, String endereco, UploadedFile imagem,
-					String nascimento, String estadoCivil, String admissao, String genero, String dependentes, Integer qtdDependentes, String animais,
-					Integer qtdAnimais, String obsAnimais, String orientacaoAlimentar, String obsOrientacaoAlimentar, String alergias,
-					Integer obsAlergias, String intolerancias, Integer obsIntolerancias, String preferencias, String dicas)
-					throws UsuarioNaoEncontradoException, QuantidadeInvalidaException, ObservacaoInvalidaException {
-
-		byte[] image = converterImagem(imagem);
-
-		Usuario usuario = usuarioRepo.buscarUsuario(login);
-		usuario.setNome(nome);
-		usuario.setEmail(email);
-		usuario.setCelular(celular);
-		usuario.setWhatsapp(whatsapp);
-		usuario.setEndereco(endereco);
-		usuario.setImage(image);
-		usuario.setNascimento(nascimento);
-		usuario.setEstadoCivil(estadoCivil);
-		usuario.setAdmissao(admissao);
-		usuario.setGenero(genero);
-		usuario.setDependentes(dependentes);
-		usuario.setQtdDependentes(qtdDependentes);
-		usuario.setAnimais(animais);
-		usuario.setQtdAnimais(qtdAnimais);
-		usuario.setObsAnimais(obsAnimais);
-		usuario.setOrientacaoAlimentar(orientacaoAlimentar);
-		usuario.setObsOrientacaoAlimentar(obsOrientacaoAlimentar);
-		usuario.setAlergias(alergias);
-		usuario.setObsAlergias(obsAlergias);
-		usuario.setIntolerancias(intolerancias);
-		usuario.setObsIntolerancias(obsIntolerancias);
-		usuario.setPreferencias(preferencias);
-		usuario.setDicas(dicas);
+	public void editar(Usuario usuario) throws UsuarioNaoEncontradoException, QuantidadeInvalidaException, ObservacaoInvalidaException {
 		usuarioRepo.alterar(usuario);
 
 		//
