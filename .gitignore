@@ -11,4 +11,6 @@ buildNumber.properties
 .settings
 .svn
 .RemoteSystemsTempsFiles
+WebContent/resources/metronic/
+WebContent/WEB-INF/templates/
 

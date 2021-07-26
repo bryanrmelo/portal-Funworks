@@ -72,10 +72,11 @@ public class UsuarioService {
 	}
 
 	private byte[] converterImagem(UploadedFile imagem) {
-		// String fileName = imagem.getFileName();
-		// String contentType = imagem.getContentType();
 		byte[] contents = imagem.getContents();
 		return contents;
+
+		// String fileName = imagem.getFileName();
+		// String contentType = imagem.getContentType();
 
 		// try {
 		//
@@ -139,7 +140,7 @@ public class UsuarioService {
 					}
 			}
 		} catch (NullPointerException | UsuarioNaoEncontradoException e) {
-			e.printStackTrace();
+			System.out.println("Usuário não encontrado ou null");
 		}
 		return null;
 
