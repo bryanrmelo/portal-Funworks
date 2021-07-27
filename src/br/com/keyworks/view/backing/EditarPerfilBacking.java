@@ -1,5 +1,6 @@
 package br.com.keyworks.view.backing;
 
+import java.nio.ByteBuffer;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -52,17 +53,13 @@ public class EditarPerfilBacking extends AbstractBacking {
 
 	}
 
-	public String getImagemAtual(Usuario usuario) {
-		byte[] imagem = usuario.getImage();
-		System.out.println(imagem);
-		if (imagem != null) {
-			String imageString = new String(Base64.encodeBase64(imagem));
-			// String imageString = new String(Base64.getEncoder().encodeToString(imagem));
-			return imageString;
+	public String getImagemAtual() {
+		if (usuario.getImage() != null) {
+			return new String(Base64.encodeBase64(usuario.getImage()));
 		} else {
-			return null;
+			byte[] bytes = ByteBuffer.allocate(4).putInt(463792178).array();
+			return new String(Base64.encodeBase64(bytes));
 		}
-
 	}
 
 	public String getLogin() {

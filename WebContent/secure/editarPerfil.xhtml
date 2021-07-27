@@ -142,158 +142,167 @@ body {
 					<h:form class="p-3" enctype="multipart/form-data">
 
 						<!-- Informações principais -->
-						<div>
+						<div class="d-flex">
 							<p:messages id="messages" showDetail="false" autoUpdate="true"
 								closable="true" />
-
-							<div class="row">
-								<div class="form-group col p-0">
-									<div class="form-control border-0 p-0">
-										<label for="nome" class="col-4 label-stretch text-end pe-3">
-											<b>Nome completo: *</b>
-										</label>
-										<p:inputText name="nome" value="#{editar.usuario.nome}"
-											styleClass="col-8" required="true"
-											requiredMessage="É necessário inserir um nome!" type="text" />
+							<div class="flex-fill col-10">
+								<div class="row">
+									<div class="form-group col p-0">
+										<div class="form-control border-0 p-0">
+											<label for="nome" class="col-4 label-stretch text-end pe-3">
+												<b>Nome completo: *</b>
+											</label>
+											<p:inputText name="nome" value="#{editar.usuario.nome}"
+												styleClass="col-8" required="true"
+												requiredMessage="É necessário inserir um nome!" type="text" />
+										</div>
+									</div>
+									<div class="form-group col p-0">
+										<div class="form-control border-0 p-0">
+											<label for="email" class="col-4 label-stretch text-end pe-3">
+												<b>E-mail: </b>
+											</label>
+											<p:inputText value="#{editar.usuario.email}"
+												styleClass="col-8" type="email" name="email" />
+										</div>
 									</div>
 								</div>
-								<div class="form-group col p-0">
-									<div class="form-control border-0 p-0">
-										<label for="email" class="col-4 label-stretch text-end pe-3">
-											<b>E-mail: </b>
-										</label>
-										<p:inputText value="#{editar.usuario.email}"
-											styleClass="col-8" type="email" name="email" />
+								<div class="row mt-3">
+									<div class="form-group col p-0">
+										<div class="form-control border-0 p-0">
+											<label for="celular"
+												class="col-4 label-stretch text-end pe-3">
+												<b>Celular: *</b>
+											</label>
+											<p:inputText value="#{editar.usuario.celular}"
+												styleClass="col-8" required="true"
+												requiredMessage="É necessário um número de celular!"
+												type="tel" name="celular" placeholder="XX X XXXXXXXX"
+												pattern="[0-9]{2} [0-9]{9}" />
+										</div>
+									</div>
+									<div class="form-group col p-0">
+										<div class="form-control border-0 p-0">
+											<label for="whatsapp"
+												class="col-4 label-stretch text-end pe-3">
+												<b>Whatsapp: *</b>
+											</label>
+											<p:inputText value="#{editar.usuario.whatsapp}"
+												styleClass="col-8" required="true"
+												requiredMessage="É necessário inserir um número de Whatsapp!"
+												type="tel" autocomplete="off" name="whatsapp"
+												pattern="[0-9]{2} [0-9]{9}" />
+										</div>
+									</div>
+								</div>
+								<div class="row mt-3">
+									<div class="form-group col p-0">
+										<div class="form-control border-0 p-0">
+											<label for="endereço"
+												class="col-2 align-top label-stretch text-end pe-3">
+												<b>Endereço: *</b>
+											</label>
+											<p:inputTextarea rows="2" col="12"
+												value="#{editar.usuario.endereco}" styleClass="col-10"
+												required="true"
+												requiredMessage="É necessário inserir o nome completo!"
+												type="text" autocomplete="off" name="endereço" />
+										</div>
+									</div>
+								</div>
+
+								<div class="row mt-3">
+									<div class="form-gr1oup col p-0">
+										<div class="form-control border-0 p-0">
+											<label for="nascimento"
+												class="col label-stretch text-end pe-3">
+												<b>Nascimento: *</b>
+											</label>
+											<p:inputText value="#{editar.usuario.nascimento}"
+												styleClass="col-4" required="true"
+												requiredMessage="É necessário inserir o nome completo!"
+												type="date" autocomplete="off" name="nascimento" />
+										</div>
+									</div>
+									<div class="form-group col p-0">
+										<div class="form-control border-0 p-0">
+											<label for="genero" class="col text-end pe-3">
+												<b>Gênero:</b>
+											</label>
+											<p:selectOneRadio value="#{editar.usuario.genero}"
+												styleClass="col d-inline align-middle" name="genero">
+												<f:selectItem itemLabel="Masculino" itemValue="masculino" />
+												<f:selectItem itemLabel="Feminino" itemValue="feminino" />
+												<f:selectItem itemLabel="Outro" itemValue="outro" />
+												<f:selectItem itemLabel="Não informar"
+													itemValue="nao informado" />
+											</p:selectOneRadio>
+										</div>
+									</div>
+								</div>
+								<div class="row mt-3">
+									<div class="form-group col p-0">
+										<div class="form-control border-0 p-0">
+											<label for="estadoCivil"
+												class="col-2 label-stretch text-end pe-3">
+												<b>Estado civil:</b>
+											</label>
+											<p:selectOneMenu value="#{editar.usuario.estadoCivil}"
+												styleClass="col-10 borda" name="estadoCivil">
+												<f:selectItem itemLabel="Casado(a)" itemValue="casado" />
+												<f:selectItem itemLabel="Solteiro(a)" itemValue="solteiro" />
+												<f:selectItem itemLabel="Separado(a)" itemValue="separado" />
+												<f:selectItem itemLabel="Divorciado(a)"
+													itemValue="divorciado" />
+												<f:selectItem itemLabel="Viúvo(a)" itemValue="viuvo" />
+											</p:selectOneMenu>
+										</div>
+									</div>
+									<div class="form-group col">
+										<div class="form-control border-0 p-0">
+											<label for="dependentes"
+												class="col label-stretch text-end pe-3">
+												<b>Dependentes? </b>
+											</label>
+											<p:selectOneRadio value="#{editar.usuario.dependentes}"
+												styleClass="col d-inline align-middle" name="dependentes">
+												<f:selectItem itemLabel="Sim" itemValue="sim" />
+												<f:selectItem itemLabel="Não" itemValue="nao" />
+												<f:ajax render="qtdDependentes" />
+											</p:selectOneRadio>
+											<label for="qtdDependentes"
+												class="col label-stretch text-end pe-3 ps-5">
+												<b>Qntd: </b>
+											</label>
+											<p:inputText value="#{editar.usuario.qtdDependentes}"
+												disabled="#{editar.usuario.dependentes eq 'nao'}"
+												type="number" id="qtdDependentes" name="qtdDependentes"
+												class="col" style="width: 50px;" />
+										</div>
+									</div>
+								</div>
+								<div class="row mt-3">
+									<div class="form-group col-6 p-0">
+										<div class="form-control border-0 p-0">
+											<label for="admissao" class="col label-stretch text-end pe-3">
+												<b>Admissão: *</b>
+											</label>
+											<p:inputText value="#{editar.usuario.admissao}"
+												styleClass="col" required="true"
+												requiredMessage="É necessário inserir uma data de admissão!"
+												type="date" autocomplete="off" name="admissao" />
+										</div>
 									</div>
 								</div>
 							</div>
-							<div class="row mt-3">
-								<div class="form-group col p-0">
-									<div class="form-control border-0 p-0">
-										<label for="celular" class="col-4 label-stretch text-end pe-3">
-											<b>Celular: *</b>
-										</label>
-										<p:inputText value="#{editar.usuario.celular}"
-											styleClass="col-8" required="true"
-											requiredMessage="É necessário um número de celular!"
-											type="tel" name="celular" placeholder="XX X XXXXXXXX"
-											pattern="[0-9]{2} [0-9]{9}" />
-									</div>
-								</div>
-								<div class="form-group col p-0">
-									<div class="form-control border-0 p-0">
-										<label for="whatsapp"
-											class="col-4 label-stretch text-end pe-3">
-											<b>Whatsapp: *</b>
-										</label>
-										<p:inputText value="#{editar.usuario.whatsapp}"
-											styleClass="col-8" required="true"
-											requiredMessage="É necessário inserir um número de Whatsapp!"
-											type="tel" autocomplete="off" name="whatsapp"
-											pattern="[0-9]{2} [0-9]{9}" />
-									</div>
-								</div>
-							</div>
-							<div class="row mt-3">
-								<div class="form-group col p-0">
-									<div class="form-control border-0 p-0">
-										<label for="endereço"
-											class="col-2 align-top label-stretch text-end pe-3">
-											<b>Endereço: *</b>
-										</label>
-										<p:inputTextarea rows="2" col="12"
-											value="#{editar.usuario.endereco}" styleClass="col-10"
-											required="true"
-											requiredMessage="É necessário inserir o nome completo!"
-											type="text" autocomplete="off" name="endereço" />
-									</div>
-								</div>
-							</div>
-
-
-							<p:fileUpload mode="simple" value="#{editar.imagem}"/>
-
-
-							<div class="row mt-3">
-								<div class="form-gr1oup col p-0">
-									<div class="form-control border-0 p-0">
-										<label for="nascimento"
-											class="col label-stretch text-end pe-3">
-											<b>Nascimento: *</b>
-										</label>
-										<p:inputText value="#{editar.usuario.nascimento}"
-											styleClass="col-4" required="true"
-											requiredMessage="É necessário inserir o nome completo!"
-											type="date" autocomplete="off" name="nascimento" />
-									</div>
-								</div>
-								<div class="form-group col p-0">
-									<div class="form-control border-0 p-0">
-										<label for="genero" class="col text-end pe-3">
-											<b>Gênero:</b>
-										</label>
-										<p:selectOneRadio value="#{editar.usuario.genero}"
-											styleClass="col d-inline align-middle" name="genero">
-											<f:selectItem itemLabel="Masculino" itemValue="masculino" />
-											<f:selectItem itemLabel="Feminino" itemValue="feminino" />
-											<f:selectItem itemLabel="Outro" itemValue="outro" />
-											<f:selectItem itemLabel="Não informar"
-												itemValue="nao informado" />
-										</p:selectOneRadio>
-									</div>
-								</div>
-							</div>
-							<div class="row mt-3">
-								<div class="form-group col p-0">
-									<div class="form-control border-0 p-0">
-										<label for="estadoCivil"
-											class="col-2 label-stretch text-end pe-3">
-											<b>Estado civil:</b>
-										</label>
-										<p:selectOneMenu value="#{editar.usuario.estadoCivil}"
-											styleClass="col-10 borda" name="estadoCivil">
-											<f:selectItem itemLabel="" itemValue="" />
-											<f:selectItem itemLabel="Casado(a)" itemValue="casado" />
-											<f:selectItem itemLabel="Solteiro(a)" itemValue="solteiro" />
-											<f:selectItem itemLabel="Separado(a)" itemValue="separado" />
-											<f:selectItem itemLabel="Divorciado(a)"
-												itemValue="divorciado" />
-											<f:selectItem itemLabel="Viúvo(a)" itemValue="viuvo" />
-										</p:selectOneMenu>
-									</div>
-								</div>
-								<div class="form-group col">
-									<div class="form-control border-0 p-0">
-										<label for="dependentes"
-											class="col label-stretch text-end pe-3">
-											<b>Dependentes? </b>
-										</label>
-										<p:selectOneRadio value="#{editar.usuario.dependentes}"
-											styleClass="col d-inline align-middle" name="dependentes">
-											<f:selectItem itemLabel="Sim" itemValue="sim" />
-											<f:selectItem itemLabel="Não" itemValue="nao" />
-										</p:selectOneRadio>
-										<label for="qtdDependentes"
-											class="col label-stretch text-end pe-3 ps-5">
-											<b>Qntd: </b>
-										</label>
-										<p:inputText value="#{editar.usuario.qtdDependentes}"
-											type="number" name="qtdDependentes" class="col"
-											style="width: 50px;" />
-									</div>
-								</div>
-							</div>
-							<div class="row mt-3">
-								<div class="form-group col-6 p-0">
-									<div class="form-control border-0 p-0">
-										<label for="admissao" class="col label-stretch text-end pe-3">
-											<b>Admissão: *</b>
-										</label>
-										<p:inputText value="#{editar.usuario.admissao}"
-											styleClass="col" required="true"
-											requiredMessage="É necessário inserir uma data de admissão!"
-											type="date" autocomplete="off" name="admissao" />
-									</div>
+							<div class="flex-fill col-2 p-5">
+								<div>
+									<h:graphicImage
+										value="data:image/jpg;base64,#{editar.getImagemAtual()}"
+										styleClass="mb-3"
+										style="max-width: 200px; max-height: 200px; border: 4px solid black; display: block;" />
+									<p:fileUpload mode="simple" skinSimple="true"
+										value="#{editar.imagem}" />
 								</div>
 							</div>
 						</div>
@@ -313,6 +322,7 @@ body {
 										styleClass="col d-inline align-middle">
 										<f:selectItem itemLabel="Sim" itemValue="sim" />
 										<f:selectItem itemLabel="Não" itemValue="nao" />
+										<f:ajax render="obsAnimais qtdAnimais" />
 									</p:selectOneRadio>
 								</div>
 							</div>
@@ -322,7 +332,8 @@ body {
 										<b>Obs: </b>
 									</label>
 									<p:inputText value="#{editar.usuario.obsAnimais}"
-										styleClass="col" type="text" name="animaisObs" />
+										disabled="#{editar.usuario.animais eq 'nao'}" styleClass="col"
+										type="text" id="obsAnimais" name="obsAnimais" />
 								</div>
 							</div>
 							<div class="form-group col">
@@ -331,7 +342,8 @@ body {
 										<b>Qntd: </b>
 									</label>
 									<p:inputText value="#{editar.usuario.qtdAnimais}"
-										styleClass="col" style="width: 50px;" type="number"
+										disabled="#{editar.usuario.animais eq 'nao'}" styleClass="col"
+										style="width: 50px;" type="number" id="qtdAnimais"
 										name="qtdAnimais" />
 								</div>
 							</div>
@@ -346,6 +358,7 @@ body {
 										styleClass="col d-inline align-middle">
 										<f:selectItem itemLabel="Sim" itemValue="sim" />
 										<f:selectItem itemLabel="Não" itemValue="nao" />
+										<f:ajax render="obsOrientacaoAlimentar"/>
 									</p:selectOneRadio>
 								</div>
 							</div>
@@ -354,21 +367,22 @@ body {
 									<label for="obsOrientacaoAlimentar" class="col text-end pe-3">
 										<b>Obs: </b>
 									</label>
-									<p:inputText value="#{editar.usuario.obsOrientacaoAlimentar}"
-										styleClass="col" type="text" name="obsOrientacaoAlimentar" />
+									<p:inputText value="#{editar.usuario.obsOrientacaoAlimentar}" disabled="#{editar.usuario.orientacaoAlimentar eq 'nao'}" 
+										styleClass="col" type="text" id="obsOrientacaoAlimentar"  name="obsOrientacaoAlimentar" />
 								</div>
 							</div>
 						</div>
 						<div class="row mt-3">
 							<div class="form-group col-4">
 								<div class="form-control border-0 p-0">
-									<label for="orientacaoAlimentar" class="col text-end pe-3">
+									<label for="alergias" class="col text-end pe-3">
 										<b>Alergias: </b>
 									</label>
 									<p:selectOneRadio value="#{editar.usuario.alergias}"
 										styleClass="col d-inline align-middle">
 										<f:selectItem itemLabel="Sim" itemValue="sim" />
 										<f:selectItem itemLabel="Não" itemValue="nao" />
+										<f:ajax render="obsAlergias"/>
 									</p:selectOneRadio>
 								</div>
 							</div>
@@ -377,8 +391,8 @@ body {
 									<label for="obsAlergias" class="col text-end pe-3">
 										<b>Obs: </b>
 									</label>
-									<p:inputText value="#{editar.usuario.obsAlergias}"
-										styleClass="col" type="text" name="obsAlergias" />
+									<p:inputText value="#{editar.usuario.obsAlergias}" disabled="#{editar.usuario.alergias eq 'nao'}" 
+										styleClass="col" type="text" id="obsAlergias" name="obsAlergias" />
 								</div>
 							</div>
 						</div>
@@ -392,6 +406,7 @@ body {
 										styleClass="col d-inline align-middle">
 										<f:selectItem itemLabel="Sim" itemValue="sim" />
 										<f:selectItem itemLabel="Não" itemValue="nao" />
+										<f:ajax render="obsIntolerancias"/>
 									</p:selectOneRadio>
 								</div>
 							</div>
@@ -400,8 +415,8 @@ body {
 									<label for="obsIntolerancias" class="col text-end pe-3">
 										<b>Obs: </b>
 									</label>
-									<p:inputText value="#{editar.usuario.obsIntolerancias}"
-										styleClass="col" type="text" name="obsIntolerancias" />
+									<p:inputText value="#{editar.usuario.obsIntolerancias}" disabled="#{editar.usuario.intolerancias eq 'nao'}" 
+										styleClass="col" type="text" id="obsIntolerancias" name="obsIntolerancias" />
 								</div>
 							</div>
 						</div>
