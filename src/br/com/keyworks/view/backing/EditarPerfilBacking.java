@@ -7,13 +7,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import org.apache.commons.codec.binary.Base64;
 import org.primefaces.model.UploadedFile;
-import br.com.keyworks.exceptions.ObservacaoInvalidaException;
-import br.com.keyworks.exceptions.QuantidadeInvalidaException;
-import br.com.keyworks.exceptions.UsuarioNaoEncontradoException;
 import br.com.keyworks.framework.faces.backing.AbstractBacking;
 import br.com.keyworks.model.entities.administracao.Usuario;
 import br.com.keyworks.services.UsuarioService;
-import br.com.keyworks.util.FacesMessageUtils;
 
 @Named("editar")
 @ViewScoped
@@ -40,16 +36,14 @@ public class EditarPerfilBacking extends AbstractBacking {
 	}
 
 	public void editarPerfil() {
-		try {
+		// Em ordem
+		// Testa se a imagem presente no banco é maior que 0
+		// ou se a imagem no banco é diferente da imagem nova
+		// e se a imagem nova possui algum conteúdo
+		if (usuario.getImage().length == 0 || usuario.getImage() != imagem.getContents() && imagem.getContents().length > 0) {
 			usuario.setImage(imagem.getContents());
-			usuarioService.editar(usuario);
-		} catch (QuantidadeInvalidaException e) {
-			FacesMessageUtils.addErrorMessage("Quantidade precisa ser preenchida!");
-		} catch (ObservacaoInvalidaException e) {
-			FacesMessageUtils.addErrorMessage("Observação precisa ser preenchida!");
-		} catch (UsuarioNaoEncontradoException e) {
-			System.out.println("Usuario não encontrado");
 		}
+		usuarioService.editar(usuario);
 
 	}
 
@@ -57,7 +51,7 @@ public class EditarPerfilBacking extends AbstractBacking {
 		if (usuario.getImage() != null) {
 			return new String(Base64.encodeBase64(usuario.getImage()));
 		} else {
-			byte[] bytes = ByteBuffer.allocate(4).putInt(463792178).array();
+			byte[] bytes = ByteBuffer.allocate(4).putInt(463792186).array();
 			return new String(Base64.encodeBase64(bytes));
 		}
 	}
