@@ -47,11 +47,11 @@ public class EditarPerfilBacking extends AbstractBacking {
 		}
 		try {
 			usuarioService.editar(usuario);
-			return "editarPerfil.xtml?faces-redirect=true";
+			return "/editarPerfil.xtml?faces-redirect=true";
 		} catch (AlteracaoConcluidaException e) {
 			FacesMessageUtils.addInfoMessage(e.getMessage());
 		}
-		return null;
+		return "/editarPerfil.xtml?faces-redirect=true";
 	}
 
 	public String getImagemAtual() {

@@ -80,10 +80,6 @@ public class AlterarSenhaLogadoBacking extends AbstractBacking {
 		}
 	}
 
-	public String voltar() {
-		return "/secure/home.xhtml?faces-redirect=true";
-	}
-
 	public String getNome() {
 		return nome;
 	}

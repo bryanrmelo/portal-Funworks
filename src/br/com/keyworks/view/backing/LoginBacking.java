@@ -148,10 +148,6 @@ public class LoginBacking extends AbstractBacking {
 		return "/public/recuperarSenha.xhtml?faces-redirect=true";
 	}
 
-	public String voltar() {
-		return "/public/login.xhtml?faces-redirect=true";
-	}
-
 	public String getUserLogado() {
 		return loginBean.getPrincipal().getName();
 	}
