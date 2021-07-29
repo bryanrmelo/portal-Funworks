@@ -154,7 +154,7 @@ public class SenhaService {
 		if (!SenhaUtil.validarSenha(senha, "^.{8,60}$")) {
 			throw new SenhaTamanhoInvalidoException();
 		}
-		if (!SenhaUtil.validarSenha(senha, "^(?=.*\\d)(?=.*[a-z]).{1,}$")) {
+		if (!SenhaUtil.validarSenha(senha, "^(?=.*?[a-z])(?=.*?[0-9])(?!.*?[A-Z])(?!.*[!@#$%^&*()/_+={};':\"|,.<>?]).{8,}$")) {
 			throw new SenhaInvalidaException();
 		}
 		return true;

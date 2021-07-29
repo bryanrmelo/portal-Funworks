@@ -47,6 +47,9 @@
 .botoes {
 	padding: 5px 10px 5px 10px;
 	background-color: crimson;
+	min-width: 120px;
+	box-shadow: 2px 2px black;
+	font-weight: 500;
 }
 
 .botoes:hover {

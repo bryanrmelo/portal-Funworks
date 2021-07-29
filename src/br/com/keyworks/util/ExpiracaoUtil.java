@@ -6,7 +6,5 @@ public class ExpiracaoUtil {
 
 	public static boolean ValidaExpiracao(Date data) {
 		return (new Date().getTime() - data.getTime()) < 1800000;
-
-		// 18000000
 	}
 }

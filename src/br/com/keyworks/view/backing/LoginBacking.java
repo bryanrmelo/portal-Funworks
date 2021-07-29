@@ -79,7 +79,6 @@ public class LoginBacking extends AbstractBacking {
 					} catch (ServletException e) {
 						e.printStackTrace();
 					}
-					System.out.println("Logado com sucesso!");
 					idSessao.setNome(nome);
 					idSessao.setDataCriacao(new Date());
 					return "/secure/home.xhtml?faces-redirect=true";

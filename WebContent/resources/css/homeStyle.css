@@ -53,3 +53,9 @@ nav p, h3 {
 input, textarea{
 	border: 2px solid black !important;
 }
+
+.botoes {
+	min-width: 120px;
+	box-shadow: 5px 5px black;
+	font-weight: 500;
+}

@@ -96,13 +96,13 @@ public class Usuario implements Serializable {
 	private String alergias;
 
 	@Column(name = "obsAlergias")
-	private Integer obsAlergias;
+	private String obsAlergias;
 
 	@Column(name = "intolerancias")
 	private String intolerancias;
 
 	@Column(name = "obsIntolerancias")
-	private Integer obsIntolerancias;
+	private String obsIntolerancias;
 
 	@Column(name = "preferencias")
 	private String preferencias;
@@ -278,11 +278,11 @@ public class Usuario implements Serializable {
 		this.alergias = alergias;
 	}
 
-	public Integer getObsAlergias() {
+	public String getObsAlergias() {
 		return obsAlergias;
 	}
 
-	public void setObsAlergias(Integer obsAlergias) {
+	public void setObsAlergias(String obsAlergias) {
 		this.obsAlergias = obsAlergias;
 	}
 
@@ -294,11 +294,11 @@ public class Usuario implements Serializable {
 		this.intolerancias = intolerancias;
 	}
 
-	public Integer getObsIntolerancias() {
+	public String getObsIntolerancias() {
 		return obsIntolerancias;
 	}
 
-	public void setObsIntolerancias(Integer obsIntolerancias) {
+	public void setObsIntolerancias(String obsIntolerancias) {
 		this.obsIntolerancias = obsIntolerancias;
 	}
 

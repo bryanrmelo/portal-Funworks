@@ -2,6 +2,8 @@ package br.com.keyworks.services;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import br.com.keyworks.enumeracoes.SimNaoEnum;
+import br.com.keyworks.exceptions.AlteracaoConcluidaException;
 import br.com.keyworks.exceptions.UsuarioNaoEncontradoException;
 import br.com.keyworks.model.entities.administracao.Usuario;
 import br.com.keyworks.repository.UsuarioRepository;
@@ -14,9 +16,30 @@ public class UsuarioService {
 	private UsuarioRepository usuarioRepo;
 
 	// Editar perfil
-	public void editar(Usuario usuario) {
+	public void editar(Usuario usuario) throws AlteracaoConcluidaException {
+		verificarQuantidadeEObservacao(usuario);
 		usuarioRepo.alterar(usuario);
+		throw new AlteracaoConcluidaException();
 
+	}
+
+	private void verificarQuantidadeEObservacao(Usuario usuario) {
+		if (usuario.getDependentes() == null || usuario.getDependentes().equals(SimNaoEnum.NAO.getDescricao())) {
+			usuario.setQtdDependentes(null);
+		}
+		if (usuario.getAnimais() == null || usuario.getAnimais().equals(SimNaoEnum.NAO.getDescricao())) {
+			usuario.setObsAnimais(null);
+			usuario.setQtdAnimais(null);
+		}
+		if (usuario.getOrientacaoAlimentar() == null || usuario.getOrientacaoAlimentar().equals(SimNaoEnum.NAO.getDescricao())) {
+			usuario.setObsOrientacaoAlimentar(null);
+		}
+		if (usuario.getAlergias() == null || usuario.getAlergias().equals(SimNaoEnum.NAO.getDescricao())) {
+			usuario.setObsAlergias(null);
+		}
+		if (usuario.getIntolerancias() == null || usuario.getIntolerancias().equals(SimNaoEnum.NAO.getDescricao())) {
+			usuario.setObsIntolerancias(null);
+		}
 	}
 
 	public Usuario getDadosExistentes(String login) {
@@ -43,7 +66,6 @@ public class UsuarioService {
 					}
 			}
 		} catch (NullPointerException | UsuarioNaoEncontradoException e) {
-			System.out.println("Usuário não encontrado ou null");
 		}
 		return null;
 

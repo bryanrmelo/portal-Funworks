@@ -24,16 +24,18 @@ public class RecuperarSenhaBacking extends AbstractBacking {
 
 	private String senha;
 
-	public void recuperar() {
+	public String recuperar() {
 		FacesMessageUtils.addInfoMessage(
 						"Estamos validando suas informações. Em poucos instantes você receberá uma mensagem no e-mail cadastrado com as instruções de recuperação de senha ");
 		try {
 			senhaService.recuperar(login);
+			return "login.xhtml?faces-redirect=true";
 		} catch (EmailException e) {
 			FacesMessageUtils.addErrorMessage("Não foi possível enviar o e-mail!");
 		} catch (UsuarioNaoEncontradoException | NullPointerException | PersistenceException | NaoValidoException e) {
 			FacesMessageUtils.addErrorMessage("Não foi possível encontrar o usuário!");
 		}
+		return null;
 
 	}
 

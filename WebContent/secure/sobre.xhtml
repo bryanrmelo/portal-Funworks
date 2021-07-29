@@ -1,189 +1,159 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Portal - A Funworks</title>
-	<link rel="icon" href="../resources/imagens/fun-icon.png" />
-	<link rel="stylesheet" href="../resources/css/homeStyle.css" />
-	<link rel="stylesheet" href="../resources/css/sobreStyle.css" />
-	<link
-		href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-		rel="stylesheet"
-		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-		crossorigin="anonymous" />
-	<link href='http://fonts.googleapis.com/css?family=Roboto'
-		rel='stylesheet' type='text/css' />
-	<style>
-body {
-	background-color: #e1e1e1;
-	font-family: 'Roboto', sans-serif;
-}
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+>
+    <h:head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Portal - A Funworks</title>
+        <link rel="icon" href="../resources/imagens/fun-icon.png" />
+        <link rel="stylesheet" href="../resources/css/homeStyle.css" />
+        <link rel="stylesheet" href="../resources/css/sobreStyle.css" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+        <link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css" />
+        <style>
+            body {
+                background-color: #e1e1e1;
+                font-family: "Roboto", sans-serif;
+            }
 
-.dropdown-toggle::after {
-	display: none;
-}
-</style>
-</h:head>
-<h:body>
+            .dropdown-toggle::after {
+                display: none;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <div class="wrapper">
+            <!-- Navbar -->
+            <nav class="navbar navbar-light bg-danger">
+                <div class="container-fluid">
+                    <a href="../secure/home.xhtml">
+                        <img class="navbar-brand" src="../resources/imagens/funworks-logo.png" alt="Logo Funworks" width="240px" />
+                    </a>
+                    <h3 class="nav-item text-white text-center">Portal da Transparência</h3>
+                    <p class="nav-item text-white align-text-top">
+                        <i class="fas fa-user" style="padding-right: 5px;"></i>
 
-	<div class="wrapper">
+                        <h:outputText value="Olá, #{alterarSenhaLogado.nomeParcial()}" />
+                    </p>
+                    <ul class="m-0">
+                        <li class="nav-item dropdown" style="list-style-type: none;">
+                            <p class="dropdown-toggle text-white align-text-top" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Configurações
+                                <i class="fas fa-cog"></i>
+                            </p>
+                            <ul class="dropdown-menu p-2 mt-1" aria-labelledby="navbarDropdown">
+                                <li>
+                                    <a class="dropdown-item m-0" style="width: 150px;" href="../secure/home.xhtml">
+                                        Página inicial
+                                        <i class="fas fa-home float-end"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item m-0 mt-2" href="../secure/recuperarSenhaLogado.xhtml">
+                                        Alterar senha
+                                        <i class="fas fa-key float-end"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <h:form class="m-0">
+                                        <p:commandLink styleClass="dropdown-item m-0 mt-2" action="#{login.logout()}"> Sair <i class="fas fa-sign-out-alt float-end"></i> </p:commandLink>
+                                    </h:form>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
 
-		<!-- Navbar -->
-		<nav class="navbar navbar-light bg-danger">
-			<div class="container-fluid">
-				<a href="../secure/home.xhtml">
-					<img class="navbar-brand"
-						src="../resources/imagens/funworks-logo.png" alt="Logo Funworks"
-						width="240px" />
-				</a>
-				<h3 class="nav-item text-white text-center">Portal da
-					Transparência</h3>
-				<p class="nav-item text-white align-text-top">
-					<i class="fas fa-user" style="padding-right: 5px;"></i>
+            <!-- Navbar vertical -->
+            <div class="d-flex align-items-stretch barra-cima">
+                <div class="p-2 flex-fill bd-highlight sidebar-size">
+                    <div class="sticky-top vertical-nav bg-white" id="sidebar" style="border: 2px solid black;">
+                        <ul class="nav flex-column bg-white mb-0">
+                            <li class="nav-item">
+                                <a href="../secure/sobre.xhtml" class="nav-link text-dark">
+                                    <b>A Funworks</b>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link text-dark">
+                                    <b>Minhas Mensalidades</b>
+                                </a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <p class="p1 dropdown-toggle nav-link text-dark" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <b>Meu Cadastro</b>
+                                    <i class="fas fa-angle-down float-end" />
+                                </p>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item m-0 pt-0 pb-0 ps-3 pe-3" style="background-color: #ffffff !important;" href="../secure/editarPerfil.xhtml"> Editar perfil </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
-					<h:outputText value="Olá, #{alterarSenhaLogado.nomeParcial()}" />
-				</p>
-				<ul class="m-0">
-					<li class="nav-item dropdown" style="list-style-type: none;">
-						<p class="dropdown-toggle text-white align-text-top"
-							id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-							aria-expanded="false">
-							Configurações
-							<i class="fas fa-cog"></i>
-						</p>
-						<ul class="dropdown-menu p-2 mt-1" aria-labelledby="navbarDropdown">
-							<li>
-								<a class="dropdown-item m-0" style="width: 150px;" href="../secure/home.xhtml">
-									Página inicial
-									<i class="fas fa-home float-end"></i>
-								</a>
-							</li>
-							<li>
-								<a class="dropdown-item m-0 mt-2"
-									href="../secure/recuperarSenhaLogado.xhtml">
-									Alterar senha
-									<i class="fas fa-key float-end"></i>
-								</a>
-							</li>
-							<li>
-								<h:form class="m-0">
-									<p:commandLink styleClass="dropdown-item m-0 mt-2"
-										action="#{login.logout()}"> Sair <i
-											class="fas fa-sign-out-alt float-end"></i>
-									</p:commandLink>
-								</h:form>
-							</li>
-						</ul>
-					</li>
-				</ul>
-			</div>
-		</nav>
+                <!-- Conteúdo -->
+                <div class="flex-fill bd-highlight" style="border-left: 2px solid black;">
+                    <div class="sobre-titulo">
+                        <h2 class="p-4 text-white text-center">
+                            Sobre a Funworks
+                            <i class="far fa-handshake" />
+                            <i class="fas fa-coffee" />
+                            <i class="fas fa-comments" />
+                        </h2>
+                    </div>
+                    <div class="sobre-conteudo p-4">
+                        <h5 class="p-3">
+                            A Funworks, Associação de Funcionários da Keyworks, nasceu com o dever de fazer a ligação entre os funcionários e a empresa, organizando diversas iniciativas para integrar ambas as partes. Ela é responsável
+                            principalmente por promover momentos de integração e lazer entre nossa equipe.
+                        </h5>
+                        <h5 class="p-3">
+                            Além disso, de encontro com o duplo sentido do nome "Funworks" (trabalho + diversão), a associação também busca tornar o ambiente de trabalho mais leve, inclusivo e descontraído. Com os valores arrecadados já foi
+                            possível realizar diversos tipos de eventos, cafés, presentes e ainda compra de itens para o proveito do time, como por exemplo um vídeo game e puffs para descanso que estão distribuídos nas dependências do nosso
+                            escritório.
+                        </h5>
+                    </div>
 
-		<!-- Navbar vertical -->
-		<div class="d-flex align-items-stretch barra-cima">
-			<div class="p-2 flex-fill bd-highlight sidebar-size">
-				<div class="sticky-top vertical-nav bg-white" id="sidebar"
-					style="border: 2px solid black;">
-					<ul class="nav flex-column bg-white mb-0">
-						<li class="nav-item">
-							<a href="../secure/sobre.xhtml" class="nav-link text-dark">
-								<b>A Funworks</b>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="#" class="nav-link text-dark">
-								<b>Minhas Mensalidades</b>
+                    <div class="sobre-buffer"></div>
 
-							</a>
-						</li>
-						<li class="nav-item dropdown">
-							<p class="p1 dropdown-toggle nav-link text-dark"
-								id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								<b>Meu Cadastro</b>
-								<i class="fas fa-angle-down float-end" />
-							</p>
-							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<li>
-									<a class="dropdown-item m-0 pt-0 pb-0 ps-3 pe-3" style="background-color: #ffffff!important;" href="../secure/editarPerfil.xhtml">
-										Editar perfil </a>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-			</div>
-
-			<!-- Conteúdo -->
-			<div class="flex-fill bd-highlight"
-				style="border-left: 2px solid black;">
-				<div class="sobre-titulo">
-					<h2 class="p-4 text-white text-center">
-						Sobre a Funworks
-						<i class="far fa-handshake" />
-						<i class="fas fa-coffee" />
-						<i class="fas fa-comments" />
-					</h2>
-				</div>
-				<div class="sobre-conteudo p-4">
-					<h5 class="p-3">A Funworks, Associação de Funcionários da
-						Keyworks, nasceu com o dever de fazer a ligação entre os
-						funcionários e a empresa, organizando diversas iniciativas para
-						integrar ambas as partes. Ela é responsável principalmente por
-						promover momentos de integração e lazer entre nossa equipe.</h5>
-					<h5 class="p-3">Além disso, de encontro com o duplo sentido do
-						nome "Funworks" (trabalho + diversão), a associação também busca
-						tornar o ambiente de trabalho mais leve, inclusivo e descontraído.
-						Com os valores arrecadados já foi possível realizar diversos tipos
-						de eventos, cafés, presentes e ainda compra de itens para o
-						proveito do time, como por exemplo um vídeo game e puffs para
-						descanso que estão distribuídos nas dependências do nosso
-						escritório.</h5>
-				</div>
-
-				<div class="sobre-buffer"></div>
-
-				<div class="sobre-titulo">
-					<h2 class="p-4 text-white text-center">
-						Comissões Administrativas
-						<i class="fas fa-users" />
-					</h2>
-				</div>
-				<div class="sobre-conteudo p-4">
-					<div class="p-3">
-						<h5>Perceu - Presidente (2021 - 2023)</h5>
-						<h5>Priscila Kuwer - Vice-Presidente (2021 - 2023)</h5>
-						<h5>Lucca Rizzon, Henrique Silva, Jader Ferrari e Heitor
-							Gomes - Oráculo da Honestidade - (2021 - 2023)</h5>
-					</div>
-					<div class="p-3">
-						<h5>Matheus Concatto - Presidente (2019 - 2021)</h5>
-						<h5>Natalhia Sebben - Vice-Presidente (2019 - 2021)</h5>
-						<h5>Pedro Tizatto e Vinícius Toigo - Financeiro e Tesouraria
-							(2019 - 2021)</h5>
-					</div>
-					<div class="p-3">
-						<h5>Mateus Cardoso - Presidente (2017 - 2019)</h5>
-						<h5>Lara Meira - Presidente (2017 - 2019)</h5>
-						<h5>Aline - Presidente (2016 - 2017)</h5>
-						<h5>Marcio Rossi - Presidente (2014 - 2016)</h5>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<script src="https://kit.fontawesome.com/46fef06780.js"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-		crossorigin="anonymous"></script>
-</h:body>
+                    <div class="sobre-titulo">
+                        <h2 class="p-4 text-white text-center">
+                            Comissões Administrativas
+                            <i class="fas fa-users" />
+                        </h2>
+                    </div>
+                    <div class="sobre-conteudo p-4">
+                        <div class="p-3">
+                            <h5>Perceu - Presidente (2021 - 2023)</h5>
+                            <h5>Priscila Kuwer - Vice-Presidente (2021 - 2023)</h5>
+                            <h5>Lucca Rizzon, Henrique Silva, Jader Ferrari e Heitor Gomes - Oráculo da Honestidade - (2021 - 2023)</h5>
+                        </div>
+                        <div class="p-3">
+                            <h5>Matheus Concatto - Presidente (2019 - 2021)</h5>
+                            <h5>Natalhia Sebben - Vice-Presidente (2019 - 2021)</h5>
+                            <h5>Pedro Tizatto e Vinícius Toigo - Financeiro e Tesouraria (2019 - 2021)</h5>
+                        </div>
+                        <div class="p-3">
+                            <h5>Mateus Cardoso - Presidente (2017 - 2019)</h5>
+                            <h5>Lara Meira - Presidente (2017 - 2019)</h5>
+                            <h5>Aline - Presidente (2016 - 2017)</h5>
+                            <h5>Marcio Rossi - Presidente (2014 - 2016)</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://kit.fontawesome.com/46fef06780.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    </h:body>
 </html>
