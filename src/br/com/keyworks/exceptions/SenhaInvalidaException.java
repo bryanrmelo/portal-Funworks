@@ -4,6 +4,6 @@ package br.com.keyworks.exceptions;
 public class SenhaInvalidaException extends Exception {
 	@Override
 	public String getMessage() {
-		return "Senha precisa ser composta de no mínimo 1 letra minuscula e 1 número!";
+		return "A senha precisa ser composta de no mínimo 1 letra minúscula e 1 número e não pode possuir letras maiúsculas ou caracteres especiais!";
 	}
 }

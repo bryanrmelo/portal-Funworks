@@ -32,7 +32,7 @@
     <h:body>
         <div class="wrapper">
             <!-- Navbar -->
-            <nav class="navbar navbar-light bg-danger">
+            <nav class="navbar navbar-light cor-gradiente">
                 <div class="container-fluid">
                     <a href="../secure/home.xhtml">
                         <img class="navbar-brand" src="../resources/imagens/funworks-logo.png" alt="Logo Funworks" width="240px" />
@@ -106,7 +106,7 @@
                 <!-- Conteúdo -->
                 <div class="p-4 flex-fill" style="border-left: 2px solid black;">
                     <div class="p-4" style="border: 2px solid black;">
-                        <div class="container-fluid" style="background-color: #dc3545; border: 2px solid black;">
+                        <div class="container-fluid cor-gradiente" style="border: 2px solid black;">
                             <div>
                                 <h2 class="text-white m-0 p-3">
                                     <h:outputText value="Alterar Senha > #{alterarSenhaLogado.nomeCompleto()}" />
@@ -173,8 +173,8 @@
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-center lista-control">
-                                    <h:commandButton styleClass="botoes justify-content-center text-white m-2" type="submit" value="ALTERAR SENHA" action="#{alterarSenhaLogado.alterar()}" />
-                                    <h:button styleClass="botoes justify-content-center text-white m-2" value="VOLTAR" outcome="home.xhtml?faces-redirect=true" />
+                                    <h:commandButton styleClass="botoes cor-gradiente justify-content-center text-white m-2" type="submit" value="ALTERAR SENHA" action="#{alterarSenhaLogado.alterar()}" />
+                                    <h:button styleClass="botoes cor-gradiente justify-content-center text-white m-2" value="VOLTAR" outcome="home.xhtml?faces-redirect=true" />
                                 </div>
                             </h:form>
                             <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />

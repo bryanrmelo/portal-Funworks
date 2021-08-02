@@ -2,6 +2,10 @@
 	border-top: 2px solid black;
 }
 
+.cor-gradiente {
+	background-image: linear-gradient(to right, crimson, indigo);
+}
+
 .wrapper {
 	width: 98%;
 	margin-top: 10px;

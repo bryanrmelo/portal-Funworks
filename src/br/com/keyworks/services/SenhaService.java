@@ -48,12 +48,9 @@ public class SenhaService {
 
 				RecuperacaoSenha rpSalvo = recuperacaoSenhaRepo.buscarPorLogin(login);
 				RecuperacaoSenha rpSenha = new RecuperacaoSenha(login, hashLogin);
-
-				System.out.println("Registro já existente! Atualizando.");
 				recuperacaoSenhaRepo.removerRecuperacaoSenha(rpSalvo);
 				recuperacaoSenhaRepo.salvarRecuperacaoSenha(rpSenha);
 
-				System.out.println("Enviando email...");
 				EnviarEmailUtil.send(rpSenha.getLogin(), rpSenha.getHash());
 
 				// Testa se existe e cria uma nova recuperação e salva
@@ -62,9 +59,7 @@ public class SenhaService {
 
 					RecuperacaoSenha rpSenha = new RecuperacaoSenha(login, hashLogin);
 
-					System.out.println("Salvando..");
 					recuperacaoSenhaRepo.salvarRecuperacaoSenha(rpSenha);
-					System.out.println("Enviando email...");
 					EnviarEmailUtil.send(rpSenha.getLogin(), rpSenha.getHash());
 
 					// Caso não seja inválido, valida através da criação uma nova requisição válida
@@ -74,6 +69,7 @@ public class SenhaService {
 					rpSalvo.setDataCriacao(new Date());
 					recuperacaoSenhaRepo.removerRecuperacaoSenha(rpSalvo);
 					recuperacaoSenhaRepo.salvarRecuperacaoSenha(rpSalvo);
+
 					EnviarEmailUtil.send(rpSalvo.getLogin(), rpSalvo.getHash());
 				}
 		}

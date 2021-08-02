@@ -11,7 +11,7 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Portal - Recuperar Senha</title>
+        <title>Portal - Editar Perfil</title>
         <link rel="icon" href="../resources/imagens/fun-icon.png" />
         <link rel="stylesheet" href="../resources/css/homeStyle.css" />
         <link rel="stylesheet" href="../resources/css/facesMessageStyle.css" />
@@ -33,7 +33,7 @@
     <h:body>
         <div class="wrapper">
             <!-- Navbar -->
-            <nav class="navbar navbar-light bg-danger">
+            <nav class="navbar navbar-light cor-gradiente">
                 <div class="container-fluid">
                     <a href="../secure/home.xhtml">
                         <img class="navbar-brand" src="../resources/imagens/funworks-logo.png" alt="Logo Funworks" width="240px" />
@@ -105,7 +105,7 @@
                 <!-- Conteúdo -->
                 <div class="p-4 flex-fill" style="border-left: 2px solid black;">
                     <div class="p-5" style="border: 2px solid black;">
-                        <div class="container-fluid" style="background-color: #dc3545; border: 2px solid black; margin-bottom: 30px;">
+                        <div class="container-fluid cor-gradiente" style="border: 2px solid black; margin-bottom: 30px;">
                             <div>
                                 <h2 class="text-white m-0 p-3">
                                     <h:outputText value="Editar perfil > #{alterarSenhaLogado.nomeCompleto()} " />
@@ -145,7 +145,7 @@
                                                     id="celular"
                                                     styleClass="col-8"
                                                     value="#{editar.usuario.celular}"
-                                                    mask="(54) 999999999"
+                                                    mask="(54) 9 99999999"
                                                     validateMask="true"
                                                     required="true"
                                                     requiredMessage="É necessário inserir um número de celular!"
@@ -161,7 +161,7 @@
                                                     id="whatsapp"
                                                     styleClass="col-8"
                                                     value="#{editar.usuario.whatsapp}"
-                                                    mask="(54) 999999999"
+                                                    mask="(54) 9 99999999"
                                                     validateMask="true"
                                                     required="true"
                                                     requiredMessage="É necessário inserir um número de Whatsapp!"
@@ -184,13 +184,14 @@
                                                     requiredMessage="É necessário inserir um endereço!"
                                                     type="text"
                                                     autocomplete="off"
-                                                    name="endereço"
-                                                />
+                                                    name="endereço">
+												<f:validateLength maximum="60" minimum="0" />
+											</p:inputTextarea>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row mt-3">
-                                        <div class="form-gr1oup col p-0">
+                                        <div class="form-group col p-0">
                                             <div class="form-control border-0 p-0">
                                                 <label for="nascimento" class="col label-stretch text-end pe-3">
                                                     <b>Nascimento: *</b>
@@ -270,7 +271,7 @@
                                 </div>
                             </div>
                             <!-- Informações adicionais -->
-                            <div class="container-fluid mt-3" style="background-color: #dc3545; border: 2px solid black; margin-bottom: 30px;">
+                            <div class="container-fluid mt-3 cor-gradiente" style="border: 2px solid black; margin-bottom: 30px;">
                                 <h6 class="text-white m-0 p-1">Informações adicionais</h6>
                             </div>
                             <div class="row">
@@ -382,7 +383,9 @@
                                         <label for="preferencias" class="align-top label-stretch text-end pe-3">
                                             <b>Preferências: </b>
                                         </label>
-                                        <p:inputTextarea cols="48" rows="2" value="#{editar.usuario.preferencias}" type="text" name="preferencias" />
+                                        <p:inputTextarea cols="48" rows="2" value="#{editar.usuario.preferencias}" type="text" name="preferencias"  validatorMessage="O tamanho máximo desse campo é de 60 caracteres!">
+                                        <f:validateLength maximum="60" minimum="0"/>
+                                        </p:inputTextarea>
                                     </div>
                                 </div>
                             </div>
@@ -392,13 +395,15 @@
                                         <label for="dicas" class="col-2 align-top label-stretch text-end pe-3">
                                             <b>Dicas de Presente de Aniversário: </b>
                                         </label>
-                                        <p:inputTextarea cols="48" rows="2" value="#{editar.usuario.dicas}" styleClass="col" type="text" name="dicas" />
+                                        <p:inputTextarea cols="48" rows="2" value="#{editar.usuario.dicas}" styleClass="col" type="text" name="dicas"  validatorMessage="O tamanho máximo desse campo é de 60 caracteres!">
+                                        <f:validateLength maximum="60" minimum="0"/>
+                                        </p:inputTextarea>
                                     </div>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-center lista-control mt-4">
-                                <h:commandButton styleClass="botoes bg-danger justify-content-center text-white m-2" type="submit" value="SALVAR" action="#{editar.editarPerfil()}" />
-                                <h:button styleClass="botoes bg-danger justify-content-center text-white m-2" value="VOLTAR" outcome="home.xhtml?faces-redirect=true" />
+                                <h:commandButton styleClass="botoes cor-gradiente justify-content-center text-white m-2" type="submit" value="SALVAR" action="#{editar.editarPerfil()}" onclick="window.location.reload()"/>
+                                <h:button styleClass="botoes cor-gradiente justify-content-center text-white m-2" value="VOLTAR" outcome="home.xhtml?faces-redirect=true" />
                             </div>
                         </h:form>
                     </div>

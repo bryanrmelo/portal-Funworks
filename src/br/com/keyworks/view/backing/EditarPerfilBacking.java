@@ -51,7 +51,7 @@ public class EditarPerfilBacking extends AbstractBacking {
 		} catch (AlteracaoConcluidaException e) {
 			FacesMessageUtils.addInfoMessage(e.getMessage());
 		}
-		return "/editarPerfil.xtml?faces-redirect=true";
+		return "editarPerfil.xtml?faces-redirect=true";
 	}
 
 	public String getImagemAtual() {
