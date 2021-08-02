@@ -11,12 +11,14 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Portal - A Funworks</title>
+        <title>Portal - Minhas Mensalidades</title>
         <link rel="icon" href="../resources/imagens/fun-icon.png" />
         <link rel="stylesheet" href="../resources/css/homeStyle.css" />
-        <link rel="stylesheet" href="../resources/css/sobreStyle.css" />
+        <link rel="stylesheet" href="../resources/css/facesMessageStyle.css" />
+        <link rel="stylesheet" href="../resources/css/editarStyle.css" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
         <link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css" />
+
         <style>
             body {
                 background-color: #e1e1e1;
@@ -40,7 +42,7 @@
                     <p class="nav-item text-white align-text-top">
                         <i class="fas fa-user" style="padding-right: 5px;"></i>
 
-                        <h:outputText value="Olá, #{alterarSenhaLogado.nomeParcial()}" />
+                        <h:outputText value="Olá, #{mensalidades.nomeParcial()}" />
                     </p>
                     <ul class="m-0">
                         <li class="nav-item dropdown" style="list-style-type: none;">
@@ -103,56 +105,40 @@
                 </div>
 
                 <!-- Conteúdo -->
-                <div class="flex-fill bd-highlight" style="border-left: 2px solid black;">
-                    <div class="sobre-titulo">
-                        <h2 class="p-4 text-white text-center">
-                            Sobre a Funworks
-                            <i class="far fa-handshake" />
-                            <i class="fas fa-coffee" />
-                            <i class="fas fa-comments" />
-                        </h2>
-                    </div>
-                    <div class="sobre-conteudo p-4">
-                        <h5 class="p-3">
-                            A Funworks, Associação de Funcionários da Keyworks, nasceu com o dever de fazer a ligação entre os funcionários e a empresa, organizando diversas iniciativas para integrar ambas as partes. Ela é responsável
-                            principalmente por promover momentos de integração e lazer entre nossa equipe.
-                        </h5>
-                        <h5 class="p-3">
-                            Além disso, de encontro com o duplo sentido do nome "Funworks" (trabalho + diversão), a associação também busca tornar o ambiente de trabalho mais leve, inclusivo e descontraído. Com os valores arrecadados já foi
-                            possível realizar diversos tipos de eventos, cafés, presentes e ainda compra de itens para o proveito do time, como por exemplo um vídeo game e puffs para descanso que estão distribuídos nas dependências do nosso
-                            escritório.
-                        </h5>
-                    </div>
-
-                    <div class="sobre-buffer cor-gradiente"></div>
-
-                    <div class="sobre-titulo">
-                        <h2 class="p-4 text-white text-center">
-                            Comissões Administrativas
-                            <i class="fas fa-users" />
-                        </h2>
-                    </div>
-                    <div class="sobre-conteudo p-4">
-                        <div class="p-3">
-                            <h5>Perceu - Presidente (2021 - 2023)</h5>
-                            <h5>Priscila Kuwer - Vice-Presidente (2021 - 2023)</h5>
-                            <h5>Lucca Rizzon, Henrique Silva, Jader Ferrari e Heitor Gomes - Oráculo da Honestidade - (2021 - 2023)</h5>
-                        </div>
-                        <div class="p-3">
-                            <h5>Matheus Concatto - Presidente (2019 - 2021)</h5>
-                            <h5>Natalhia Sebben - Vice-Presidente (2019 - 2021)</h5>
-                            <h5>Pedro Tizatto e Vinícius Toigo - Financeiro e Tesouraria (2019 - 2021)</h5>
-                        </div>
-                        <div class="p-3">
-                            <h5>Mateus Cardoso - Presidente (2017 - 2019)</h5>
-                            <h5>Lara Meira - Presidente (2017 - 2019)</h5>
-                            <h5>Aline - Presidente (2016 - 2017)</h5>
-                            <h5>Marcio Rossi - Presidente (2014 - 2016)</h5>
-                        </div>
-                    </div>
+                <div class="p-2 flex-fill bd-highlight" style="border-left: 2px solid black; background-color: #e1e1e1;">
+                    <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+                    <table class="table table-striped table-hover table-responsive">
+                        <thead class="table-dark ">
+                            <tr>
+                                <th scope="col" colspan="3">Associado</th>
+                                <th scope="col" colspan="5">Vencimento</th>
+                                <th scope="col" colspan="3">Mensalidade</th>
+                                <th scope="col" colspan="1">Pago</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ui:repeat var="mensalidade" value="#{mensalidades.listaMensalidades}">
+                                <tr>
+                                    <td colspan="3">
+                                        <h:outputText value="#{mensalidades.nomeParcial(mensalidade.usuario.login)}" />
+                                    </td>
+                                    <td colspan="5">
+                                        <h:outputText value="#{mensalidades.dataFormatada(mensalidade.dataVencimento)}" />
+                                    </td>
+                                    <td colspan="3">
+                                        <h:outputText value="R$ #{mensalidade.valor}0" />
+                                    </td>
+                                    <td colspan="1">
+                                    	<h:graphicImage value="data:image/png;base64,#{mensalidades.mostrarImagemPagamento(mensalidade.pagamento)}" style="max-width: 13px; max-height: 13px" />
+                                    </td>
+                                </tr>
+                            </ui:repeat>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
+
         <script src="https://kit.fontawesome.com/46fef06780.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     </h:body>

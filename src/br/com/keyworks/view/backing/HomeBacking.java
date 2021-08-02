@@ -5,6 +5,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import br.com.keyworks.framework.faces.backing.AbstractBacking;
+import br.com.keyworks.model.entities.administracao.Usuario;
 import br.com.keyworks.services.UsuarioService;
 import br.com.keyworks.util.ExpiracaoUtil;
 import br.com.keyworks.util.FacesMessageUtils;
@@ -32,8 +33,22 @@ public class HomeBacking extends AbstractBacking {
 			LogoutUtil.logout();
 
 		} else {
-			FacesMessageUtils.addInfoMessage("Seja bem vindo(a) " + nomeParcial()
-							+ ", para navegar pelo portal utilize o menu à esquerda, se houverem dúvidas entre em contato com a Funworks de forma presencial ou através do e-mail funworks@keyworks.com.br. Obrigado(a)!");
+			Usuario usuario = usuarioService.getDadosExistentes(nome);
+			if (usuario.getGenero() != null && usuario.getGenero().equals("masculino")) {
+				FacesMessageUtils.addInfoMessage("Seja bem vindo " + nomeParcial()
+								+ ", para navegar pelo portal utilize o menu à esquerda, se houverem dúvidas entre em contato com a Funworks de forma presencial ou através do e-mail funworks@keyworks.com.br. Obrigado!");
+			} else
+				if (usuario.getGenero() != null && usuario.getGenero().equals("feminino")) {
+					FacesMessageUtils.addInfoMessage("Seja bem vinda " + nomeParcial()
+									+ ", para navegar pelo portal utilize o menu à esquerda, se houverem dúvidas entre em contato com a Funworks de forma presencial ou através do e-mail funworks@keyworks.com.br. Obrigado!");
+				} else
+					if (usuario.getGenero() != null && usuario.getGenero().equals("outro")) {
+						FacesMessageUtils.addInfoMessage("Seja bem vinde " + nomeParcial()
+										+ ", para navegar pelo portal utilize o menu à esquerda, se houverem dúvidas entre em contato com a Funworks de forma presencial ou através do e-mail funworks@keyworks.com.br. Obrigado!");
+					} else {
+						FacesMessageUtils.addInfoMessage("Seja bem vindo(a) " + nomeParcial()
+										+ ", para navegar pelo portal utilize o menu à esquerda, se houverem dúvidas entre em contato com a Funworks de forma presencial ou através do e-mail funworks@keyworks.com.br. Obrigado!");
+					}
 		}
 	}
 

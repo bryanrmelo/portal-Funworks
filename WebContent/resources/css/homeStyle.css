@@ -1,5 +1,6 @@
 .barra-cima {
 	border-top: 2px solid black;
+	min-height: 100%;
 }
 
 .cor-gradiente {
