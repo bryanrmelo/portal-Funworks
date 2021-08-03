@@ -7,6 +7,10 @@
 	background-image: linear-gradient(to right, crimson, indigo);
 }
 
+.borda {
+	border: 2px solid black !important;
+}
+
 .wrapper {
 	width: 98%;
 	margin-top: 10px;
