@@ -1,5 +1,6 @@
 package br.com.keyworks.services;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -33,6 +34,11 @@ public class MensalidadeService {
 	public String formatarData(Date data) {
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		return format.format(data);
+	}
+
+	public String formatarValor(Double valor) {
+		DecimalFormat formatter = new DecimalFormat("#");
+		return formatter.format(valor);
 	}
 
 }

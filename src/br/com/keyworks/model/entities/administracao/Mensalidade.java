@@ -34,12 +34,14 @@ public class Mensalidade implements Serializable {
 	@Column(name = "valor")
 	private Double valor;
 
+	@Column(name = "comprovante")
+	private byte[] comprovante;
+
+	@Column(name = "observacao")
+	private String observacao;
+
 	@Column(name = "pagamento")
-	private boolean pagamento;
-
-	public Mensalidade() {
-
-	}
+	private String pagamento;
 
 	public Usuario getUsuario() {
 		return usuario;
@@ -65,11 +67,27 @@ public class Mensalidade implements Serializable {
 		this.valor = valor;
 	}
 
-	public boolean isPagamento() {
+	public byte[] getComprovante() {
+		return comprovante;
+	}
+
+	public void setComprovante(byte[] comprovante) {
+		this.comprovante = comprovante;
+	}
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
+
+	public String getPagamento() {
 		return pagamento;
 	}
 
-	public void setPagamento(boolean pagamento) {
+	public void setPagamento(String pagamento) {
 		this.pagamento = pagamento;
 	}
 
