@@ -43,6 +43,14 @@ public class Mensalidade implements Serializable {
 	@Column(name = "pagamento")
 	private String pagamento;
 
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public Usuario getUsuario() {
 		return usuario;
 	}

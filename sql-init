@@ -1,0 +1,92 @@
+CREATE TABLE usuario
+(
+ 	id serial NOT NULL,
+ 	login character varying(255) NOT NULL,
+ 	senha character varying(255) NOT NULL,
+	nome character varying(60),
+	email character varying(60),
+	celular character varying(60),
+	whatsapp character varying(60),
+	endereco character varying(60),
+	imagem bigint,
+	nascimento character varying(255),
+	estadoCivil character varying(255),
+	admissao character varying(255),
+	genero character varying(255),
+	dependentes character varying(255),
+	qtdDependentes integer,
+	animais character varying(255),
+	qtdAnimais integer,
+	obsAnimais character varying(255),
+	orientacaoAlimentar character varying(255),
+	obsOrientacaoAlimentar character varying(255),
+	alergias character varying(255),
+	obsAlergias character varying(255),
+	intolerancias character varying(255),
+	obsIntolerancias character varying(255),
+	preferencias text,
+	dicas text,
+  	CONSTRAINT pk_usuario PRIMARY KEY (id)
+);
+
+CREATE TABLE trocarsenha
+(
+  id serial NOT NULL,
+  login character varying(255) NOT NULL,
+  hash character varying(255) NOT NULL,
+  ativo boolean NOT NULL,
+  dataCriacao timestamp,
+  CONSTRAINT pk_trocarsenha PRIMARY KEY (id)
+);
+
+CREATE TABLE logtrocarsenhas
+(
+  id serial NOT NULL,
+  login character varying(255) NOT NULL,
+  dataAlteracao timestamp NOT NULL,
+  CONSTRAINT pk_log_trocar_senhas PRIMARY KEY (id)
+);
+
+CREATE TABLE mensalidade
+(
+	id serial NOT NULL,
+	idUsuario integer NOT NULL,
+	dataVencimento date,
+	valor decimal,
+	comprovante bigint,
+	observacao character varying(255),
+	pagamento character varying(255),
+	CONSTRAINT pk_mensalidade PRIMARY KEY(id),
+	CONSTRAINT fk_usuario 
+		FOREIGN KEY (idUsuario) 
+			REFERENCES usuario(id)
+);
+
+SELECT * FROM usuario;
+
+SELECT * FROM trocarsenha;
+
+SELECT * FROM logtrocarsenhas;
+
+SELECT * FROM mensalidade;
+
+DELETE FROM usuario WHERE id = 1;
+
+INSERT INTO usuario (login, senha) VALUES ('teste.teste', '482b564fc44219f99e9d5a26f252c1d8');
+INSERT INTO usuario (login, senha, nome, celular, whatsapp, endereco, imagem, nascimento, admissao) VALUES ('bryan.melo', '482b564fc44219f99e9d5a26f252c1d8', 'Bryan Ribeiro Melo', 54981341338, 54981341338, 'Rua das Rosas 1040', 463792107, '2003-02-03', '2021-05-12');
+INSERT INTO usuario (login, senha, nome, celular, whatsapp, endereco, nascimento, admissao) VALUES ('bryan.melo', '482b564fc44219f99e9d5a26f252c1d8', 'Bryan Ribeiro Melo', 54981341338, 54981341338, 'Rua das Rosas 1040', '2003-02-03', '2021-05-12');
+
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20210101','YYYYMMDD'), 15, 'Pago');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20210201','YYYYMMDD'), 15, 'Pago');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20210301','YYYYMMDD'), 15, 'Pago');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20210401','YYYYMMDD'), 15, 'Pago');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20210501','YYYYMMDD'), 15, 'Pago');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20210601','YYYYMMDD'), 15, 'Pago');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20210701','YYYYMMDD'), 15, 'Pago');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, observacao, pagamento) VALUES (3, TO_DATE('20210801','YYYYMMDD'), 15, 'Observação de teste', 'Pendente');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20210901','YYYYMMDD'), 15, 'Pendente');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20211001','YYYYMMDD'), 15, 'Pendente');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20211101','YYYYMMDD'), 15, 'Pendente');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20211201','YYYYMMDD'), 15, 'Pendente');
+
+

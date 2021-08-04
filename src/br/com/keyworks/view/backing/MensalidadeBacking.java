@@ -14,7 +14,7 @@ import br.com.keyworks.model.entities.administracao.Mensalidade;
 import br.com.keyworks.services.MensalidadeService;
 import br.com.keyworks.services.UsuarioService;
 
-@Named("mensalidades")
+@Named("mensalidadeBack")
 @ViewScoped
 public class MensalidadeBacking extends AbstractBacking {
 
@@ -72,6 +72,10 @@ public class MensalidadeBacking extends AbstractBacking {
 		} else {
 			return IMG_CHECK_FALSE;
 		}
+	}
+
+	public void salvarObservacao(Integer id, String observacao) {
+		mensalidadeService.salvarObservacao(id, observacao);
 	}
 
 	public List<Mensalidade> getListaMensalidades() {

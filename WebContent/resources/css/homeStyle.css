@@ -43,6 +43,9 @@ nav p, h3 {
 .dropdown-item:hover {
 	background-color: #ffffff!important;
 }
+.ui-fileupload-simple .ui-button {
+	overflow: hidden;
+}
 
 .vertical-nav a, .vertical-nav p {
 	background-color: #e1e1e1;

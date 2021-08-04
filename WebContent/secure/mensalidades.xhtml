@@ -114,46 +114,125 @@
                             </h2>
                         </div>
                     </div>
-                    <table class="table table-striped table-hover table-responsive table-bordered sortable borda" style="margin-top: 30px; width: 100%;">
-                        <thead>
-                            <tr>
-                                <th scope="col" style="width: 20%;">ASSOCIADO(A)</th>
-                                <th scope="col" style="width: 5%;">VALOR</th>
-                                <th scope="col" style="width: 20%;">VENCIMENTO</th>
-                                <th scope="col" style="width: 20%;">COMPROVANTE</th>
-                                <th scope="col">OBSERVAÇÃO</th>
-                                <th scope="col" style="width: 5%;">STATUS</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <ui:repeat var="mensalidade" value="#{mensalidades.listaMensalidades}">
-                                <tr>
-                                    <td>
-                                        <h:outputText value="#{mensalidades.nomeCompleto(mensalidade.usuario.login)}" />
-                                    </td>
-                                    <td>
-                                        <h:outputText value="R$ #{mensalidades.valorFormatado(mensalidade.valor)}" />
-                                    </td>
-                                    <td>
-                                        <h:outputText value="#{mensalidades.dataFormatada(mensalidade.dataVencimento)}" />
-                                    </td>
-                                    <td>
-                                    	<!--  
-                                        <h:form enctype="multipart/form-data">
-                                            <p:fileUpload value="#{mensalidades.imagem.getContents()}" fileLimit="1" allowTypes="/(\.|\/)(pdf)$/" validateContentType="true" accept=".pdf"></p:fileUpload>
-                                        </h:form>
-                                        -->
-                                    </td>
-                                    <td>
+                    <!--
+				<table
+					class="table table-striped table-hover table-responsive table-bordered sortable borda"
+					style="margin-top: 30px; width: 100%;">
+					<thead class="tabela-bg">
+						<tr>
+							<th scope="col" style="width: 20%;">ASSOCIADO(A)</th>
+							<th scope="col" style="width: 5%;">VALOR</th>
+							<th scope="col" style="width: 20%;">VENCIMENTO</th>
+							<th scope="col" style="width: 20%;">COMPROVANTE</th>
+							<th scope="col">OBSERVAÇÃO</th>
+							<th scope="col" style="width: 5%;">STATUS</th>
+						</tr>
+					</thead>
+					<tbody>
+						<ui:repeat var="mensalidade"
+							value="#{mensalidades.listaMensalidades}">
+							<tr>
+								<td>
+									<h:outputText
+										value="#{mensalidades.nomeCompleto(mensalidade.usuario.login)}" />
+								</td>
+								<td>
+									<h:outputText
+										value="R$ #{mensalidades.valorFormatado(mensalidade.valor)}" />
+								</td>
+								<td>
+									<h:outputText
+										value="#{mensalidades.dataFormatada(mensalidade.dataVencimento)}" />
+								</td>
+								<td>
+									<div>
+										anexo.pdf
+										<i class="fas fa-download float-end align-top"></i>
+										<i class="fas fa-plus-circle float-end align-top">
+											
+                                            <a href="#">Clique-me</a>
+                                                <h:form enctype="multipart/form-data">
+                                                    <p:fileUpload value="#{mensalidades.imagem.getContents()}" fileLimit="1" allowTypes="/(\.|\/)(pdf)$/" validateContentType="true" accept=".pdf" skinSimple="true"></p:fileUpload>
+                                                </h:form>
+
+										</i>
+									</div>
+								</td>
+								<td>
+									<h:form class="m-0">
+										<p:inputText style="border: 0px solid black !important;"
+											type="text" value="#{mensalidade.observacao}" />
+										<h:commandButton
+											action="#{mensalidades.salvarObservacao(mensalidade.id, mensalidade.observacao)}" />
+										  
+                                            <button class="float-end" style="border: 0px solid black !important;" type="submit">
+                                            	<i class="fas fa-edit float-end"></i>
+                                            </button>
+                                            
+									</h:form>
+								</td>
+								<td>
+									<h:graphicImage
+										value="data:image/png;base64,#{mensalidades.mostrarImagemPagamento(mensalidade.pagamento)}"
+										style="max-width: 13px; max-height: 13px; text-align: center;" />
+								</td>
+							</tr>
+						</ui:repeat>
+					</tbody>
+				</table>
+				-->
+                            <!-- 
+					<p:ajax event="cellEdit" listener="#{dtEditView.onCellEdit}"
+						update=":form:msgs" />
+						 -->
+                    <h:form>
+                        <p:dataTable var="mensalidade" value="#{mensalidadeBack.listaMensalidades}" editable="true" editMode="cell">
+
+                            <p:column headerText="ASSOCIADO(A)">
+                                <f:facet name="output">
+                                    <h:outputText value="#{mensalidadeBack.nomeCompleto(mensalidade.usuario.login)}" />
+                                </f:facet>
+                            </p:column>
+
+                            <p:column headerText="VALOR">
+                                <f:facet name="output">
+                                	<h:outputText value="R$ #{mensalidade.valor}" />
+                                	<!--  
+                                    <h:outputText value="R$ #{mensalidadeBack.valorFormatado(mensalidade.valor)}" />
+                                    -->
+                                </f:facet>
+                            </p:column>
+
+                            <p:column headerText="VENCIMENTO">
+                                <f:facet name="output">
+                                    <h:outputText value="#{mensalidadeBack.dataFormatada(mensalidade.dataVencimento)}" />
+                                </f:facet>
+                            </p:column>
+
+                            <p:column headerText="COMPROVANTE">
+                                <f:facet name="output">
+                                    <h:outputText value="anexo.pdf"  />
+                                    <i class="fas fa-download float-end align-top"></i>
+                                    <i class="fas fa-plus-circle float-end align-top"></i>
+                                </f:facet>
+                            </p:column>
+	
+                            <p:column headerText="OBSERVAÇÃO">
+                                <p:cellEditor>
+                                    <f:facet name="output">
                                         <h:outputText value="#{mensalidade.observacao}" />
-                                    </td>
-                                    <td>
-                                        <h:graphicImage value="data:image/png;base64,#{mensalidades.mostrarImagemPagamento(mensalidade.pagamento)}" style="max-width: 13px; max-height: 13px; text-align: center;" />
-                                    </td>
-                                </tr>
-                            </ui:repeat>
-                        </tbody>
-                    </table>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{mensalidade.observacao}" style="width: 100%;" label="Observacao" />
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="STATUS">
+                                <h:graphicImage value="data:image/png;base64,#{mensalidadeBack.mostrarImagemPagamento(mensalidade.pagamento)}" style="max-width: 13px; max-height: 13px; text-align: center;" />
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
                     <div class="importante-box">
                         <div class="importante-box-header">
                             <h5 class="text-white m-0 p-2">
@@ -165,7 +244,7 @@
                             <p>Pedimos que ao realizar o pagamento das mensalidades Funworks, utilize somente os dados abaixo:</p>
                             <p>Chave PIX: funworks@keyworks.com.br</p>
                             <p>(O comprovante de pagamento dever ser anexado em formato PDF.)</p>
-                            <p class="m-0">Caso algúem não possua PIX, segue conta para a transferência:</p>
+                            <p class="m-0">Caso alguém não possua PIX, segue conta para a transferência:</p>
                             <p class="m-0">Banco: Nu Pagamentos S.A (260) - Agência: 0001 - Conta Corrrente: 6617159-3</p>
                             <p class="m-0">Cássio Luciano Colussi - CPF: 897.819.610-15</p>
                             <p>Após a confirmação do pagamento, o status será atualizado.</p>

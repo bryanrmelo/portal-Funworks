@@ -17,10 +17,6 @@ input[type=date] {
 	border-radius: 0;
 }
 
-.ui-fileupload-simple .ui-button {
-	overflow: hidden;
-}
-
 .ui-button {
 	border-radius: 0;
 	border: 2px solid black;

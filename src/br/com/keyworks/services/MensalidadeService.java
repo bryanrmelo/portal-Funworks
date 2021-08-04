@@ -24,7 +24,7 @@ public class MensalidadeService {
 	public List<Mensalidade> getDadosExistentes(String nome) {
 		try {
 			Usuario usuario = usuarioRepo.buscarUsuario(nome);
-			return mensalidadeRepo.buscarMensalidade(usuario.getId());
+			return mensalidadeRepo.buscarMensalidadesPorId(usuario.getId());
 		} catch (UsuarioNaoEncontradoException e) {
 
 		}
@@ -39,6 +39,12 @@ public class MensalidadeService {
 	public String formatarValor(Double valor) {
 		DecimalFormat formatter = new DecimalFormat("#");
 		return formatter.format(valor);
+	}
+
+	public void salvarObservacao(Integer id, String observacao) {
+		Mensalidade mensalidade = mensalidadeRepo.buscarMensalidade(id);
+		mensalidade.setObservacao(observacao);
+		mensalidadeRepo.salvar(mensalidade);
 	}
 
 }
