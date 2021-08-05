@@ -23,7 +23,7 @@ input[type=date] {
 }
 
 .ui-button-text {
-	background-image: linear-gradient(to right, crimson, indigo);
+	background-image: linear-gradient(to right, #e30030, #351396);
 }
 
 .ui-c {

@@ -14,13 +14,10 @@ import javax.persistence.Table;
 @Table(name = "sistema_versao")
 @SequenceGenerator(name = "sistemaVersaoseq", sequenceName = "SISTEMA_VERSAO_SEQ", allocationSize = 1)
 @NamedQueries({ @NamedQuery(name = SistemaVersao.VERSAO, query = "SELECT e FROM SistemaVersao as e ") })
-public class SistemaVersao  {
-
-	private static final long serialVersionUID = 1L;
+public class SistemaVersao {
 
 	public static final String VERSAO = "sistema.versao.versao";
 
-	
 	@Id
 	@SequenceGenerator(sequenceName = "sis_versao_id_seq", name = "sis_versao_id_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sistemaVersaoseq")
@@ -33,7 +30,6 @@ public class SistemaVersao  {
 	public SistemaVersao() {
 	}
 
-	
 	public Integer getId() {
 		return id;
 	}

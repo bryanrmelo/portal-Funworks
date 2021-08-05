@@ -53,7 +53,7 @@ CREATE TABLE mensalidade
 	idUsuario integer NOT NULL,
 	dataVencimento date,
 	valor decimal,
-	comprovante bytea,
+	comprovante bigint,
 	observacao character varying(255),
 	pagamento character varying(255),
 	CONSTRAINT pk_mensalidade PRIMARY KEY(id),

@@ -14,8 +14,6 @@ public final class ComponentsConstantsBacking {
 	public static final String GRID_CURRENT_PAGE_REPORT_TEMPLATE = "(#{msgs.GRID_DISPLAYING} {startRecord} - {endRecord} #{msgs.GRID_OF} {totalRecords})";
 	public static final String GRID_PAGINATOR_TEMPLATE = "{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {CurrentPageReport}";
 
-	private static final long serialVersionUID = 1L;
-
 	public ComponentsConstantsBacking() {
 		super();
 	}

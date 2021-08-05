@@ -15,11 +15,13 @@ public class SistemaBacking extends AbstractBacking {
 
 	private static final long serialVersionUID = 1L;
 
+	@SuppressWarnings("unused")
 	@Inject
 	private SistemaBean sistemaBean;
 
 	private String versaoBanco;
 	private String versaoAplicacao;
+	@SuppressWarnings("unused")
 	private SistemaVersao sistemaVersao;
 
 	private boolean versaoIncorreta = false;
