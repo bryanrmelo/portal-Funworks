@@ -12,3 +12,7 @@
 .tabela-bg {
 	background-color: #cccccc;
 }
+
+.ui-editable-column {
+	cursor: text !important;	
+}

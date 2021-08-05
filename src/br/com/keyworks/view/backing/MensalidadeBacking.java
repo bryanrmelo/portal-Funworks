@@ -8,7 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.primefaces.model.UploadedFile;
+import org.primefaces.event.CellEditEvent;
 import br.com.keyworks.framework.faces.backing.AbstractBacking;
 import br.com.keyworks.model.entities.administracao.Mensalidade;
 import br.com.keyworks.services.MensalidadeService;
@@ -30,8 +30,6 @@ public class MensalidadeBacking extends AbstractBacking {
 	private MensalidadeService mensalidadeService;
 
 	private String nome;
-
-	private UploadedFile imagem;
 
 	private List<Mensalidade> listaMensalidades;
 
@@ -66,6 +64,22 @@ public class MensalidadeBacking extends AbstractBacking {
 
 	}
 
+	public void listenerObservacaoEdit(CellEditEvent event) {
+		Mensalidade mensalidade = listaMensalidades.get(event.getRowIndex());
+		mensalidade.setObservacao((String) event.getNewValue());
+		mensalidadeService.salvarObservacao(mensalidade);
+
+	}
+
+	public void salvarComprovante(Mensalidade mensalidade) {
+		mensalidadeService.salvarComprovante(mensalidade);
+	}
+
+	public String mostrarNomeComprovante(Mensalidade mensalidade) {
+		return "anexo.pdf";
+
+	}
+
 	public String mostrarImagemPagamento(String op) {
 		if (op.equals("Pago")) {
 			return IMG_CHECK_TRUE;
@@ -74,24 +88,12 @@ public class MensalidadeBacking extends AbstractBacking {
 		}
 	}
 
-	public void salvarObservacao(Integer id, String observacao) {
-		mensalidadeService.salvarObservacao(id, observacao);
-	}
-
 	public List<Mensalidade> getListaMensalidades() {
 		return listaMensalidades;
 	}
 
 	public void setListaMensalidades(List<Mensalidade> listaMensalidades) {
 		this.listaMensalidades = listaMensalidades;
-	}
-
-	public UploadedFile getImagem() {
-		return imagem;
-	}
-
-	public void setImagem(UploadedFile imagem) {
-		this.imagem = imagem;
 	}
 
 }

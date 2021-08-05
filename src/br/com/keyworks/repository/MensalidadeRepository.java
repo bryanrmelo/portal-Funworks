@@ -16,7 +16,7 @@ public class MensalidadeRepository {
 	private EntityManagerExtended em;
 
 	public List<Mensalidade> buscarMensalidadesPorId(Integer id) {
-		String jpql = "SELECT m FROM Mensalidade m WHERE idUsuario = :idUsuario";
+		String jpql = "SELECT m FROM Mensalidade m WHERE idUsuario = :idUsuario ORDER BY id ASC";
 		return em.createQuery(jpql, Mensalidade.class).setParameter("idUsuario", id).getResultList();
 	}
 
@@ -27,6 +27,12 @@ public class MensalidadeRepository {
 
 	@Transactional
 	public void salvar(Mensalidade mensalidade) {
+		em.persist(mensalidade);
+	}
+
+	@Transactional
+	public void atualizar(Mensalidade mensalidade) {
 		em.merge(mensalidade);
 	}
+
 }

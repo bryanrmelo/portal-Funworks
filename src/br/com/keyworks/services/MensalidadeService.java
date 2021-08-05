@@ -37,14 +37,22 @@ public class MensalidadeService {
 	}
 
 	public String formatarValor(Double valor) {
-		DecimalFormat formatter = new DecimalFormat("#");
-		return formatter.format(valor);
+		DecimalFormat format = new DecimalFormat("#");
+		return format.format(valor);
 	}
 
-	public void salvarObservacao(Integer id, String observacao) {
-		Mensalidade mensalidade = mensalidadeRepo.buscarMensalidade(id);
-		mensalidade.setObservacao(observacao);
-		mensalidadeRepo.salvar(mensalidade);
+	public void salvarObservacao(Mensalidade mensalidade) {
+		mensalidadeRepo.atualizar(mensalidade);
+	}
+
+	public void salvarComprovante(Mensalidade mensalidade) {
+		try {
+			mensalidade.setComprovante(mensalidade.getComprovanteFile().getContents());
+			mensalidadeRepo.atualizar(mensalidade);
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }
