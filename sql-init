@@ -85,7 +85,7 @@ INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3,
 INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20210501','YYYYMMDD'), 15, 'Pago');
 INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20210601','YYYYMMDD'), 15, 'Pago');
 INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20210701','YYYYMMDD'), 15, 'Pago');
-INSERT INTO mensalidade (idusuario, datavencimento, valor, observacao, pagamento) VALUES (3, TO_DATE('20210801','YYYYMMDD'), 15, 'Observação de teste', 'Pendente');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20210801','YYYYMMDD'), 15, 'Pendente');
 INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20210901','YYYYMMDD'), 15, 'Pendente');
 INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20211001','YYYYMMDD'), 15, 'Pendente');
 INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20211101','YYYYMMDD'), 15, 'Pendente');

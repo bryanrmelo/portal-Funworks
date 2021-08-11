@@ -18,6 +18,10 @@
 	cursor: text !important;
 }
 
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+	background-color: crimson !important;
+	background-image: url();
+}
 
 /*
 .ui-widget-content, .ui-datatable-even, .ui-datatable-odd {
