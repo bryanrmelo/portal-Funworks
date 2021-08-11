@@ -64,9 +64,9 @@
 
             <!-- Navbar vertical -->
             <div class="d-flex align-items-stretch barra-cima">
-                <div class="p-2 flex-fill bd-highlight sidebar-size">
-                    <div class="sticky-top vertical-nav bg-white borda" id="sidebar">
-                        <ul class="nav flex-column bg-white mb-0">
+                <div class="p-2 sidebar-size">
+                    <div class="vertical-nav bg-white borda" id="sidebar">
+                        <ul class="nav flex-sm-column bg-white mb-0">
                             <li class="nav-item">
                                 <a href="../secure/sobre.xhtml" class="nav-link text-dark ps-2 ms-0 me-0"> <b>A Funworks</b> </a>
                             </li>
@@ -100,48 +100,48 @@
                         <p:dataTable id="mensalidades" var="mensalidade" value="#{mensalidadeBack.listaMensalidades}" rowIndexVar="index" editable="true" editMode="cell" update=":form:msgs" widgetVar="uploadDialog" sortMode="single">
                             <p:ajax event="cellEdit" listener="#{mensalidadeBack.listenerObservacaoEdit}" />
 
-                            <p:column headerText="ASSOCIADO(A)" style="width: 20;">
+                            <p:column headerText="ASSOCIADO(A)" style="width: 15%;">
                                 <h:outputText value="#{mensalidadeBack.nomeCompleto(mensalidade.usuario.login)}" />
                             </p:column>
 
-                            <p:column headerText="VALOR">
+                            <p:column headerText="VALOR" style="width: 5%;">
                                 <h:outputText value="R$ #{mensalidadeBack.valorFormatado(mensalidade.valor)}" />
                             </p:column>
 
-                            <p:column headerText="VENCIMENTO">
+                            <p:column headerText="VENCIMENTO" style="width: 13%;" sortBy="#{mensalidade.dataVencimento}" sortOrder="asc">
                                 <h:outputText value="#{mensalidadeBack.dataFormatada(mensalidade.dataVencimento)}" />
                             </p:column>
  
-                            <p:column headerText="COMPROVANTE">
-                                
-                                <h:outputText value="#{mensalidadeBack.mostrarNomeComprovante(mensalidade)}"/>
-                                <i class="fas fa-download float-end align-top"></i>
+                            <p:column headerText="COMPROVANTE" style="width: 17%;">                                
                                
-                               <h:commandButton styleClass="float-end" actionListener="#{mensalidadeBack.abrirModal(index)}" >
-                               		<i class="fas fa-plus-circle float-end align-top"/>
-                               </h:commandButton> 
+                               <h:outputText value="#{mensalidadeBack.mostrarNomeComprovante(mensalidade)}"/>
+                               
+                               <p:commandButton styleClass="float-end" actionListener="#{mensalidadeBack.abrirModal(index)}" icon="fa fa-fw fa-plus-circle" />
+                             
+                               <p:commandButton ajax="false" styleClass="float-end" actionListener="#{mensalidadeBack.downloadComprovante(mensalidade)}" icon="fa fa-fw fa-download" disabled="#{mensalidade.comprovante eq null}">
+                               		<p:fileDownload value="#{mensalidadeBack.comprovanteDownload}"/>
+                               </p:commandButton>
                             </p:column>
 
-                            <p:column headerText="OBSERVAÇÃO">
+                            <p:column headerText="OBSERVAÇÃO" style="width: 20%;">
                                 <p:cellEditor>
                                     <f:facet name="output">
                                         <h:outputText value="#{mensalidade.observacao}" />
                                     </f:facet>
                                     <f:facet name="input">
-                                        <p:inputText value="#{mensalidade.observacao}" style="width: 100%;" label="Observacao" />
+                                        <p:inputText value="#{mensalidade.observacao}" disabled="#{mensalidade.comprovante eq null}" style="width: 100%;" label="Observacao" />
                                     </f:facet>
                                 </p:cellEditor>
                             </p:column>
 
-                            <p:column headerText="STATUS">
+                            <p:column headerText="STATUS" style="width: 10%;" sortBy="#{mensalidade.pagamento}" sortOrder="asc">
                                 <h:graphicImage value="data:image/png;base64,#{mensalidadeBack.mostrarImagemPagamento(mensalidade.pagamento)}" style="max-width: 13px; max-height: 13px; text-align: center;" />
                             </p:column>
+                            
                         </p:dataTable>
-                        
                         
                     </h:form>
                     
-               
                     <p:dialog header="Upload" widgetVar="uploadDialog" responsive="true" closable="true" resizable="false" showEffect="fade" hideEffect="fade" modal="true" position="center" width="70%">
                           
 	                   <h:form class="p-3 mb-0" enctype="multipart/form-data">
@@ -152,10 +152,9 @@
 			               </div>
 				            
 				       </h:form>
+				       
                     </p:dialog>
                     
-                    
-
                     <div class="importante-box">
                         <div class="importante-box-header">
                             <h5 class="text-white m-0 p-2">

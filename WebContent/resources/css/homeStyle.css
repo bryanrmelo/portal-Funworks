@@ -58,13 +58,11 @@ nav p, h3 {
 }
 
 .sidebar-size {
-	min-width: 250px;
+	min-width: 20%;
 	max-width: 250px;
 }
 
-input, textarea{
-	border: 2px solid black !important;
-}
+
 
 .botoes {
 	min-width: 120px;

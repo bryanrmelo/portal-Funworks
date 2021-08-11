@@ -47,8 +47,17 @@ public class MensalidadeService {
 	}
 
 	public Mensalidade salvarComprovante(Mensalidade mensalidade, UploadedFile comprovante) {
+		mensalidade.setNomeComprovante(comprovante.getFileName());
 		mensalidade.setComprovante(comprovante.getContents());
 		return mensalidadeRepo.atualizar(mensalidade);
+	}
+
+	public byte[] getComprovante(Integer id) {
+		return mensalidadeRepo.buscarMensalidade(id).getComprovante();
+	}
+
+	public String getNomeComprovante(Integer id) {
+		return mensalidadeRepo.buscarMensalidade(id).getNomeComprovante();
 	}
 
 }

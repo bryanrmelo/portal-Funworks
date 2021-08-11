@@ -109,6 +109,10 @@
 		<extension>ico</extension>
 		<mime-type>image/x-icon</mime-type>
 	</mime-mapping>
+	<mime-mapping>
+		<extension>jsp</extension>
+		<mime-type>application/jsp</mime-type>
+	</mime-mapping>
 	<session-config>
 		<session-timeout>60</session-timeout>
 	</session-config>

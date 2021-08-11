@@ -54,6 +54,7 @@ CREATE TABLE mensalidade
 	dataVencimento date,
 	valor decimal,
 	comprovante bigint,
+	nomeComprovante character varying(255),
 	observacao character varying(255),
 	pagamento character varying(255),
 	CONSTRAINT pk_mensalidade PRIMARY KEY(id),

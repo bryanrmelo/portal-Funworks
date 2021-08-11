@@ -29,3 +29,7 @@ input[type=date] {
 .ui-c {
 	color: white;
 }
+
+input, textarea{
+	border: 2px solid black !important;
+}

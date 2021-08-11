@@ -40,6 +40,9 @@ public class Mensalidade implements Serializable {
 	@Column(name = "comprovante")
 	private byte[] comprovante;
 
+	@Column(name = "nomeComprovante")
+	private String nomeComprovante;
+
 	@Column(name = "observacao")
 	private String observacao;
 
@@ -84,6 +87,14 @@ public class Mensalidade implements Serializable {
 
 	public void setComprovante(byte[] comprovante) {
 		this.comprovante = comprovante;
+	}
+
+	public String getNomeComprovante() {
+		return nomeComprovante;
+	}
+
+	public void setNomeComprovante(String nomeComprovante) {
+		this.nomeComprovante = nomeComprovante;
 	}
 
 	public String getObservacao() {

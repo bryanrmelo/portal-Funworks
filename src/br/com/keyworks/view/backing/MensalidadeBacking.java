@@ -2,6 +2,8 @@ package br.com.keyworks.view.backing;
 
 import static br.com.keyworks.constants.Constants.IMG_CHECK_FALSE;
 import static br.com.keyworks.constants.Constants.IMG_CHECK_TRUE;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -10,6 +12,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.CellEditEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 import br.com.keyworks.framework.faces.backing.AbstractBacking;
 import br.com.keyworks.model.entities.administracao.Mensalidade;
@@ -34,6 +38,8 @@ public class MensalidadeBacking extends AbstractBacking {
 	private String nome;
 
 	private UploadedFile comprovante;
+
+	private StreamedContent comprovanteDownload;
 
 	private List<Mensalidade> listaMensalidades;
 
@@ -78,11 +84,9 @@ public class MensalidadeBacking extends AbstractBacking {
 	}
 
 	public void salvarComprovante() {
-		Mensalidade mensalidadeSalva = mensalidadeService.salvarComprovante(listaMensalidades.get(indexSelecionado), comprovante);
-		listaMensalidades.add(indexSelecionado, mensalidadeSalva);
+		mensalidadeService.salvarComprovante(listaMensalidades.get(indexSelecionado), comprovante);
 	}
 
-	// limpar teu file upload
 	@SuppressWarnings("deprecation")
 	public void abrirModal(int index) {
 		comprovante = null;
@@ -92,8 +96,15 @@ public class MensalidadeBacking extends AbstractBacking {
 	}
 
 	public String mostrarNomeComprovante(Mensalidade mensalidade) {
-		return "anexo.pdf";
+		return mensalidadeService.getNomeComprovante(mensalidade.getId());
+	}
 
+	public void downloadComprovante(Mensalidade mensalidade) {
+		// FileUtil.downloadFile("comprovante", mensalidadeService.getComprovante(mensalidade.getId()));
+		InputStream stream = new ByteArrayInputStream(mensalidadeService.getComprovante(mensalidade.getId()));
+		this.comprovanteDownload = new DefaultStreamedContent(stream, "application/pdf",
+						"comprovante" + dataFormatada(mensalidade.getDataVencimento()) + ".pdf");
+		System.out.println(comprovanteDownload.toString());
 	}
 
 	public String mostrarImagemPagamento(String op) {
@@ -118,6 +129,14 @@ public class MensalidadeBacking extends AbstractBacking {
 
 	public void setComprovante(UploadedFile comprovante) {
 		this.comprovante = comprovante;
+	}
+
+	public StreamedContent getComprovanteDownload() {
+		return comprovanteDownload;
+	}
+
+	public void setComprovanteDownload(StreamedContent comprovanteDownload) {
+		this.comprovanteDownload = comprovanteDownload;
 	}
 
 }
