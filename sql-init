@@ -72,6 +72,7 @@ SELECT * FROM mensalidade ORDER BY id ASC ;
 
 DELETE FROM usuario WHERE id = 1;
 
+INSERT INTO usuario (login, senha) VALUES ('bryan.melo', '482b564fc44219f99e9d5a26f252c1d8');
 INSERT INTO usuario (login, senha) VALUES ('teste.teste', '482b564fc44219f99e9d5a26f252c1d8');
 INSERT INTO usuario (login, senha, nome, celular, whatsapp, endereco, imagem, nascimento, admissao) VALUES ('bryan.melo', '482b564fc44219f99e9d5a26f252c1d8', 'Bryan Ribeiro Melo', 54981341338, 54981341338, 'Rua das Rosas 1040', 463792107, '2003-02-03', '2021-05-12');
 INSERT INTO usuario (login, senha, nome, celular, whatsapp, endereco, nascimento, admissao) VALUES ('bryan.melo', '482b564fc44219f99e9d5a26f252c1d8', 'Bryan Ribeiro Melo', 54981341338, 54981341338, 'Rua das Rosas 1040', '2003-02-03', '2021-05-12');

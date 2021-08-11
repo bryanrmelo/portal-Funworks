@@ -2,6 +2,7 @@
 	background-image: linear-gradient(to right, #e30030, #351396);
 	outline: 2px solid black;
 }
+
 .importante-box {
 	font-weight: bold;
 	margin-top: 30px;
@@ -14,5 +15,24 @@
 }
 
 .ui-editable-column {
-	cursor: text !important;	
+	cursor: text !important;
 }
+
+
+/*
+.ui-widget-content, .ui-datatable-even, .ui-datatable-odd {
+	border: 1px solid black !important;
+	border-bottom: 1px solid white !important;
+	border-top: 1px solid white !important;
+}
+
+table {
+	border-bottom: 2px solid black;
+}
+.ui-datatable thead th, 
+.ui-datatable tbody td, 
+.ui-datatable tfoot td,
+.ui-datatable tfoot th {
+	border-width: 0 !important;
+}
+*/

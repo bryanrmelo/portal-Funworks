@@ -13,8 +13,6 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-import org.primefaces.model.UploadedFile;
 
 @Entity
 @Table(name = "mensalidade")
@@ -47,9 +45,6 @@ public class Mensalidade implements Serializable {
 
 	@Column(name = "pagamento")
 	private String pagamento;
-
-	@Transient
-	private UploadedFile comprovanteFile;
 
 	public Integer getId() {
 		return id;
@@ -107,18 +102,9 @@ public class Mensalidade implements Serializable {
 		this.pagamento = pagamento;
 	}
 
-	public UploadedFile getComprovanteFile() {
-		return comprovanteFile;
-	}
-
-	public void setComprovanteFile(UploadedFile comprovanteFile) {
-		this.comprovanteFile = comprovanteFile;
-	}
-
 	@Override
 	public String toString() {
 		return "Mensalidade [id=" + id + ", usuario=" + usuario + ", dataVencimento=" + dataVencimento + ", valor=" + valor + ", comprovante="
-						+ Arrays.toString(comprovante) + ", observacao=" + observacao + ", pagamento=" + pagamento + ", comprovanteFile="
-						+ comprovanteFile + "]";
+						+ Arrays.toString(comprovante) + ", observacao=" + observacao + ", pagamento=" + pagamento + "," + "]";
 	}
 }

@@ -3,7 +3,6 @@ package br.com.keyworks.repository;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 import br.com.keyworks.model.core.jpa.EntityManagerExtended;
 import br.com.keyworks.model.core.qualifier.DataRepository;
 import br.com.keyworks.model.entities.administracao.Mensalidade;
@@ -25,14 +24,12 @@ public class MensalidadeRepository {
 		return em.createQuery(jpql, Mensalidade.class).setParameter("id", id).getSingleResult();
 	}
 
-	@Transactional
 	public void salvar(Mensalidade mensalidade) {
 		em.persist(mensalidade);
 	}
 
-	@Transactional
-	public void atualizar(Mensalidade mensalidade) {
-		em.merge(mensalidade);
+	public Mensalidade atualizar(Mensalidade mensalidade) {
+		return em.merge(mensalidade);
 	}
 
 }

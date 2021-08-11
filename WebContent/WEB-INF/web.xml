@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app id="WebApp_ID" version="3.1"
-	xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
 	<display-name>portal</display-name>
 
@@ -15,9 +16,23 @@
 	</context-param>
 
 	<context-param>
+		<param-name>primefaces.UPLOADER</param-name>
+		<param-value>native</param-value>
+	</context-param>
+
+	<context-param>
 		<param-name>primefaces.THEME</param-name>
 		<param-value>bootstrap</param-value>
 	</context-param>
+
+	<filter>
+		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+		<filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>PrimeFaces FileUpload Filter</filter-name>
+		<servlet-name>Faces Servlet</servlet-name>
+	</filter-mapping>
 
 	<!-- JSF mapping -->
 	<servlet>
@@ -39,35 +54,35 @@
 		<welcome-file>/public/login.xhtml</welcome-file>
 	</welcome-file-list>
 	<error-page>
-    	<error-code>404</error-code>
-    	<location>/error.xhtml</location>  
-	</error-page> 
-	
+		<error-code>404</error-code>
+		<location>/error.xhtml</location>
+	</error-page>
+
 	<security-constraint>
-        <web-resource-collection>
-            <web-resource-name></web-resource-name>
-            <url-pattern>/secure/*</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <role-name>users</role-name>
-        </auth-constraint>
-    </security-constraint>
-    <login-config>
-        <auth-method>FORM</auth-method>
-        <realm-name>PORTAL_REALM</realm-name>
-        <form-login-config>
-            <form-login-page>/public/login.xhtml</form-login-page>
-            <form-error-page>/public/loginError.jsf</form-error-page>
-        </form-login-config>
-    </login-config>
-    <security-role>
-        <description>Usuários autorizados</description>
-        <role-name>users</role-name>
-    </security-role>
-    <welcome-file-list>
-        <welcome-file>/public/login.xhtml</welcome-file>
-    </welcome-file-list>
-	
+		<web-resource-collection>
+			<web-resource-name></web-resource-name>
+			<url-pattern>/secure/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>users</role-name>
+		</auth-constraint>
+	</security-constraint>
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<realm-name>PORTAL_REALM</realm-name>
+		<form-login-config>
+			<form-login-page>/public/login.xhtml</form-login-page>
+			<form-error-page>/public/loginError.jsf</form-error-page>
+		</form-login-config>
+	</login-config>
+	<security-role>
+		<description>Usuários autorizados</description>
+		<role-name>users</role-name>
+	</security-role>
+	<welcome-file-list>
+		<welcome-file>/public/login.xhtml</welcome-file>
+	</welcome-file-list>
+
 
 	<!-- web fonts -->
 	<mime-mapping>
@@ -97,5 +112,5 @@
 	<session-config>
 		<session-timeout>60</session-timeout>
 	</session-config>
-	
+
 </web-app>

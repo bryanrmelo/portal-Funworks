@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import org.primefaces.model.UploadedFile;
 import br.com.keyworks.exceptions.UsuarioNaoEncontradoException;
 import br.com.keyworks.model.entities.administracao.Mensalidade;
 import br.com.keyworks.model.entities.administracao.Usuario;
@@ -45,14 +46,9 @@ public class MensalidadeService {
 		mensalidadeRepo.atualizar(mensalidade);
 	}
 
-	public void salvarComprovante(Mensalidade mensalidade) {
-		try {
-			mensalidade.setComprovante(mensalidade.getComprovanteFile().getContents());
-			mensalidadeRepo.atualizar(mensalidade);
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-		}
-
+	public Mensalidade salvarComprovante(Mensalidade mensalidade, UploadedFile comprovante) {
+		mensalidade.setComprovante(comprovante.getContents());
+		return mensalidadeRepo.atualizar(mensalidade);
 	}
 
 }

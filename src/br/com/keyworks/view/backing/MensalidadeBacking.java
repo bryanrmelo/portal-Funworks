@@ -8,7 +8,9 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.CellEditEvent;
+import org.primefaces.model.UploadedFile;
 import br.com.keyworks.framework.faces.backing.AbstractBacking;
 import br.com.keyworks.model.entities.administracao.Mensalidade;
 import br.com.keyworks.services.MensalidadeService;
@@ -31,7 +33,11 @@ public class MensalidadeBacking extends AbstractBacking {
 
 	private String nome;
 
+	private UploadedFile comprovante;
+
 	private List<Mensalidade> listaMensalidades;
+
+	private int indexSelecionado;
 
 	@PostConstruct
 	public void Init() {
@@ -71,8 +77,18 @@ public class MensalidadeBacking extends AbstractBacking {
 
 	}
 
-	public void salvarComprovante(Mensalidade mensalidade) {
-		mensalidadeService.salvarComprovante(mensalidade);
+	public void salvarComprovante() {
+		Mensalidade mensalidadeSalva = mensalidadeService.salvarComprovante(listaMensalidades.get(indexSelecionado), comprovante);
+		listaMensalidades.add(indexSelecionado, mensalidadeSalva);
+	}
+
+	// limpar teu file upload
+	@SuppressWarnings("deprecation")
+	public void abrirModal(int index) {
+		comprovante = null;
+		indexSelecionado = index;
+		RequestContext rc = RequestContext.getCurrentInstance();
+		rc.execute("PF('uploadDialog').show()");
 	}
 
 	public String mostrarNomeComprovante(Mensalidade mensalidade) {
@@ -94,6 +110,14 @@ public class MensalidadeBacking extends AbstractBacking {
 
 	public void setListaMensalidades(List<Mensalidade> listaMensalidades) {
 		this.listaMensalidades = listaMensalidades;
+	}
+
+	public UploadedFile getComprovante() {
+		return comprovante;
+	}
+
+	public void setComprovante(UploadedFile comprovante) {
+		this.comprovante = comprovante;
 	}
 
 }

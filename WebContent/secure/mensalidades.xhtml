@@ -5,8 +5,7 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:p="http://primefaces.org/ui"
->
+    xmlns:p="http://primefaces.org/ui">
     <h:head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -35,9 +34,7 @@
             <!-- Navbar -->
             <nav class="navbar navbar-light cor-gradiente">
                 <div class="container-fluid">
-                    <a href="../secure/home.xhtml">
-                        <img class="navbar-brand" src="../resources/imagens/funworks-logo.png" alt="Logo Funworks" width="240px" />
-                    </a>
+                    <a href="../secure/home.xhtml"> <img class="navbar-brand" src="../resources/imagens/funworks-logo.png" alt="Logo Funworks" width="240px" /> </a>
                     <h3 class="nav-item text-white text-center">Portal da Transparência</h3>
                     <p class="nav-item text-white align-text-top">
                         <i class="fas fa-user" style="padding-right: 5px;"></i>
@@ -46,22 +43,13 @@
                     </p>
                     <ul class="m-0">
                         <li class="nav-item dropdown" style="list-style-type: none;">
-                            <p class="dropdown-toggle text-white align-text-top" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Configurações
-                                <i class="fas fa-cog"></i>
-                            </p>
+                            <p class="dropdown-toggle text-white align-text-top" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Configurações <i class="fas fa-cog"></i></p>
                             <ul class="dropdown-menu p-2 mt-1" aria-labelledby="navbarDropdown">
                                 <li>
-                                    <a class="dropdown-item m-0" style="width: 150px;" href="../secure/home.xhtml">
-                                        Página inicial
-                                        <i class="fas fa-home float-end"></i>
-                                    </a>
+                                    <a class="dropdown-item m-0" style="width: 150px;" href="../secure/home.xhtml"> Página inicial <i class="fas fa-home float-end"></i> </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item m-0 mt-2" href="../secure/recuperarSenhaLogado.xhtml">
-                                        Alterar senha
-                                        <i class="fas fa-key float-end"></i>
-                                    </a>
+                                    <a class="dropdown-item m-0 mt-2" href="../secure/recuperarSenhaLogado.xhtml"> Alterar senha <i class="fas fa-key float-end"></i> </a>
                                 </li>
                                 <li>
                                     <h:form class="m-0">
@@ -80,24 +68,17 @@
                     <div class="sticky-top vertical-nav bg-white borda" id="sidebar">
                         <ul class="nav flex-column bg-white mb-0">
                             <li class="nav-item">
-                                <a href="../secure/sobre.xhtml" class="nav-link text-dark">
-                                    <b>A Funworks</b>
-                                </a>
+                                <a href="../secure/sobre.xhtml" class="nav-link text-dark ps-2 ms-0 me-0"> <b>A Funworks</b> </a>
                             </li>
                             <li class="nav-item">
-                                <a href="../secure/mensalidades.xhtml" class="nav-link text-dark">
-                                    <b>Minhas Mensalidades</b>
-                                </a>
+                                <a href="../secure/mensalidades.xhtml" class="nav-link text-dark ps-2 ms-0 me-0"> <b>Minhas Mensalidades</b> </a>
                             </li>
                             <li class="nav-item dropdown">
-                                <p class="p1 dropdown-toggle nav-link text-dark" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <b>Meu Cadastro</b>
-                                    <i class="fas fa-angle-down float-end" />
+                                <p class="p1 dropdown-toggle nav-link text-dark ps-2 ms-0 me-0" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <b>Meu Cadastro</b> <i class="fas fa-angle-down float-end ps-2" />
                                 </p>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li>
-                                        <a class="dropdown-item m-0 pt-0 pb-0 ps-3 pe-3" style="background-color: #ffffff !important;" href="../secure/editarPerfil.xhtml"> Editar perfil </a>
-                                    </li>
+                                    <li><a class="dropdown-item m-0 pt-0 pb-0 ps-3 pe-3" style="background-color: #ffffff !important;" href="../secure/editarPerfil.xhtml"> Editar perfil </a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -106,7 +87,7 @@
 
                 <!-- Conteúdo -->
                 <div class="p-4 flex-fill bd-highlight" style="border-left: 2px solid black;">
-                    <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" />
+                    <p:messages id="messages" showDetail="false" closable="true" />
                     <div class="container-fluid cor-gradiente borda">
                         <div>
                             <h2 class="text-white m-0 p-3">
@@ -116,10 +97,10 @@
                     </div>
 
                     <h:form class="mt-3">
-                        <p:dataTable var="mensalidade" value="#{mensalidadeBack.listaMensalidades}" editable="true" editMode="cell" update=":form:msgs">
+                        <p:dataTable id="mensalidades" var="mensalidade" value="#{mensalidadeBack.listaMensalidades}" rowIndexVar="index" editable="true" editMode="cell" update=":form:msgs" widgetVar="uploadDialog" sortMode="single">
                             <p:ajax event="cellEdit" listener="#{mensalidadeBack.listenerObservacaoEdit}" />
 
-                            <p:column headerText="ASSOCIADO(A)">
+                            <p:column headerText="ASSOCIADO(A)" style="width: 20;">
                                 <h:outputText value="#{mensalidadeBack.nomeCompleto(mensalidade.usuario.login)}" />
                             </p:column>
 
@@ -130,20 +111,15 @@
                             <p:column headerText="VENCIMENTO">
                                 <h:outputText value="#{mensalidadeBack.dataFormatada(mensalidade.dataVencimento)}" />
                             </p:column>
-
+ 
                             <p:column headerText="COMPROVANTE">
-                            
-                                <h:form enctype="multipart/form-data">
-                                    <p:fileUpload value="#{mensalidade.comprovanteFile}" fileLimit="1" allowTypes="/(\.|\/)(pdf)$/" validateContentType="true" accept=".pdf" />
-                                    <h:commandButton action="#{mensalidadeBack.salvarComprovante(mensalidade)}">
-                                        <i class="fas fa-plus-circle float-end align-top"></i>
-                                    </h:commandButton>
-                                </h:form>
-
-                                <!-- 
+                                
                                 <h:outputText value="#{mensalidadeBack.mostrarNomeComprovante(mensalidade)}"/>
                                 <i class="fas fa-download float-end align-top"></i>
-                                 -->
+                               
+                               <h:commandButton styleClass="float-end" actionListener="#{mensalidadeBack.abrirModal(index)}" >
+                               		<i class="fas fa-plus-circle float-end align-top"/>
+                               </h:commandButton> 
                             </p:column>
 
                             <p:column headerText="OBSERVAÇÃO">
@@ -160,9 +136,25 @@
                             <p:column headerText="STATUS">
                                 <h:graphicImage value="data:image/png;base64,#{mensalidadeBack.mostrarImagemPagamento(mensalidade.pagamento)}" style="max-width: 13px; max-height: 13px; text-align: center;" />
                             </p:column>
-                            
                         </p:dataTable>
+                        
+                        
                     </h:form>
+                    
+               
+                    <p:dialog header="Upload" widgetVar="uploadDialog" responsive="true" closable="true" resizable="false" showEffect="fade" hideEffect="fade" modal="true" position="center" width="70%">
+                          
+	                   <h:form class="p-3 mb-0" enctype="multipart/form-data">
+	           
+			               <div class="flex-fill col-2">
+			                  	<p:fileUpload mode="simple" skinSimple="true" label="Carregar imagem" value="#{mensalidadeBack.comprovante}" />
+			              		<h:commandButton type="submit" actionListener="#{mensalidadeBack.salvarComprovante()}"></h:commandButton>
+			               </div>
+				            
+				       </h:form>
+                    </p:dialog>
+                    
+                    
 
                     <div class="importante-box">
                         <div class="importante-box-header">
