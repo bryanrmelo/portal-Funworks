@@ -24,6 +24,10 @@
 	background-image: url();
 }
 
+.ui-fileupload-simple, input[type=submit] {
+	display: inline;	
+}
+
 /*
 td div, gridcell i {
 	display: inline-block;

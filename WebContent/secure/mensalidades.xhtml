@@ -1,185 +1,129 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<html
-    xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Portal - Minhas Mensalidades</title>
-        <link rel="icon" href="../resources/imagens/fun-icon.png" />
-        <link rel="stylesheet" href="../resources/css/homeStyle.css" />
-        <link rel="stylesheet" href="../resources/css/facesMessageStyle.css" />
-        <link rel="stylesheet" href="../resources/css/mensalidadeStyle.css" />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
-        <link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css" />
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Portal - Minhas Mensalidades</title>
+	<link rel="icon" href="../resources/imagens/fun-icon.png" />
+	<link rel="stylesheet" href="../resources/css/mensalidadeStyle.css" />
+</h:head>
+<h:body>
+	<ui:insert name="template">
+		<ui:include src="/resources/templates/headers.xhtml" />
+		<p:messages id="messages" showDetail="false" closable="true" />
+		<div class="container-fluid cor-gradiente borda">
+			<div>
+				<h2 class="text-white m-0 p-3">
+					<h:outputText
+						value="Minhas Mensalidades > #{mensalidadeBack.nomeCompleto()}" />
+				</h2>
+			</div>
+		</div>
 
-        <style>
-            body {
-                background-color: #e1e1e1;
-                font-family: "Roboto", sans-serif;
-            }
+		<h:form class="mt-3">
+			<p:dataTable id="mensalidades" var="mensalidade"
+				value="#{mensalidadeBack.listaMensalidades}" rowIndexVar="index"
+				editable="true" editMode="cell" update=":form:msgs"
+				widgetVar="uploadDialog" sortMode="single">
+				<p:ajax event="cellEdit"
+					listener="#{mensalidadeBack.listenerObservacaoEdit}" />
 
-            .dropdown-toggle::after {
-                display: none;
-            }
-        </style>
-    </h:head>
-    <h:body>
-        <div class="wrapper">
-            <!-- Navbar -->
-            <nav class="navbar navbar-light cor-gradiente">
-                <div class="container-fluid">
-                    <a href="../secure/home.xhtml"> <img class="navbar-brand" src="../resources/imagens/funworks-logo.png" alt="Logo Funworks" width="240px" /> </a>
-                    <h3 class="nav-item text-white text-center">Portal da Transparência</h3>
-                    <p class="nav-item text-white align-text-top">
-                        <i class="fas fa-user" style="padding-right: 5px;"></i>
+				<p:column headerText="ASSOCIADO(A)" style="width: 15%;">
+					<h:outputText
+						value="#{mensalidadeBack.nomeCompleto(mensalidade.usuario.login)}" />
+				</p:column>
 
-                        <h:outputText value="Olá, #{mensalidadeBack.nomeParcial()}" />
-                    </p>
-                    <ul class="m-0">
-                        <li class="nav-item dropdown" style="list-style-type: none;">
-                            <p class="dropdown-toggle text-white align-text-top" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Configurações <i class="fas fa-cog"></i></p>
-                            <ul class="dropdown-menu p-2 mt-1" aria-labelledby="navbarDropdown">
-                                <li>
-                                    <a class="dropdown-item m-0" style="width: 150px;" href="../secure/home.xhtml"> Página inicial <i class="fas fa-home float-end"></i> </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item m-0 mt-2" href="../secure/recuperarSenhaLogado.xhtml"> Alterar senha <i class="fas fa-key float-end"></i> </a>
-                                </li>
-                                <li>
-                                    <h:form class="m-0">
-                                        <p:commandLink styleClass="dropdown-item m-0 mt-2" action="#{login.logout()}"> Sair <i class="fas fa-sign-out-alt float-end"></i> </p:commandLink>
-                                    </h:form>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+				<p:column headerText="VALOR" style="width: 5%;">
+					<h:outputText
+						value="R$ #{mensalidadeBack.valorFormatado(mensalidade.valor)}" />
+				</p:column>
 
-            <!-- Navbar vertical -->
-            <div class="d-flex align-items-stretch barra-cima">
-                <div class="p-2 sidebar-size">
-                    <div class="vertical-nav bg-white borda" id="sidebar">
-                        <ul class="nav flex-sm-column bg-white mb-0">
-                            <li class="nav-item">
-                                <a href="../secure/sobre.xhtml" class="nav-link text-dark ps-2 ms-0 me-0"> <b>A Funworks</b> </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../secure/mensalidades.xhtml" class="nav-link text-dark ps-2 ms-0 me-0"> <b>Minhas Mensalidades</b> </a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <p class="p1 dropdown-toggle nav-link text-dark ps-2 ms-0 me-0" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <b>Meu Cadastro</b> <i class="fas fa-angle-down float-end ps-2" />
-                                </p>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item m-0 pt-0 pb-0 ps-3 pe-3" style="background-color: #ffffff !important;" href="../secure/editarPerfil.xhtml"> Editar perfil </a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+				<p:column headerText="VENCIMENTO" style="width: 13%;"
+					sortBy="#{mensalidade.dataVencimento}" sortOrder="asc">
+					<h:outputText
+						value="#{mensalidadeBack.dataFormatada(mensalidade.dataVencimento)}" />
+				</p:column>
 
-                <!-- Conteúdo -->
-                <div class="p-4 flex-fill bd-highlight" style="border-left: 2px solid black;">
-                    <p:messages id="messages" showDetail="false" closable="true" />
-                    <div class="container-fluid cor-gradiente borda">
-                        <div>
-                            <h2 class="text-white m-0 p-3">
-                                <h:outputText value="Minhas Mensalidades > #{mensalidadeBack.nomeCompleto()}" />
-                            </h2>
-                        </div>
-                    </div>
+				<p:column headerText="COMPROVANTE" style="width: 17%;">
+					<h:outputText
+						value="#{mensalidadeBack.mostrarNomeComprovante(mensalidade)}" />
 
-                    <h:form class="mt-3">
-                        <p:dataTable id="mensalidades" var="mensalidade" value="#{mensalidadeBack.listaMensalidades}" rowIndexVar="index" editable="true" editMode="cell" update=":form:msgs" widgetVar="uploadDialog" sortMode="single">
-                            <p:ajax event="cellEdit" listener="#{mensalidadeBack.listenerObservacaoEdit}" />
+					<p:commandButton styleClass="float-end"
+						actionListener="#{mensalidadeBack.abrirModal(index)}"
+						icon="fa fa-fw fa-plus-circle" />
 
-                            <p:column headerText="ASSOCIADO(A)" style="width: 15%;">
-                                <h:outputText value="#{mensalidadeBack.nomeCompleto(mensalidade.usuario.login)}" />
-                            </p:column>
+					<p:commandButton ajax="false" styleClass="float-end"
+						actionListener="#{mensalidadeBack.downloadComprovante(mensalidade)}"
+						icon="fa fa-fw fa-download"
+						disabled="#{mensalidade.comprovante eq null}">
+						<p:fileDownload value="#{mensalidadeBack.comprovanteDownload}" />
+					</p:commandButton>
+				</p:column>
 
-                            <p:column headerText="VALOR" style="width: 5%;">
-                                <h:outputText value="R$ #{mensalidadeBack.valorFormatado(mensalidade.valor)}" />
-                            </p:column>
+				<p:column headerText="OBSERVAÇÃO" style="width: 20%;">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{mensalidade.observacao}"
+								style="word-wrap: break-word;" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{mensalidade.observacao}"
+								style="width: 100%;" label="Observacao" />
+						</f:facet>
+					</p:cellEditor>
+					<i class="far fa-edit float-end"></i>
+				</p:column>
 
-                            <p:column headerText="VENCIMENTO" style="width: 13%;" sortBy="#{mensalidade.dataVencimento}" sortOrder="asc">
-                                <h:outputText value="#{mensalidadeBack.dataFormatada(mensalidade.dataVencimento)}" />
-                            </p:column>
- 
-                            <p:column headerText="COMPROVANTE" style="width: 17%;">                                
-                               
-                               <h:outputText value="#{mensalidadeBack.mostrarNomeComprovante(mensalidade)}"/>
-                               
-                               <p:commandButton styleClass="float-end" actionListener="#{mensalidadeBack.abrirModal(index)}" icon="fa fa-fw fa-plus-circle" />
-                             
-                               <p:commandButton ajax="false" styleClass="float-end" actionListener="#{mensalidadeBack.downloadComprovante(mensalidade)}" icon="fa fa-fw fa-download" disabled="#{mensalidade.comprovante eq null}">
-                               		<p:fileDownload value="#{mensalidadeBack.comprovanteDownload}"/>
-                               </p:commandButton>
-                            </p:column>
+				<p:column headerText="STATUS" style="width: 10%;"
+					sortBy="#{mensalidade.pagamento}" sortOrder="asc">
+					<h:graphicImage
+						value="data:image/png;base64,#{mensalidadeBack.mostrarImagemPagamento(mensalidade.pagamento)}"
+						style="max-width: 13px; max-height: 13px; text-align: center;" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
 
-                            <p:column headerText="OBSERVAÇÃO" style="width: 20%;">
-                                <p:cellEditor>
-                                    <f:facet name="output">
-                                        <h:outputText value="#{mensalidade.observacao}" style="word-wrap: break-word;"/>
-                                    </f:facet>
-                                    <f:facet name="input">
-                                        <p:inputText value="#{mensalidade.observacao}" style="width: 100%;" label="Observacao" />
-                                    </f:facet>
-                                </p:cellEditor>
-                                <i class="far fa-edit float-end"></i>
-                            </p:column>
+		<p:dialog
+			style="margin-bottom: 200px; position: fixed; bottom: 10; max-height: 200px; max-width: 400px;"
+			header="Upload" widgetVar="uploadDialog" responsive="true"
+			closable="true" resizable="false" showEffect="fade" hideEffect="fade"
+			modal="true" width="70%">
+			<h:form class="p-3 mb-0" enctype="multipart/form-data"
+				acceptcharset="UTF-8">
+				<div class="flex-fill col-2">
+					<p:fileUpload mode="simple" skinSimple="true"
+						label="Carregar imagem" value="#{mensalidadeBack.comprovante}"
+						accept="application/pdf" />
+					<h:commandButton styleClass="mt-3" type="submit" value="Enviar"
+						actionListener="#{mensalidadeBack.salvarComprovante()}"></h:commandButton>
+				</div>
+			</h:form>
+		</p:dialog>
 
-                            <p:column headerText="STATUS" style="width: 10%;" sortBy="#{mensalidade.pagamento}" sortOrder="asc">
-                                <h:graphicImage value="data:image/png;base64,#{mensalidadeBack.mostrarImagemPagamento(mensalidade.pagamento)}" style="max-width: 13px; max-height: 13px; text-align: center;" />
-                            </p:column>
-                            
-                        </p:dataTable>
-                        
-                    </h:form>
-                    
-                    <p:dialog header="Upload" widgetVar="uploadDialog" responsive="true" closable="true" resizable="false" showEffect="fade" hideEffect="fade" modal="true" position="center" width="70%">
-                          
-	                   <h:form class="p-3 mb-0" enctype="multipart/form-data" acceptcharset="UTF-8">
-	           
-			               <div class="flex-fill col-2">
-			                  	<p:fileUpload  mode="simple" skinSimple="true" label="Carregar imagem" value="#{mensalidadeBack.comprovante}" accept="application/pdf" />
-			              		<h:commandButton styleClass="mt-3" type="submit" value="Enviar" actionListener="#{mensalidadeBack.salvarComprovante()}"></h:commandButton>
-			               </div>
-				            
-				       </h:form>
-				       
-                    </p:dialog>
-                    
-                    <div class="importante-box">
-                        <div class="importante-box-header">
-                            <h5 class="text-white m-0 p-2">
-                                <b>IMPORTANTE</b>
-                            </h5>
-                        </div>
-                        <div class="p-2">
-                            <p>Prezado(a),</p>
-                            <p>Pedimos que ao realizar o pagamento das mensalidades Funworks, utilize somente os dados abaixo:</p>
-                            <p>Chave PIX: funworks@keyworks.com.br</p>
-                            <p>(O comprovante de pagamento dever ser anexado em formato PDF.)</p>
-                            <p class="m-0">Caso alguém não possua PIX, segue conta para a transferência:</p>
-                            <p class="m-0">Banco: Nu Pagamentos S.A (260) - Agência: 0001 - Conta Corrrente: 6617159-3</p>
-                            <p class="m-0">Cássio Luciano Colussi - CPF: 897.819.610-15</p>
-                            <p>Após a confirmação do pagamento, o status será atualizado.</p>
-                            <p>A Funworks Agradece!</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <script src="../resources/js/sorttable.js"></script>
-        <script src="https://kit.fontawesome.com/46fef06780.js" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    </h:body>
+		<div class="importante-box">
+			<div class="importante-box-header">
+				<h5 class="text-white m-0 p-2">
+					<b>IMPORTANTE</b>
+				</h5>
+			</div>
+			<div class="p-2">
+				<p>Prezado(a),</p>
+				<p>Pedimos que ao realizar o pagamento das mensalidades
+					Funworks, utilize somente os dados abaixo:</p>
+				<p>Chave PIX: funworks@keyworks.com.br</p>
+				<p>(O comprovante de pagamento dever ser anexado em formato
+					PDF.)</p>
+				<p class="m-0">Caso alguém não possua PIX, segue conta para a
+					transferência:</p>
+				<p class="m-0">Banco: Nu Pagamentos S.A (260) - Agência: 0001 -
+					Conta Corrrente: 6617159-3</p>
+				<p class="m-0">Cássio Luciano Colussi - CPF: 897.819.610-15</p>
+				<p>Após a confirmação do pagamento, o status será atualizado.</p>
+				<p>A Funworks Agradece!</p>
+			</div>
+		</div>
+	</ui:insert>
+</h:body>
 </html>
