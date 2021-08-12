@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <html
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:f="http://xmlns.jcp.org/jsf/core"
@@ -145,10 +145,10 @@
                     
                     <p:dialog header="Upload" widgetVar="uploadDialog" responsive="true" closable="true" resizable="false" showEffect="fade" hideEffect="fade" modal="true" position="center" width="70%">
                           
-	                   <h:form class="p-3 mb-0" enctype="multipart/form-data">
+	                   <h:form class="p-3 mb-0" enctype="multipart/form-data" acceptcharset="UTF-8">
 	           
 			               <div class="flex-fill col-2">
-			                  	<p:fileUpload mode="simple" skinSimple="true" label="Carregar imagem" value="#{mensalidadeBack.comprovante}" accept="application/pdf" />
+			                  	<p:fileUpload  mode="simple" skinSimple="true" label="Carregar imagem" value="#{mensalidadeBack.comprovante}" accept="application/pdf" />
 			              		<h:commandButton styleClass="mt-3" type="submit" value="Enviar" actionListener="#{mensalidadeBack.salvarComprovante()}"></h:commandButton>
 			               </div>
 				            

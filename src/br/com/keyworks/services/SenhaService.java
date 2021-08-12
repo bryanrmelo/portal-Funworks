@@ -80,36 +80,41 @@ public class SenhaService {
 	public void alterar(String hash, String novaSenha, String confirmarSenha)
 					throws UsuarioNaoEncontradoException, AlteracaoFalhouException, AlteracaoConcluidaException, NullPointerException,
 					PersistenceException, SenhaInvalidaException, SenhasNaoCoincidemException, NaoValidoException, SenhaTamanhoInvalidoException {
-		if (novaSenha.equals(confirmarSenha)) {
+		if (hash != null) {
 
-			if (validar(novaSenha)) {
+			if (novaSenha.equals(confirmarSenha)) {
 
-				RecuperacaoSenha rpSalvo = recuperacaoSenhaRepo.buscarPorHash(hash);
+				if (validar(novaSenha)) {
 
-				if (rpSalvo.isAtivo() && recuperacaoSenhaRepo.validarRecuperacaoSenhaPorHash(hash)) {
+					RecuperacaoSenha rpSalvo = recuperacaoSenhaRepo.buscarPorHash(hash);
 
-					Usuario usuario = usuarioRepo.buscarUsuario(rpSalvo.getLogin());
-					HistoricoSenha historico = new HistoricoSenha(rpSalvo.getLogin());
+					if (rpSalvo.isAtivo() && recuperacaoSenhaRepo.validarRecuperacaoSenhaPorHash(hash)) {
 
-					usuario.setSenha(StringToMD5Converter.convertStringToMd5(novaSenha));
+						Usuario usuario = usuarioRepo.buscarUsuario(rpSalvo.getLogin());
+						HistoricoSenha historico = new HistoricoSenha(rpSalvo.getLogin());
 
-					usuarioRepo.alterar(usuario);
+						usuario.setSenha(StringToMD5Converter.convertStringToMd5(novaSenha));
 
-					rpSalvo.setAtivo(false);
+						usuarioRepo.alterar(usuario);
 
-					recuperacaoSenhaRepo.salvarRecuperacaoSenha(rpSalvo);
-					historicoRepo.salvarLog(historico);
+						rpSalvo.setAtivo(false);
 
-					throw new AlteracaoConcluidaException();
+						recuperacaoSenhaRepo.salvarRecuperacaoSenha(rpSalvo);
+						historicoRepo.salvarLog(historico);
 
+						throw new AlteracaoConcluidaException();
+
+					} else {
+						throw new AlteracaoFalhouException();
+					}
 				} else {
-					throw new AlteracaoFalhouException();
+					throw new SenhaInvalidaException();
 				}
 			} else {
-				throw new SenhaInvalidaException();
+				throw new SenhasNaoCoincidemException();
 			}
 		} else {
-			throw new SenhasNaoCoincidemException();
+			throw new UsuarioNaoEncontradoException();
 		}
 	}
 

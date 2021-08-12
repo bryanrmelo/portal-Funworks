@@ -1,5 +1,7 @@
 package br.com.keyworks.services;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -47,7 +49,11 @@ public class MensalidadeService {
 	}
 
 	public Mensalidade salvarComprovante(Mensalidade mensalidade, UploadedFile comprovante) {
-		mensalidade.setNomeComprovante(comprovante.getFileName());
+		try {
+			mensalidade.setNomeComprovante(new String(comprovante.getFileName().getBytes(Charset.defaultCharset()), "UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+
+		}
 		mensalidade.setComprovante(comprovante.getContents());
 		return mensalidadeRepo.atualizar(mensalidade);
 	}

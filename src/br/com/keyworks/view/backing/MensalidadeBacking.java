@@ -19,6 +19,7 @@ import br.com.keyworks.framework.faces.backing.AbstractBacking;
 import br.com.keyworks.model.entities.administracao.Mensalidade;
 import br.com.keyworks.services.MensalidadeService;
 import br.com.keyworks.services.UsuarioService;
+import br.com.keyworks.util.FacesMessageUtils;
 
 @Named("mensalidadeBack")
 @ViewScoped
@@ -84,7 +85,12 @@ public class MensalidadeBacking extends AbstractBacking {
 	}
 
 	public void salvarComprovante() {
-		mensalidadeService.salvarComprovante(listaMensalidades.get(indexSelecionado), comprovante);
+		if (comprovante.getSize() > 0) {
+			mensalidadeService.salvarComprovante(listaMensalidades.get(indexSelecionado), comprovante);
+		} else {
+			FacesMessageUtils.addErrorMessage("Comprovante inválido!");
+		}
+
 	}
 
 	@SuppressWarnings("deprecation")
