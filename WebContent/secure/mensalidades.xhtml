@@ -126,12 +126,13 @@
                             <p:column headerText="OBSERVAÇÃO" style="width: 20%;">
                                 <p:cellEditor>
                                     <f:facet name="output">
-                                        <h:outputText value="#{mensalidade.observacao}" />
+                                        <h:outputText value="#{mensalidade.observacao}" style="word-wrap: break-word;"/>
                                     </f:facet>
                                     <f:facet name="input">
-                                        <p:inputText value="#{mensalidade.observacao}" disabled="#{mensalidade.comprovante eq null}" style="width: 100%;" label="Observacao" />
+                                        <p:inputText value="#{mensalidade.observacao}" style="width: 100%;" label="Observacao" />
                                     </f:facet>
                                 </p:cellEditor>
+                                <i class="far fa-edit float-end"></i>
                             </p:column>
 
                             <p:column headerText="STATUS" style="width: 10%;" sortBy="#{mensalidade.pagamento}" sortOrder="asc">
@@ -147,7 +148,7 @@
 	                   <h:form class="p-3 mb-0" enctype="multipart/form-data">
 	           
 			               <div class="flex-fill col-2">
-			                  	<p:fileUpload mode="simple" skinSimple="true" label="Carregar imagem" value="#{mensalidadeBack.comprovante}" />
+			                  	<p:fileUpload mode="simple" skinSimple="true" label="Carregar imagem" value="#{mensalidadeBack.comprovante}" accept="application/pdf" />
 			              		<h:commandButton styleClass="mt-3" type="submit" value="Enviar" actionListener="#{mensalidadeBack.salvarComprovante()}"></h:commandButton>
 			               </div>
 				            

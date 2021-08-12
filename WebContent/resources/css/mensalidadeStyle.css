@@ -18,12 +18,17 @@
 	cursor: text !important;
 }
 
-.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
-	background-color: crimson !important;
+.ui-state-highlight, .ui-widget-content .ui-state-highlight,
+	.ui-widget-header .ui-state-highlight {
+	background-color: #ffffff !important;
 	background-image: url();
 }
 
 /*
+td div, gridcell i {
+	display: inline-block;
+}
+
 .ui-widget-content, .ui-datatable-even, .ui-datatable-odd {
 	border: 1px solid black !important;
 	border-bottom: 1px solid white !important;

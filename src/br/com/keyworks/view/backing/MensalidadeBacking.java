@@ -101,8 +101,7 @@ public class MensalidadeBacking extends AbstractBacking {
 
 	public void downloadComprovante(Mensalidade mensalidade) {
 		InputStream stream = new ByteArrayInputStream(mensalidadeService.getComprovante(mensalidade.getId()));
-		this.comprovanteDownload = new DefaultStreamedContent(stream, "application/pdf",
-						"comprovante_" + mensalidade.getUsuario().getLogin() + "_" + dataFormatada(mensalidade.getDataVencimento()) + ".pdf");
+		this.comprovanteDownload = new DefaultStreamedContent(stream, "application/pdf", mensalidade.getNomeComprovante());
 	}
 
 	public String mostrarImagemPagamento(String op) {
