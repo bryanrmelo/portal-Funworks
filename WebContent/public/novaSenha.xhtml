@@ -40,31 +40,21 @@
                         <label for="novaSenha" class="form-label">
                             <b>Nova senha:</b>
                         </label>
-                        <!--
-					<p:password styleClass="form-control" id="novaSenha"
-						value="#{novaSenha.senha}" toggleMask="true" redisplay="true"
-						required="true"
-						requiredMessage="É necessário inserir uma senha nova!" />
-					 -->
+                
                         <p:inputText id="novaSenha" styleClass="form-control" type="password" value="#{novaSenha.senha}" required="true" requiredMessage="É necessário inserir uma senha nova!" />
                     </div>
                     <div class="mb-3 usuario">
                         <label for="confirmarSenha" class="form-label">
                             <b>Confirmar senha:</b>
                         </label>
-                        <!-- 
-					<p:password styleClass="form-control" id="confirmarSenha"
-						value="#{novaSenha.confirmarSenha}" toggleMask="true"
-						redisplay="true" required="true"
-						requiredMessage="É necessário confirmar a senha!" />
-					-->
+                        
                         <p:inputText id="confirmarSenha" styleClass="form-control" type="password" value="#{novaSenha.confirmarSenha}" matching="novaSenha" required="true" requiredMessage="É necessário confirmar a senha!" />
                     </div>
                     <div class="d-flex justify-content-center lista-control">
                         <h:commandButton value="ALTERAR MINHA SENHA" styleClass="botoes text-white" action="#{novaSenha.alterar}" ajax="false" />
                     </div>
                 </h:form>
-                <p:messages id="messages" showDetail="false" autoUpdate="true" closable="false" />
+                <p:messages id="messages" showDetail="false" closable="false" />
             </div>
         </div>
 

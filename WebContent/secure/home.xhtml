@@ -6,20 +6,20 @@
     xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
     xmlns:p="http://primefaces.org/ui"
-    template="/WEB-INF/templates/basicTemplate.xhtml"
+    template="/WEB-INF/templates/homeTemplate.xhtml"
 >
     <ui:define name="content">
         <title>Portal - Início</title>
 
         <style>
+        	img {
+        		vertical-align: bottom;
+        	} 
+        
         	.div-conteudo {
         		background-color: #e1e1e1 !important;
         	}
         	
-        	img {
-        		position: absolute;
-        		bottom: 0;
-        	}
         
             .ui-messages-info {
                 background-image: linear-gradient(to right, #e30030, #351396);
@@ -34,8 +34,9 @@
         </style>
 
         <!-- Conteúdo -->
-
+		
         <p:messages id="messages" showDetail="false" closable="true" />
-        <img src="../resources/imagens/funworks-bg.png" />
+        <img
+        	src="../resources/imagens/funworks-bg.png" />
     </ui:define>
 </ui:composition>

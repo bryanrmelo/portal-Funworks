@@ -13,7 +13,6 @@ import br.com.keyworks.exceptions.SenhasNaoCoincidemException;
 import br.com.keyworks.exceptions.UsuarioNaoEncontradoException;
 import br.com.keyworks.framework.faces.backing.AbstractBacking;
 import br.com.keyworks.services.SenhaService;
-import br.com.keyworks.services.UsuarioService;
 import br.com.keyworks.util.ExpiracaoUtil;
 import br.com.keyworks.util.FacesMessageUtils;
 import br.com.keyworks.util.LogoutUtil;
@@ -29,9 +28,6 @@ public class AlterarSenhaLogadoBacking extends AbstractBacking {
 
 	@Inject
 	private SenhaService senhaService;
-
-	@Inject
-	private UsuarioService usuarioService;
 
 	private String nome;
 
@@ -52,14 +48,6 @@ public class AlterarSenhaLogadoBacking extends AbstractBacking {
 
 			}
 		}
-	}
-
-	public String nomeParcial() {
-		return usuarioService.gerenciarNomeParaView("parcial", nome);
-	}
-
-	public String nomeCompleto() {
-		return usuarioService.gerenciarNomeParaView("completo", nome);
 	}
 
 	public void alterar() {
