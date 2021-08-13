@@ -1,416 +1,290 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<html
+<ui:composition
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
     xmlns:p="http://primefaces.org/ui"
+    template="/WEB-INF/templates/basicTemplate.xhtml"
 >
-    <h:head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <ui:define name="content">
         <title>Portal - Editar Perfil</title>
-        <link rel="icon" href="../resources/imagens/fun-icon.png" />
-        <link rel="stylesheet" href="../resources/css/homeStyle.css" />
-        <link rel="stylesheet" href="../resources/css/facesMessageStyle.css" />
+
         <link rel="stylesheet" href="../resources/css/editarStyle.css" />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
-        <link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css" />
 
-        <style>
-            body {
-                background-color: #e1e1e1;
-                font-family: "Roboto", sans-serif;
-            }
-
-            .dropdown-toggle::after {
-                display: none;
-            }
-        </style>
-    </h:head>
-    <h:body>
-        <div class="wrapper">
-            <!-- Navbar -->
-            <nav class="navbar navbar-light cor-gradiente">
-                <div class="container-fluid">
-                    <a href="../secure/home.xhtml">
-                        <img class="navbar-brand" src="../resources/imagens/funworks-logo.png" alt="Logo Funworks" width="240px" />
-                    </a>
-                    <h3 class="nav-item text-white text-center">Portal da Transparência</h3>
-                    <p class="nav-item text-white align-text-top">
-                        <i class="fas fa-user" style="padding-right: 5px;"></i>
-
-                        <h:outputText value="Olá, #{alterarSenhaLogado.nomeParcial()}" />
-                    </p>
-                    <ul class="m-0">
-                        <li class="nav-item dropdown" style="list-style-type: none;">
-                            <p class="dropdown-toggle text-white align-text-top" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Configurações
-                                <i class="fas fa-cog"></i>
-                            </p>
-                            <ul class="dropdown-menu p-2 mt-1" aria-labelledby="navbarDropdown">
-                                <li>
-                                    <a class="dropdown-item m-0" style="width: 150px;" href="../secure/home.xhtml">
-                                        Página inicial
-                                        <i class="fas fa-home float-end"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item m-0 mt-2" href="../secure/recuperarSenhaLogado.xhtml">
-                                        Alterar senha
-                                        <i class="fas fa-key float-end"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <h:form class="m-0">
-                                        <p:commandLink styleClass="dropdown-item m-0 mt-2" action="#{login.logout()}"> Sair <i class="fas fa-sign-out-alt float-end"></i> </p:commandLink>
-                                    </h:form>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-            <div class="d-flex bd-highlight align-items-stretch barra-cima">
-                <!-- Navbar vertical -->
-                <div class="p-2 flex-fill bd-highlight sidebar-size">
-                    <div class="sticky-top vertical-nav bg-white" id="sidebar" style="border: 2px solid black;">
-                        <ul class="nav flex-column bg-white mb-0">
-                            <li class="nav-item">
-                                <a href="../secure/sobre.xhtml" class="nav-link text-dark ps-2 ms-0 me-0">
-                                    <b>A Funworks</b>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../secure/mensalidades.xhtml" class="nav-link text-dark ps-2 ms-0 me-0">
-                                    <b>Minhas Mensalidades</b>
-                                </a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <p class="p1 dropdown-toggle nav-link text-dark ps-2 ms-0 me-0" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <b>Meu Cadastro</b>
-                                    <i class="fas fa-angle-down float-end ps-2" />
-                                </p>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li>
-                                        <a class="dropdown-item m-0 pt-0 pb-0 ps-3 pe-3" style="background-color: #ffffff !important;" href="../secure/editarPerfil.xhtml"> Editar perfil </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- Conteúdo -->
-                <div class="p-4 flex-fill" style="border-left: 2px solid black;">
-                    <div class="p-4" style="border: 2px solid black;">
-                        <div class="container-fluid cor-gradiente" style="border: 2px solid black; margin-bottom: 30px;">
-                            <div>
-                                <h2 class="text-white m-0 p-3">
-                                    <h:outputText value="Editar perfil > #{alterarSenhaLogado.nomeCompleto()} " />
-                                </h2>
-                            </div>
-                        </div>
-                        <p:messages id="messages" showDetail="false" closable="true" />
-                        <h:form class="p-3 mb-0" enctype="multipart/form-data">
-                            <!-- Informações principais -->
-                            <div class="row d-flex">
-                                <div class="flex-fill col-10">
-                                    <div class="row">
-                                        <div class="form-group col p-0">
-                                            <div class="form-control border-0 p-0">
-                                                <label for="nome" class="col-4 label-stretch text-end pe-3">
-                                                    <b>Nome completo: *</b>
-                                                </label>
-                                                <p:inputText name="nome" value="#{editar.usuario.nome}" styleClass="col-8" required="true" requiredMessage="É necessário inserir um nome!" type="text" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group col p-0">
-                                            <div class="form-control border-0 p-0">
-                                                <label for="email" class="col-4 label-stretch text-end pe-3">
-                                                    <b>E-mail: </b>
-                                                </label>
-                                                <p:inputText value="#{editar.usuario.email}" styleClass="col-8" type="email" name="email" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-3">
-                                        <div class="form-group col p-0">
-                                            <div class="form-control border-0 p-0">
-                                                <label for="celular" class="col-4 label-stretch text-end pe-3">
-                                                    <b>Celular: *</b>
-                                                </label>
-                                                <p:inputMask
-                                                    id="celular"
-                                                    styleClass="col-8"
-                                                    value="#{editar.usuario.celular}"
-                                                    mask="(54) 9 99999999"
-                                                    validateMask="true"
-                                                    required="true"
-                                                    requiredMessage="É necessário inserir um número de celular!"
-                                                />
-                                            </div>
-                                        </div>
-                                        <div class="form-group col p-0">
-                                            <div class="form-control border-0 p-0">
-                                                <label for="whatsapp" class="col-4 label-stretch text-end pe-3">
-                                                    <b>Whatsapp: *</b>
-                                                </label>
-                                                <p:inputMask
-                                                    id="whatsapp"
-                                                    styleClass="col-8"
-                                                    value="#{editar.usuario.whatsapp}"
-                                                    mask="(54) 9 99999999"
-                                                    validateMask="true"
-                                                    required="true"
-                                                    requiredMessage="É necessário inserir um número de Whatsapp!"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-3">
-                                        <div class="form-group col p-0">
-                                            <div class="form-control border-0 p-0">
-                                                <label for="endereço" class="col-2 align-top label-stretch text-end pe-3">
-                                                    <b>Endereço: *</b>
-                                                </label>
-                                                <p:inputTextarea
-                                                    rows="2"
-                                                    col="12"
-                                                    value="#{editar.usuario.endereco}"
-                                                    styleClass="col-10"
-                                                    required="true"
-                                                    requiredMessage="É necessário inserir um endereço!"
-                                                    type="text"
-                                                    autocomplete="off"
-                                                    name="endereço">
-												<f:validateLength maximum="60" minimum="0" />
-											</p:inputTextarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-3">
-                                        <div class="form-group col p-0">
-                                            <div class="form-control border-0 p-0">
-                                                <label for="nascimento" class="col label-stretch text-end pe-3">
-                                                    <b>Nascimento: *</b>
-                                                </label>
-                                                <p:inputText value="#{editar.usuario.nascimento}" styleClass="col-4" required="true" requiredMessage="É necessário a data de nascimento!" type="date" autocomplete="off" name="nascimento" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group col p-0">
-                                            <div class="form-control border-0 p-0">
-                                                <label for="genero" class="col text-end pe-3">
-                                                    <b>Gênero:</b>
-                                                </label>
-                                                <p:selectOneRadio value="#{editar.usuario.genero}" styleClass="col d-inline align-middle" name="genero">
-                                                    <f:selectItem itemLabel="Masculino" itemValue="masculino" />
-                                                    <f:selectItem itemLabel="Feminino" itemValue="feminino" />
-                                                    <f:selectItem itemLabel="Outro" itemValue="outro" />
-                                                    <f:selectItem itemLabel="Não informar" itemValue="nao informado" />
-                                                </p:selectOneRadio>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-3">
-                                        <div class="form-group col p-0">
-                                            <div class="form-control border-0 p-0">
-                                                <label for="estadoCivil" class="col-2 label-stretch text-end pe-3">
-                                                    <b>Estado civil:</b>
-                                                </label>
-                                                <p:selectOneMenu value="#{editar.usuario.estadoCivil}" styleClass="col borda" name="estadoCivil">
-                                                    <f:selectItem itemLabel="Não informar" itemValue="" />
-                                                    <f:selectItem itemLabel="Casado(a)" itemValue="casado" />
-                                                    <f:selectItem itemLabel="Solteiro(a)" itemValue="solteiro" />
-                                                    <f:selectItem itemLabel="Separado(a)" itemValue="separado" />
-                                                    <f:selectItem itemLabel="Divorciado(a)" itemValue="divorciado" />
-                                                    <f:selectItem itemLabel="Viúvo(a)" itemValue="viuvo" />
-                                                </p:selectOneMenu>
-                                            </div>
-                                        </div>
-                                        <div class="form-group col">
-                                            <div class="form-control border-0 p-0">
-                                                <label for="dependentes" class="col label-stretch text-end pe-3">
-                                                    <b>Dependentes? </b>
-                                                </label>
-                                                <p:selectOneRadio value="#{editar.usuario.dependentes}" styleClass="col d-inline align-middle" name="dependentes">
-                                                    <f:selectItem itemLabel="Sim" itemValue="Sim" />
-                                                    <f:selectItem itemLabel="Não" itemValue="Não" />
-                                                    <f:ajax render="qtdDependentes" />
-                                                </p:selectOneRadio>
-                                                <label for="qtdDependentes" class="col label-stretch text-end pe-3 ps-5">
-                                                    <b>Qntd: </b>
-                                                </label>
-                                                <p:inputText
-                                                    value="#{editar.usuario.qtdDependentes}"
-                                                    disabled="#{editar.usuario.dependentes eq 'Não'}"
-                                                    type="number"
-                                                    id="qtdDependentes"
-                                                    name="qtdDependentes"
-                                                    class="col"
-                                                    style="width: 50px;"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-3">
-                                        <div class="form-group col-6 p-0">
-                                            <div class="form-control border-0 p-0">
-                                                <label for="admissao" class="col label-stretch text-end pe-3">
-                                                    <b>Admissão: *</b>
-                                                </label>
-                                                <p:inputText value="#{editar.usuario.admissao}" styleClass="col" required="true" requiredMessage="É necessário inserir uma data de admissão!" type="date" autocomplete="off" name="admissao" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="flex-fill col-2">
-                                	<h:graphicImage value="data:image/jpg;base64,#{editar.getImagemAtual()}" styleClass="mb-3" style="max-width: 160px; max-height: 200px; border: 4px solid black; display: block;" />
-                                   	<p:fileUpload mode="simple" skinSimple="true" label="Carregar imagem" value="#{editar.imagem}" />
-                                </div>
-                            </div>
-                            <!-- Informações adicionais -->
-                            <div class="container-fluid mt-3 cor-gradiente" style="border: 2px solid black; margin-bottom: 30px;">
-                                <h6 class="text-white m-0 p-1">Informações adicionais</h6>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-4">
-                                    <div class="form-control border-0 p-0">
-                                        <label for="animais" class="col label-stretch text-end pe-3">
-                                            <b>Animais de estimação: </b>
-                                        </label>
-                                        <p:selectOneRadio value="#{editar.usuario.animais}" styleClass="col d-inline align-middle">
-                                            <f:selectItem itemLabel="Sim" itemValue="Sim" />
-                                            <f:selectItem itemLabel="Não" itemValue="Não" />
-                                            <f:ajax render="obsAnimais qtdAnimais" />
-                                        </p:selectOneRadio>
-                                    </div>
-                                </div>
-                                <div class="form-group col-4">
-                                    <div class="form-control border-0 p-0">
-                                        <label for="obsAnimais" class="col text-end pe-3">
-                                            <b>Obs: </b>
-                                        </label>
-                                        <p:inputText value="#{editar.usuario.obsAnimais}" disabled="#{editar.usuario.animais eq 'Não'}" styleClass="col" type="text" id="obsAnimais" name="obsAnimais" />
-                                    </div>
-                                </div>
-                                <div class="form-group col">
-                                    <div class="form-control border-0 p-0" style="width: 150px;">
-                                        <label for="qtdAnimais" class="col text-end pe-3">
-                                            <b>Qntd: </b>
-                                        </label>
-                                        <p:inputText value="#{editar.usuario.qtdAnimais}" disabled="#{editar.usuario.animais eq 'Não'}" styleClass="col" style="width: 50px;" type="number" id="qtdAnimais" name="qtdAnimais" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="form-group col-4">
-                                    <div class="form-control border-0 p-0">
-                                        <label for="orientacaoAlimentar" class="col text-end pe-3">
-                                            <b>Orientação alimentar: </b>
-                                        </label>
-                                        <p:selectOneRadio value="#{editar.usuario.orientacaoAlimentar}" styleClass="col d-inline align-middle">
-                                            <f:selectItem itemLabel="Sim" itemValue="Sim" />
-                                            <f:selectItem itemLabel="Não" itemValue="Não" />
-                                            <f:ajax render="obsOrientacaoAlimentar" />
-                                        </p:selectOneRadio>
-                                    </div>
-                                </div>
-                                <div class="form-group col-4">
-                                    <div class="form-control border-0 p-0">
-                                        <label for="obsOrientacaoAlimentar" class="col text-end pe-3">
-                                            <b>Obs: </b>
-                                        </label>
-                                        <p:inputText
-                                            value="#{editar.usuario.obsOrientacaoAlimentar}"
-                                            disabled="#{editar.usuario.orientacaoAlimentar eq 'Não'}"
-                                            styleClass="col"
-                                            type="text"
-                                            id="obsOrientacaoAlimentar"
-                                            name="obsOrientacaoAlimentar"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="form-group col-4">
-                                    <div class="form-control border-0 p-0">
-                                        <label for="alergias" class="col text-end pe-3">
-                                            <b>Alergias: </b>
-                                        </label>
-                                        <p:selectOneRadio value="#{editar.usuario.alergias}" styleClass="col d-inline align-middle">
-                                            <f:selectItem itemLabel="Sim" itemValue="Sim" />
-                                            <f:selectItem itemLabel="Não" itemValue="Não" />
-                                            <f:ajax render="obsAlergias" />
-                                        </p:selectOneRadio>
-                                    </div>
-                                </div>
-                                <div class="form-group col-4">
-                                    <div class="form-control border-0 p-0">
-                                        <label for="obsAlergias" class="col text-end pe-3">
-                                            <b>Obs: </b>
-                                        </label>
-                                        <p:inputText value="#{editar.usuario.obsAlergias}" disabled="#{editar.usuario.alergias eq 'Não'}" styleClass="col" type="text" id="obsAlergias" name="obsAlergias" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="form-group col-4">
-                                    <div class="form-control border-0 p-0">
-                                        <label for="orientacaoAlimentar" class="col text-end pe-3">
-                                            <b>Intolerâncias: </b>
-                                        </label>
-                                        <p:selectOneRadio value="#{editar.usuario.intolerancias}" styleClass="col d-inline align-middle">
-                                            <f:selectItem itemLabel="Sim" itemValue="Sim" />
-                                            <f:selectItem itemLabel="Não" itemValue="Não" />
-                                            <f:ajax render="obsIntolerancias" />
-                                        </p:selectOneRadio>
-                                    </div>
-                                </div>
-                                <div class="form-group col-4">
-                                    <div class="form-control border-0 p-0">
-                                        <label for="obsIntolerancias" class="col text-end pe-3">
-                                            <b>Obs: </b>
-                                        </label>
-                                        <p:inputText value="#{editar.usuario.obsIntolerancias}" disabled="#{editar.usuario.intolerancias eq 'Não'}" styleClass="col" type="text" id="obsIntolerancias" name="obsIntolerancias" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="form-group col">
-                                    <div class="form-control border-0 p-0">
-                                        <label for="preferencias" class="align-top label-stretch text-end pe-3">
-                                            <b>Preferências: </b>
-                                        </label>
-                                        <p:inputTextarea cols="48" rows="2" value="#{editar.usuario.preferencias}" type="text" name="preferencias"  validatorMessage="O tamanho máximo desse campo é de 60 caracteres!">
-                                        <f:validateLength maximum="60" minimum="0"/>
-                                        </p:inputTextarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="form-group col">
-                                    <div class="form-control border-0 p-0">
-                                        <label for="dicas" class="col-2 align-top label-stretch text-end pe-3">
-                                            <b>Dicas de Presente de Aniversário: </b>
-                                        </label>
-                                        <p:inputTextarea cols="48" rows="2" value="#{editar.usuario.dicas}" styleClass="col" type="text" name="dicas"  validatorMessage="O tamanho máximo desse campo é de 60 caracteres!">
-                                        <f:validateLength maximum="60" minimum="0"/>
-                                        </p:inputTextarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-center lista-control mt-4">
-                                <h:commandButton styleClass="botoes cor-gradiente justify-content-center text-white m-2" type="submit" value="SALVAR" action="#{editar.editarPerfil()}" onclick="window.location.reload()"/>
-                                <h:button styleClass="botoes cor-gradiente justify-content-center text-white m-2" value="VOLTAR" outcome="home.xhtml?faces-redirect=true" />
-                            </div>
-                        </h:form>
-                    </div>
+        <div class="p-4" style="border: 2px solid black;">
+            <div class="container-fluid cor-gradiente" style="border: 2px solid black; margin-bottom: 30px;">
+                <div>
+                    <h2 class="text-white m-0 p-3">
+                        <h:outputText value="Editar perfil > #{alterarSenhaLogado.nomeCompleto()} " />
+                    </h2>
                 </div>
             </div>
+            <p:messages id="messages" showDetail="false" closable="true" />
+            <h:form class="p-3 mb-0" enctype="multipart/form-data">
+                <!-- Informações principais -->
+                <div class="row d-flex">
+                    <div class="flex-fill col-10">
+                        <div class="row">
+                            <div class="form-group col p-0">
+                                <div class="form-control border-0 p-0">
+                                    <label for="nome" class="col-4 label-stretch text-end pe-3">
+                                        <b>Nome completo: *</b>
+                                    </label>
+                                    <p:inputText name="nome" value="#{editar.usuario.nome}" styleClass="col-8" required="true" requiredMessage="É necessário inserir um nome!" type="text" />
+                                </div>
+                            </div>
+                            <div class="form-group col p-0">
+                                <div class="form-control border-0 p-0">
+                                    <label for="email" class="col-4 label-stretch text-end pe-3">
+                                        <b>E-mail: </b>
+                                    </label>
+                                    <p:inputText value="#{editar.usuario.email}" styleClass="col-8" type="email" name="email" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="form-group col p-0">
+                                <div class="form-control border-0 p-0">
+                                    <label for="celular" class="col-4 label-stretch text-end pe-3">
+                                        <b>Celular: *</b>
+                                    </label>
+                                    <p:inputMask id="celular" styleClass="col-8" value="#{editar.usuario.celular}" mask="(54) 9 99999999" validateMask="true" required="true" requiredMessage="É necessário inserir um número de celular!" />
+                                </div>
+                            </div>
+                            <div class="form-group col p-0">
+                                <div class="form-control border-0 p-0">
+                                    <label for="whatsapp" class="col-4 label-stretch text-end pe-3">
+                                        <b>Whatsapp: *</b>
+                                    </label>
+                                    <p:inputMask id="whatsapp" styleClass="col-8" value="#{editar.usuario.whatsapp}" mask="(54) 9 99999999" validateMask="true" required="true" requiredMessage="É necessário inserir um número de Whatsapp!" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="form-group col p-0">
+                                <div class="form-control border-0 p-0">
+                                    <label for="endereço" class="col-2 align-top label-stretch text-end pe-3">
+                                        <b>Endereço: *</b>
+                                    </label>
+                                    <p:inputTextarea
+                                        rows="2"
+                                        col="12"
+                                        value="#{editar.usuario.endereco}"
+                                        styleClass="col-10"
+                                        required="true"
+                                        requiredMessage="É necessário inserir um endereço!"
+                                        type="text"
+                                        autocomplete="off"
+                                        name="endereço"
+                                    >
+                                        <f:validateLength maximum="60" minimum="0" />
+                                    </p:inputTextarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="form-group col p-0">
+                                <div class="form-control border-0 p-0">
+                                    <label for="nascimento" class="col label-stretch text-end pe-3">
+                                        <b>Nascimento: *</b>
+                                    </label>
+                                    <p:inputText value="#{editar.usuario.nascimento}" styleClass="col-4" required="true" requiredMessage="É necessário a data de nascimento!" type="date" autocomplete="off" name="nascimento" />
+                                </div>
+                            </div>
+                            <div class="form-group col p-0">
+                                <div class="form-control border-0 p-0">
+                                    <label for="genero" class="col text-end pe-3">
+                                        <b>Gênero:</b>
+                                    </label>
+                                    <p:selectOneRadio value="#{editar.usuario.genero}" styleClass="col d-inline align-middle" name="genero">
+                                        <f:selectItem itemLabel="Masculino" itemValue="masculino" />
+                                        <f:selectItem itemLabel="Feminino" itemValue="feminino" />
+                                        <f:selectItem itemLabel="Outro" itemValue="outro" />
+                                        <f:selectItem itemLabel="Não informar" itemValue="nao informado" />
+                                    </p:selectOneRadio>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="form-group col p-0">
+                                <div class="form-control border-0 p-0">
+                                    <label for="estadoCivil" class="col-2 label-stretch text-end pe-3">
+                                        <b>Estado civil:</b>
+                                    </label>
+                                    <p:selectOneMenu value="#{editar.usuario.estadoCivil}" styleClass="col borda" name="estadoCivil">
+                                        <f:selectItem itemLabel="Não informar" itemValue="" />
+                                        <f:selectItem itemLabel="Casado(a)" itemValue="casado" />
+                                        <f:selectItem itemLabel="Solteiro(a)" itemValue="solteiro" />
+                                        <f:selectItem itemLabel="Separado(a)" itemValue="separado" />
+                                        <f:selectItem itemLabel="Divorciado(a)" itemValue="divorciado" />
+                                        <f:selectItem itemLabel="Viúvo(a)" itemValue="viuvo" />
+                                    </p:selectOneMenu>
+                                </div>
+                            </div>
+                            <div class="form-group col">
+                                <div class="form-control border-0 p-0">
+                                    <label for="dependentes" class="col label-stretch text-end pe-3">
+                                        <b>Dependentes? </b>
+                                    </label>
+                                    <p:selectOneRadio value="#{editar.usuario.dependentes}" styleClass="col d-inline align-middle" name="dependentes">
+                                        <f:selectItem itemLabel="Sim" itemValue="Sim" />
+                                        <f:selectItem itemLabel="Não" itemValue="Não" />
+                                        <f:ajax render="qtdDependentes" />
+                                    </p:selectOneRadio>
+                                    <label for="qtdDependentes" class="col label-stretch text-end pe-3 ps-5">
+                                        <b>Qntd: </b>
+                                    </label>
+                                    <p:inputText value="#{editar.usuario.qtdDependentes}" disabled="#{editar.usuario.dependentes eq 'Não'}" type="number" id="qtdDependentes" name="qtdDependentes" class="col" style="width: 50px;" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="form-group col-6 p-0">
+                                <div class="form-control border-0 p-0">
+                                    <label for="admissao" class="col label-stretch text-end pe-3">
+                                        <b>Admissão: *</b>
+                                    </label>
+                                    <p:inputText value="#{editar.usuario.admissao}" styleClass="col" required="true" requiredMessage="É necessário inserir uma data de admissão!" type="date" autocomplete="off" name="admissao" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-fill col-2">
+                        <h:graphicImage value="data:image/jpg;base64,#{editar.getImagemAtual()}" styleClass="mb-3" style="max-width: 160px; max-height: 200px; border: 4px solid black; display: block;" />
+                        <p:fileUpload mode="simple" skinSimple="true" label="Carregar imagem" value="#{editar.imagem}" />
+                    </div>
+                </div>
+                <!-- Informações adicionais -->
+                <div class="container-fluid mt-3 cor-gradiente" style="border: 2px solid black; margin-bottom: 30px;">
+                    <h6 class="text-white m-0 p-1">Informações adicionais</h6>
+                </div>
+                <div class="row">
+                    <div class="form-group col-4">
+                        <div class="form-control border-0 p-0">
+                            <label for="animais" class="col label-stretch text-end pe-3">
+                                <b>Animais de estimação: </b>
+                            </label>
+                            <p:selectOneRadio value="#{editar.usuario.animais}" styleClass="col d-inline align-middle">
+                                <f:selectItem itemLabel="Sim" itemValue="Sim" />
+                                <f:selectItem itemLabel="Não" itemValue="Não" />
+                                <f:ajax render="obsAnimais qtdAnimais" />
+                            </p:selectOneRadio>
+                        </div>
+                    </div>
+                    <div class="form-group col-4">
+                        <div class="form-control border-0 p-0">
+                            <label for="obsAnimais" class="col text-end pe-3">
+                                <b>Obs: </b>
+                            </label>
+                            <p:inputText value="#{editar.usuario.obsAnimais}" disabled="#{editar.usuario.animais eq 'Não'}" styleClass="col" type="text" id="obsAnimais" name="obsAnimais" />
+                        </div>
+                    </div>
+                    <div class="form-group col">
+                        <div class="form-control border-0 p-0" style="width: 150px;">
+                            <label for="qtdAnimais" class="col text-end pe-3">
+                                <b>Qntd: </b>
+                            </label>
+                            <p:inputText value="#{editar.usuario.qtdAnimais}" disabled="#{editar.usuario.animais eq 'Não'}" styleClass="col" style="width: 50px;" type="number" id="qtdAnimais" name="qtdAnimais" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="form-group col-4">
+                        <div class="form-control border-0 p-0">
+                            <label for="orientacaoAlimentar" class="col text-end pe-3">
+                                <b>Orientação alimentar: </b>
+                            </label>
+                            <p:selectOneRadio value="#{editar.usuario.orientacaoAlimentar}" styleClass="col d-inline align-middle">
+                                <f:selectItem itemLabel="Sim" itemValue="Sim" />
+                                <f:selectItem itemLabel="Não" itemValue="Não" />
+                                <f:ajax render="obsOrientacaoAlimentar" />
+                            </p:selectOneRadio>
+                        </div>
+                    </div>
+                    <div class="form-group col-4">
+                        <div class="form-control border-0 p-0">
+                            <label for="obsOrientacaoAlimentar" class="col text-end pe-3">
+                                <b>Obs: </b>
+                            </label>
+                            <p:inputText value="#{editar.usuario.obsOrientacaoAlimentar}" disabled="#{editar.usuario.orientacaoAlimentar eq 'Não'}" styleClass="col" type="text" id="obsOrientacaoAlimentar" name="obsOrientacaoAlimentar" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="form-group col-4">
+                        <div class="form-control border-0 p-0">
+                            <label for="alergias" class="col text-end pe-3">
+                                <b>Alergias: </b>
+                            </label>
+                            <p:selectOneRadio value="#{editar.usuario.alergias}" styleClass="col d-inline align-middle">
+                                <f:selectItem itemLabel="Sim" itemValue="Sim" />
+                                <f:selectItem itemLabel="Não" itemValue="Não" />
+                                <f:ajax render="obsAlergias" />
+                            </p:selectOneRadio>
+                        </div>
+                    </div>
+                    <div class="form-group col-4">
+                        <div class="form-control border-0 p-0">
+                            <label for="obsAlergias" class="col text-end pe-3">
+                                <b>Obs: </b>
+                            </label>
+                            <p:inputText value="#{editar.usuario.obsAlergias}" disabled="#{editar.usuario.alergias eq 'Não'}" styleClass="col" type="text" id="obsAlergias" name="obsAlergias" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="form-group col-4">
+                        <div class="form-control border-0 p-0">
+                            <label for="orientacaoAlimentar" class="col text-end pe-3">
+                                <b>Intolerâncias: </b>
+                            </label>
+                            <p:selectOneRadio value="#{editar.usuario.intolerancias}" styleClass="col d-inline align-middle">
+                                <f:selectItem itemLabel="Sim" itemValue="Sim" />
+                                <f:selectItem itemLabel="Não" itemValue="Não" />
+                                <f:ajax render="obsIntolerancias" />
+                            </p:selectOneRadio>
+                        </div>
+                    </div>
+                    <div class="form-group col-4">
+                        <div class="form-control border-0 p-0">
+                            <label for="obsIntolerancias" class="col text-end pe-3">
+                                <b>Obs: </b>
+                            </label>
+                            <p:inputText value="#{editar.usuario.obsIntolerancias}" disabled="#{editar.usuario.intolerancias eq 'Não'}" styleClass="col" type="text" id="obsIntolerancias" name="obsIntolerancias" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="form-group col">
+                        <div class="form-control border-0 p-0">
+                            <label for="preferencias" class="align-top label-stretch text-end pe-3">
+                                <b>Preferências: </b>
+                            </label>
+                            <p:inputTextarea cols="48" rows="2" value="#{editar.usuario.preferencias}" type="text" name="preferencias" validatorMessage="O tamanho máximo desse campo é de 60 caracteres!">
+                                <f:validateLength maximum="60" minimum="0" />
+                            </p:inputTextarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="form-group col">
+                        <div class="form-control border-0 p-0">
+                            <label for="dicas" class="col-2 align-top label-stretch text-end pe-3">
+                                <b>Dicas de Presente de Aniversário: </b>
+                            </label>
+                            <p:inputTextarea cols="48" rows="2" value="#{editar.usuario.dicas}" styleClass="col" type="text" name="dicas" validatorMessage="O tamanho máximo desse campo é de 60 caracteres!">
+                                <f:validateLength maximum="60" minimum="0" />
+                            </p:inputTextarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center lista-control mt-4">
+                    <h:commandButton styleClass="botoes cor-gradiente justify-content-center text-white m-2" type="submit" value="SALVAR" action="#{editar.editarPerfil()}" onclick="window.location.reload()" />
+                    <h:button styleClass="botoes cor-gradiente justify-content-center text-white m-2" value="VOLTAR" outcome="home.xhtml?faces-redirect=true" />
+                </div>
+            </h:form>
         </div>
-        <script src="https://kit.fontawesome.com/46fef06780.js" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    </h:body>
-</html>
+    </ui:define>
+</ui:composition>
