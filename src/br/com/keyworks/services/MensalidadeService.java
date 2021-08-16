@@ -6,6 +6,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import org.primefaces.model.UploadedFile;
@@ -32,6 +33,10 @@ public class MensalidadeService {
 
 		}
 		return null;
+	}
+
+	public List<Mensalidade> getAllDadosExistentes() {
+		return mensalidadeRepo.buscarMensalidades();
 	}
 
 	public String formatarData(Date data) {
@@ -64,6 +69,10 @@ public class MensalidadeService {
 
 	public String getNomeComprovante(Integer id) {
 		return mensalidadeRepo.buscarMensalidade(id).getNomeComprovante();
+	}
+
+	public List<Mensalidade> getAllDadosExistentesComFiltros(Map<String, Object> filtrosSelecionados) {
+		return mensalidadeRepo.buscarMensalidadesComFiltro(filtrosSelecionados);
 	}
 
 }

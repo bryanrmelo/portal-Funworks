@@ -12,10 +12,6 @@ input[type=date] {
 	padding-right: 10px;
 }
 
-.borda {
-	border: 2px solid black!important;
-	border-radius: 0;
-}
 
 .ui-button {
 	border-radius: 0;

@@ -8,7 +8,7 @@
 }
 
 .borda {
-	border: 2px solid black !important;
+	outline: 2px solid black !important;
 }
 
 .wrapper {
@@ -58,11 +58,13 @@ nav p, h3 {
 }
 
 .sidebar-size {
-	min-width: 20%;
+	min-width: 15%;
 	max-width: 250px;
 }
 
-
+.dropdown-menu .show {
+	border: 2px solid black;
+}
 
 .botoes {
 	min-width: 120px;

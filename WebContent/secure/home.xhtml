@@ -12,9 +12,7 @@
         <title>Portal - Início</title>
 
         <style>
-        	img {
-        		vertical-align: bottom;
-        	} 
+        	 
         
         	.div-conteudo {
         		background-color: #e1e1e1 !important;
@@ -31,12 +29,16 @@
             .ui-messages-info-icon {
                 background: url() !important;
             }
+            .div-imagem {
+			    display: flex;
+			    align-self: flex-end;
+			    flex-grow: 1;
+			}
         </style>
 
         <!-- Conteúdo -->
 		
         <p:messages id="messages" showDetail="false" closable="true" />
-        <img
-        	src="../resources/imagens/funworks-bg.png" />
+        <img class="" src="../resources/imagens/funworks-bg.png" />
     </ui:define>
 </ui:composition>

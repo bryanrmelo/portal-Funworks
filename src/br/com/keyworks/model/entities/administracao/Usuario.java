@@ -15,8 +15,6 @@ import javax.validation.constraints.NotNull;
 @Table(name = "usuario")
 @SequenceGenerator(name = "UsuarioSeq", sequenceName = "USUARIO_SEQ", allocationSize = 1)
 
-// @NamedQueries({ @NamedQuery(name = ContaReceber.BUSCA_TODAS_CONTAS_A_RECEBER, query = "SELECT e FROM ContaReceber e
-// ") })
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;

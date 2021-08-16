@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    template="/WEB-INF/templates/basicTemplate.xhtml"
+>
+    <ui:define name="content">
+        <title>Portal - Administração</title>
+        <link rel="stylesheet" href="../resources/css/mensalidadeAdministracaoStyle.css" />
+        <style>
+            td,
+            th {
+                font-size: 12px;
+            }
+        </style>
+
+        <div class="container-fluid cor-gradiente borda mt-2">
+            <div>
+                <h2 class="text-white m-0 p-3">
+                    <h:outputText value="Mensalidades > Administração" />
+                </h2>
+            </div>
+        </div>
+        <div class="d-flex">
+            <div class="col-9 flex-fill">
+                <h:form class="mt-3">
+                    <p:dataTable var="mensalidade" value="#{mensalidadeAdmBack.listaMensalidades}">
+                        <p:column headerText="ASSOCIADO(A)" style="width: 15%;">
+                            <h:outputText value="#{mensalidadeAdmBack.nomeCompleto(mensalidade.usuario.login)}" />
+                        </p:column>
+
+                        <p:column headerText="VALOR" style="width: 10%;">
+                            <h:outputText value="R$ #{mensalidadeAdmBack.valorFormatado(mensalidade.valor)}" />
+                        </p:column>
+
+                        <p:column headerText="VENCIMENTO" style="width: 15%;">
+                            <h:outputText value="#{mensalidadeAdmBack.dataFormatada(mensalidade.dataVencimento)}" />
+                        </p:column>
+
+                        <p:column headerText="COMPROVANTE" style="width: 20%;">
+                            <h:outputText value="#{mensalidadeAdmBack.mostrarNomeComprovante(mensalidade)}" />
+
+                            <p:commandButton ajax="false" styleClass="float-end" actionListener="#{mensalidadeBack.downloadComprovante(mensalidade)}" icon="fa fa-fw fa-download" disabled="#{mensalidade.comprovante eq null}">
+                                <p:fileDownload value="#{mensalidadeAdmBack.comprovanteDownload}" />
+                            </p:commandButton>
+                        </p:column>
+
+                        <p:column headerText="OBSERVAÇÃO" style="width: 20%;">
+                            <h:outputText value="#{mensalidade.observacao}" style="word-wrap: break-word;" />
+                        </p:column>
+
+                        <p:column headerText="STATUS" style="width: 10%;">
+                            <h:outputText value="#{mensalidade.pagamento}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </div>
+            <div class="m-2 col-3 flex-fill">
+                <div class="m-2 borda">
+                    <div class="filtro-box-header cor-gradiente">
+                        <h6 class="text-white p-1 m-0">FILTRO</h6>
+                    </div>
+                    <div class="borda">
+                        <h:outputText value="#{mensalidadeAdmBack.filtrosSelecionados}" />
+                    </div>
+                    <h:form class="m-0">
+                        <div class="p-2" style="border-bottom: 2px solid black">
+                            <label for="status" class="text-end pe-3"> Status: </label>
+                            <p:selectOneRadio value="#{mensalidadeAdmBack.filtro.pagamento}" name="status" unselectable="true">
+                                <f:selectItem itemLabel="Pago" itemValue="Pago" />
+                                <f:selectItem itemLabel="Pendente" itemValue="Pendente" />
+                            </p:selectOneRadio>
+                        </div>
+                        <div class="p-2">
+                        	<label for="comprovante" class="text-end pe-3">
+                        		Comprovante
+                        	</label>
+                        	<p:selectOneRadio value="#{mensalidadeAdmBack.filtro.comprovante}" name="comprovante" unselectable="true">
+                        		<f:selectItems value="#{mensalidadeAdmBack.getSimNaoValues()}" var="s" itemValue="#{s}" itemLabel="#{s.descricao}" />
+                        	</p:selectOneRadio>
+                        </div>
+                        <div class="p-2" style="border-bottom: 2px solid black">
+                            <label for="status" class="text-end pe-3"> Associados: </label>
+                            <p:selectOneRadio value="#{mensalidadeAdmBack.filtro.associado}" name="associado" unselectable="true">
+                                <f:selectItem itemLabel="Todos" itemValue="todos" />
+                            </p:selectOneRadio>
+                            <p:inputText value="#{mensalidadeAdmBack.filtro.associado}"></p:inputText>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                        	<h:commandButton styleClass="m-2 botoes cor-gradiente text-white col" action="#{mensalidadeAdmBack.limparFiltros()}" value="LIMPAR FILTROS" />
+                        	<h:commandButton styleClass="m-2 botoes cor-gradiente text-white col" action="#{mensalidadeAdmBack.salvarFiltros()}" value="CONFIRMAR" />​​​​​​​
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+<!--  <h:graphicImage value="data:image/png;base64,#{mensalidadeAdmBack.mostrarImagemPagamento(mensalidade.pagamento)}" style="max-width: 13px; max-height: 13px; text-align: center;" /> -->
+<!--  <f:selectItem itemLabel="#{​​​​​​​msgs.SELECIONE}​​​​​​​" noSelectionOption="true" /> -->
