@@ -84,11 +84,20 @@
                         	</p:selectOneRadio>
                         </div>
                         <div class="p-2" style="border-bottom: 2px solid black">
+                        	<label for="multiple" class="text-end pe-3">
+                        		Vencimento
+                        	</label>
+	                        <p:selectCheckboxMenu id="multiple" value="#{mensalidadeAdmBack.filtro.meses}" label="Meses" style="min-width: 15rem"
+	                                  multiple="true" filter="true" filterMatchMode="startsWith" panelStyle="width: 30rem" scrollHeight="250">
+				                <f:selectItems value="#{mensalidadeAdmBack.meses}"/>
+				            </p:selectCheckboxMenu>
+                        </div>
+                        <div class="p-2" style="border-bottom: 2px solid black">
                             <label for="status" class="text-end pe-3"> Associados: </label>
                             <p:selectOneRadio value="#{mensalidadeAdmBack.filtro.associado}" name="associado" unselectable="true">
                                 <f:selectItem itemLabel="Todos" itemValue="todos" />
                             </p:selectOneRadio>
-                            <p:inputText value="#{mensalidadeAdmBack.filtro.associado}"></p:inputText>
+                            <p:inputText value="#{mensalidadeAdmBack.filtro.associado}" disabled="#{mensalidadeAdmBack.filtro.associado eq todos}"></p:inputText>
                         </div>
                         <div class="d-flex justify-content-center">
                         	<h:commandButton styleClass="m-2 botoes cor-gradiente text-white col" action="#{mensalidadeAdmBack.limparFiltros()}" value="LIMPAR FILTROS" />

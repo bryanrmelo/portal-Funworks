@@ -73,7 +73,9 @@ SELECT * FROM mensalidade ORDER BY id ASC ;
 
 DELETE FROM mensalidade WHERE idusuario = 3;
 
-SELECT * FROM mensalidade WHERE usuario.nome = 'Bryan Ribeiro Melo' INNER JOIN mensalidade.idusuario = usuario.id;
+SELECT * FROM mensalidade m JOIN usuario u ON m.idusuario = u.id WHERE u.login = 'bryan.melo';
+
+SELECT * FROM mensalidade WHERE to_char(datavencimento, 'YYYY-MM-DD') LIKE '%-07-%';
 
 INSERT INTO usuario (login, senha) VALUES ('bryan.melo', '482b564fc44219f99e9d5a26f252c1d8');
 

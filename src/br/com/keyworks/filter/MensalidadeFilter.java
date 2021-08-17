@@ -9,7 +9,7 @@ public class MensalidadeFilter {
 
 	private SimNaoEnum comprovante;
 
-	private List<String> vencimento;
+	private List<String> meses;
 
 	private List<String> ano;
 
@@ -31,12 +31,12 @@ public class MensalidadeFilter {
 		this.comprovante = comprovante;
 	}
 
-	public List<String> getVencimento() {
-		return vencimento;
+	public List<String> getMeses() {
+		return meses;
 	}
 
-	public void setVencimento(List<String> vencimento) {
-		this.vencimento = vencimento;
+	public void setMeses(List<String> meses) {
+		this.meses = meses;
 	}
 
 	public List<String> getAno() {
@@ -57,8 +57,8 @@ public class MensalidadeFilter {
 
 	@Override
 	public String toString() {
-		return "MensalidadeFilter [pagamento=" + pagamento + ", comprovante=" + comprovante + ", vencimento=" + vencimento + ", ano=" + ano
-						+ ", associados=" + associado + "]";
+		return "MensalidadeFilter [pagamento=" + pagamento + ", comprovante=" + comprovante + ", meses=" + meses + ", ano=" + ano + ", associado="
+						+ associado + "]";
 	}
 
 }

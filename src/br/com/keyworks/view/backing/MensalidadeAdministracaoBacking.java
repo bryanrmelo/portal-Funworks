@@ -2,6 +2,7 @@ package br.com.keyworks.view.backing;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -35,6 +36,10 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 
 	private StreamedContent comprovanteDownload;
 
+	private List<String> meses;
+
+	private List<String> mesesSelecionados;
+
 	private List<Mensalidade> listaMensalidades;
 
 	private MensalidadeFilter filtro = new MensalidadeFilter();
@@ -44,7 +49,24 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 	@PostConstruct
 	public void init() {
 		listaMensalidades = mensalidadeService.getAllDadosExistentes();
+		criarListaMeses();
 
+	}
+
+	private void criarListaMeses() {
+		meses = new ArrayList<String>();
+		meses.add("Janeiro");
+		meses.add("Fevereiro");
+		meses.add("Março");
+		meses.add("Abril");
+		meses.add("Maio");
+		meses.add("Junho");
+		meses.add("Julho");
+		meses.add("Agosto");
+		meses.add("Setembro");
+		meses.add("Outubro");
+		meses.add("Novembro");
+		meses.add("Dezembro");
 	}
 
 	public String nomeParcial(String nome) {
@@ -79,7 +101,9 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 
 		Optional.ofNullable(filtro.getComprovante()).ifPresent(filtro -> filtrosSelecionados.put("comprovante", this.filtro.getComprovante()));
 
-		Optional.ofNullable(filtro.getComprovante()).ifPresent(filtro -> filtrosSelecionados.put("associado", this.filtro.getAssociado()));
+		Optional.ofNullable(filtro.getAssociado()).ifPresent(filtro -> filtrosSelecionados.put("associado", this.filtro.getAssociado()));
+
+		Optional.ofNullable(filtro.getMeses()).ifPresent(filtro -> filtrosSelecionados.put("meses", this.filtro.getMeses()));
 
 		listaMensalidades = mensalidadeService.getAllDadosExistentesComFiltros(filtrosSelecionados);
 	}
@@ -123,5 +147,21 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 
 	public void setFiltrosSelecionados(Map<String, Object> filtrosSelecionados) {
 		this.filtrosSelecionados = filtrosSelecionados;
+	}
+
+	public List<String> getMeses() {
+		return meses;
+	}
+
+	public void setMeses(List<String> meses) {
+		this.meses = meses;
+	}
+
+	public List<String> getMesesSelecionados() {
+		return mesesSelecionados;
+	}
+
+	public void setMesesSelecionados(List<String> mesesSelecionados) {
+		this.mesesSelecionados = mesesSelecionados;
 	}
 }
