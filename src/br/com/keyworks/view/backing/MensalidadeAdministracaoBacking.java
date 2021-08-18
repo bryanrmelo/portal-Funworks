@@ -15,10 +15,13 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
+import br.com.keyworks.enumeracoes.AnoEnum;
+import br.com.keyworks.enumeracoes.MesEnum;
 import br.com.keyworks.enumeracoes.SimNaoEnum;
-import br.com.keyworks.filter.MensalidadeFilter;
 import br.com.keyworks.framework.faces.backing.AbstractBacking;
 import br.com.keyworks.model.entities.administracao.Mensalidade;
+import br.com.keyworks.model.entities.administracao.MensalidadeFilter;
+import br.com.keyworks.model.entities.administracao.Usuario;
 import br.com.keyworks.services.MensalidadeService;
 import br.com.keyworks.services.UsuarioService;
 
@@ -34,11 +37,15 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 	@Inject
 	private UsuarioService usuarioService;
 
-	private StreamedContent comprovanteDownload;
+	@SuppressWarnings("unused")
+	private List<MesEnum> meses;
 
-	private List<String> meses;
+	@SuppressWarnings("unused")
+	private List<AnoEnum> anos;
 
 	private List<String> mesesSelecionados;
+
+	private List<String> anosSelecionados;
 
 	private List<Mensalidade> listaMensalidades;
 
@@ -46,27 +53,16 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 
 	private Map<String, Object> filtrosSelecionados = new HashMap<String, Object>();
 
+	private List<Usuario> usuarioSelecionados = new ArrayList<Usuario>(1);
+
+	private String opcaoAtualizacaoSelecionada;
+
+	private StreamedContent comprovanteDownload;
+
 	@PostConstruct
 	public void init() {
 		listaMensalidades = mensalidadeService.getAllDadosExistentes();
-		criarListaMeses();
 
-	}
-
-	private void criarListaMeses() {
-		meses = new ArrayList<String>();
-		meses.add("Janeiro");
-		meses.add("Fevereiro");
-		meses.add("Março");
-		meses.add("Abril");
-		meses.add("Maio");
-		meses.add("Junho");
-		meses.add("Julho");
-		meses.add("Agosto");
-		meses.add("Setembro");
-		meses.add("Outubro");
-		meses.add("Novembro");
-		meses.add("Dezembro");
 	}
 
 	public String nomeParcial(String nome) {
@@ -105,12 +101,22 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 
 		Optional.ofNullable(filtro.getMeses()).ifPresent(filtro -> filtrosSelecionados.put("meses", this.filtro.getMeses()));
 
+		Optional.ofNullable(filtro.getAnos()).ifPresent(filtro -> filtrosSelecionados.put("anos", this.filtro.getAnos()));
+
 		listaMensalidades = mensalidadeService.getAllDadosExistentesComFiltros(filtrosSelecionados);
 	}
 
 	public void limparFiltros() {
 		this.filtrosSelecionados.clear();
 		listaMensalidades = mensalidadeService.getAllDadosExistentesComFiltros(filtrosSelecionados);
+	}
+
+	public void atualizarUsuarios() {
+
+	}
+
+	public int getQuantidadeUsuarios() {
+		return mensalidadeService.getQuantidadeUsuarios();
 	}
 
 	public List<SimNaoEnum> getSimNaoValues() {
@@ -149,11 +155,11 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 		this.filtrosSelecionados = filtrosSelecionados;
 	}
 
-	public List<String> getMeses() {
-		return meses;
+	public List<MesEnum> getMeses() {
+		return Arrays.asList(MesEnum.values());
 	}
 
-	public void setMeses(List<String> meses) {
+	public void setMeses(List<MesEnum> meses) {
 		this.meses = meses;
 	}
 
@@ -163,5 +169,37 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 
 	public void setMesesSelecionados(List<String> mesesSelecionados) {
 		this.mesesSelecionados = mesesSelecionados;
+	}
+
+	public List<AnoEnum> getAnos() {
+		return Arrays.asList(AnoEnum.values());
+	}
+
+	public void setAnos(List<AnoEnum> anos) {
+		this.anos = anos;
+	}
+
+	public List<String> getAnosSelecionados() {
+		return anosSelecionados;
+	}
+
+	public void setAnosSelecionados(List<String> anosSelecionados) {
+		this.anosSelecionados = anosSelecionados;
+	}
+
+	public List<Usuario> getUsuarioSelecionados() {
+		return usuarioSelecionados;
+	}
+
+	public void setUsuarioSelecionados(List<Usuario> usuarioSelecionados) {
+		this.usuarioSelecionados = usuarioSelecionados;
+	}
+
+	public String getOpcaoAtualizacaoSelecionada() {
+		return opcaoAtualizacaoSelecionada;
+	}
+
+	public void setOpcaoAtualizacaoSelecionada(String opcaoAtualizacaoSelecionada) {
+		this.opcaoAtualizacaoSelecionada = opcaoAtualizacaoSelecionada;
 	}
 }

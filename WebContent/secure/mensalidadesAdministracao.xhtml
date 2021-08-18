@@ -27,6 +27,21 @@
         </div>
         <div class="d-flex">
             <div class="col-9 flex-fill">
+		        <div class="mt-3">
+		        	<h:form>
+		        		<p:outputLabel styleClass="pe-3" for="@next">
+		        			<b>Ações</b>
+		        		</p:outputLabel>
+		                <p:selectOneMenu styleClass="me-3" id="option" value="#{mensalidadeAdmBack.opcaoAtualizacaoSelecionada}">
+		                    <f:selectItem itemLabel="Atualizar Status - Pago" itemValue="pago"/>
+		                    <f:selectItem itemLabel="Atualizar Status - Pendente" itemValue="pendente"/>
+		                </p:selectOneMenu>
+		                <h:commandButton styleClass="botoes cor-gradiente text-white pe-3" action="#{mensalidadeAdmBack.atualizarUsuarios}" value="Confirmar" />
+		               
+		                <h:outputText value="#{mensalidadeAdmBack.usuarioSelecionados.size()} de #{mensalidadeAdmBack.getQuantidadeUsuarios()}"/>
+		                
+		        	</h:form>
+		        </div>
                 <h:form class="mt-3">
                     <p:dataTable var="mensalidade" value="#{mensalidadeAdmBack.listaMensalidades}">
                         <p:column headerText="ASSOCIADO(A)" style="width: 15%;">
@@ -44,7 +59,7 @@
                         <p:column headerText="COMPROVANTE" style="width: 20%;">
                             <h:outputText value="#{mensalidadeAdmBack.mostrarNomeComprovante(mensalidade)}" />
 
-                            <p:commandButton ajax="false" styleClass="float-end" actionListener="#{mensalidadeBack.downloadComprovante(mensalidade)}" icon="fa fa-fw fa-download" disabled="#{mensalidade.comprovante eq null}">
+                            <p:commandButton ajax="false" styleClass="float-end" actionListener="#{mensalidadeAdmBack.downloadComprovante(mensalidade)}" icon="fa fa-fw fa-download" disabled="#{mensalidade.comprovante eq null}">
                                 <p:fileDownload value="#{mensalidadeAdmBack.comprovanteDownload}" />
                             </p:commandButton>
                         </p:column>
@@ -65,43 +80,73 @@
                         <h6 class="text-white p-1 m-0">FILTRO</h6>
                     </div>
                     <div class="borda">
-                        <h:outputText value="#{mensalidadeAdmBack.filtrosSelecionados}" />
+                        <p class="p-2">Filtros selecionados</p>
+                        <h:outputText styleClass="p-2" value="#{mensalidadeAdmBack.filtrosSelecionados}" />
                     </div>
                     <h:form class="m-0">
-                        <div class="p-2" style="border-bottom: 2px solid black">
+                        <div class="p-2" style="border-bottom: 2px solid black;">
                             <label for="status" class="text-end pe-3"> Status: </label>
                             <p:selectOneRadio value="#{mensalidadeAdmBack.filtro.pagamento}" name="status" unselectable="true">
                                 <f:selectItem itemLabel="Pago" itemValue="Pago" />
                                 <f:selectItem itemLabel="Pendente" itemValue="Pendente" />
                             </p:selectOneRadio>
                         </div>
+                        <div class="p-2" style="border-bottom: 2px solid black;">
+                            <label for="comprovante" class="text-end pe-3">
+                                Comprovante
+                            </label>
+                            <p:selectOneRadio value="#{mensalidadeAdmBack.filtro.comprovante}" name="comprovante" unselectable="true">
+                                <f:selectItems value="#{mensalidadeAdmBack.getSimNaoValues()}" var="s" itemValue="#{s}" itemLabel="#{s.descricao}" />
+                            </p:selectOneRadio>
+                        </div>
+                        <div class="p-2" style="border-bottom: 2px solid black;">
+                            <label for="multiple" class="text-end pe-3">
+                                Vencimento
+                            </label>
+                            <p:selectCheckboxMenu
+                                id="multiple"
+                                value="#{mensalidadeAdmBack.filtro.meses}"
+                                label="Meses"
+                                style="min-width: 15rem;"
+                                multiple="true"
+                                filter="true"
+                                filterMatchMode="startsWith"
+                                panelStyle="width: 30rem"
+                                scrollHeight="250"
+                                converter="enumConverter"
+                            >
+                                <f:selectItems value="#{mensalidadeAdmBack.meses}" var="mes" itemValue="#{mes}" itemLabel="#{mes.descricao}" />
+                            </p:selectCheckboxMenu>
+                        </div>
+                        <div class="p-2" style="border-bottom: 2px solid black;">
+                            <label for="multipleAnos" class="text-end pe-3">
+                                Ano
+                            </label>
+                            <p:selectCheckboxMenu
+                                id="multipleAnos"
+                                value="#{mensalidadeAdmBack.filtro.anos}"
+                                label="Anos"
+                                style="min-width: 15rem;"
+                                multiple="true"
+                                filter="true"
+                                filterMatchMode="startsWith"
+                                panelStyle="width: 30rem"
+                                scrollHeight="250"
+                                converter="enumConverter"
+                            >
+                                <f:selectItems value="#{mensalidadeAdmBack.anos}" var="ano" itemValue="#{ano}" itemLabel="#{ano.descricao}" />
+                            </p:selectCheckboxMenu>
+                        </div>
                         <div class="p-2">
-                        	<label for="comprovante" class="text-end pe-3">
-                        		Comprovante
-                        	</label>
-                        	<p:selectOneRadio value="#{mensalidadeAdmBack.filtro.comprovante}" name="comprovante" unselectable="true">
-                        		<f:selectItems value="#{mensalidadeAdmBack.getSimNaoValues()}" var="s" itemValue="#{s}" itemLabel="#{s.descricao}" />
-                        	</p:selectOneRadio>
-                        </div>
-                        <div class="p-2" style="border-bottom: 2px solid black">
-                        	<label for="multiple" class="text-end pe-3">
-                        		Vencimento
-                        	</label>
-	                        <p:selectCheckboxMenu id="multiple" value="#{mensalidadeAdmBack.filtro.meses}" label="Meses" style="min-width: 15rem"
-	                                  multiple="true" filter="true" filterMatchMode="startsWith" panelStyle="width: 30rem" scrollHeight="250">
-				                <f:selectItems value="#{mensalidadeAdmBack.meses}"/>
-				            </p:selectCheckboxMenu>
-                        </div>
-                        <div class="p-2" style="border-bottom: 2px solid black">
                             <label for="status" class="text-end pe-3"> Associados: </label>
                             <p:selectOneRadio value="#{mensalidadeAdmBack.filtro.associado}" name="associado" unselectable="true">
                                 <f:selectItem itemLabel="Todos" itemValue="todos" />
                             </p:selectOneRadio>
-                            <p:inputText value="#{mensalidadeAdmBack.filtro.associado}" disabled="#{mensalidadeAdmBack.filtro.associado eq todos}"></p:inputText>
+                            <p:inputText value="#{mensalidadeAdmBack.filtro.associado}"></p:inputText>
                         </div>
-                        <div class="d-flex justify-content-center">
-                        	<h:commandButton styleClass="m-2 botoes cor-gradiente text-white col" action="#{mensalidadeAdmBack.limparFiltros()}" value="LIMPAR FILTROS" />
-                        	<h:commandButton styleClass="m-2 botoes cor-gradiente text-white col" action="#{mensalidadeAdmBack.salvarFiltros()}" value="CONFIRMAR" />​​​​​​​
+                        <div class="d-flex justify-content-center pb-3 pt-3">
+                            <h:commandButton styleClass="m-2 botoes cor-gradiente text-white col" action="#{mensalidadeAdmBack.limparFiltros()}" value="LIMPAR FILTROS" />
+                            <h:commandButton styleClass="m-2 botoes cor-gradiente text-white col" action="#{mensalidadeAdmBack.salvarFiltros()}" value="CONFIRMAR" />​​​​​​​
                         </div>
                     </h:form>
                 </div>

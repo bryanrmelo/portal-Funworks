@@ -1,6 +1,7 @@
-package br.com.keyworks.filter;
+package br.com.keyworks.model.entities.administracao;
 
 import java.util.List;
+import br.com.keyworks.enumeracoes.MesEnum;
 import br.com.keyworks.enumeracoes.SimNaoEnum;
 
 public class MensalidadeFilter {
@@ -9,9 +10,9 @@ public class MensalidadeFilter {
 
 	private SimNaoEnum comprovante;
 
-	private List<String> meses;
+	private List<MesEnum> meses;
 
-	private List<String> ano;
+	private List<String> anos;
 
 	private String associado;
 
@@ -31,20 +32,20 @@ public class MensalidadeFilter {
 		this.comprovante = comprovante;
 	}
 
-	public List<String> getMeses() {
+	public List<MesEnum> getMeses() {
 		return meses;
 	}
 
-	public void setMeses(List<String> meses) {
+	public void setMeses(List<MesEnum> meses) {
 		this.meses = meses;
 	}
 
-	public List<String> getAno() {
-		return ano;
+	public List<String> getAnos() {
+		return anos;
 	}
 
-	public void setAno(List<String> ano) {
-		this.ano = ano;
+	public void setAnos(List<String> anos) {
+		this.anos = anos;
 	}
 
 	public String getAssociado() {
@@ -57,7 +58,7 @@ public class MensalidadeFilter {
 
 	@Override
 	public String toString() {
-		return "MensalidadeFilter [pagamento=" + pagamento + ", comprovante=" + comprovante + ", meses=" + meses + ", ano=" + ano + ", associado="
+		return "MensalidadeFilter [pagamento=" + pagamento + ", comprovante=" + comprovante + ", meses=" + meses + ", ano=" + anos + ", associado="
 						+ associado + "]";
 	}
 

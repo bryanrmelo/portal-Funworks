@@ -1,5 +1,6 @@
 package br.com.keyworks.repository;
 
+import java.util.ArrayList;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -39,6 +40,14 @@ public class UsuarioRepository {
 		} catch (Exception e) {
 			throw new UsuarioNaoEncontradoException();
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public int getQuantidadeUsuarios() {
+		String jpql = "SELECT COUNT(m) FROM Mensalidade m";
+		ArrayList<Integer> res = (ArrayList<Integer>) em.createQuery(jpql).getResultList();
+		return res.size();
+
 	}
 
 	@Transactional

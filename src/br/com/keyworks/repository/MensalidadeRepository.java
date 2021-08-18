@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import br.com.keyworks.enumeracoes.AnoEnum;
+import br.com.keyworks.enumeracoes.MesEnum;
 import br.com.keyworks.enumeracoes.SimNaoEnum;
 import br.com.keyworks.exceptions.UsuarioNaoEncontradoException;
 import br.com.keyworks.model.core.jpa.EntityManagerExtended;
@@ -75,56 +77,63 @@ public class MensalidadeRepository {
 						// Testa caso se o associado definiu um nome, caso não tenha definido será buscado pelo nome
 						// de
 						// usuario
-						if (usuarioRepo.buscarUsuario(ConverterNomeUtil.converterParaLogin((String) parametros.get("associado"))).getNome() != null) {
-							query.append(" AND UPPER(m.usuario.nome) = UPPER(:associado)");
-						} else {
-							query.append(" AND UPPER(m.usuario.login) = UPPER(:associado)");
-						}
-					} catch (NullPointerException e) {
-						e.printStackTrace();
-					} catch (UsuarioNaoEncontradoException e) {
-						e.printStackTrace();
+						parametros.put("associado", usuarioRepo
+										.buscarUsuario(ConverterNomeUtil.converterParaLogin((String) parametros.get("associado"))).getLogin());
+						query.append(" AND UPPER(m.usuario.login) = UPPER(:associado)");
+
+					} catch (NullPointerException | UsuarioNaoEncontradoException e) {
+						query.append(" AND UPPER(m.usuario.nome) = UPPER(:associado)");
 					}
-					// parametros.put("associado", ConverterNomeUtil.converterParaLogin((String)
-					// parametros.get("associado")));
 				}
 			}
 			if (parametros.get("meses") != null) {
-				query.append(" AND 1 = 1");
-				ArrayList<String> meses = (ArrayList<String>) parametros.get("meses");
-				for (String mes : meses) {
-					if (mes.equals("Janeiro")) {
-						query.append(" OR to_char(datavencimento, 'YYYY-MM-DD') LIKE '%-01-%'");
+
+				ArrayList<MesEnum> meses = (ArrayList<MesEnum>) parametros.get("meses");
+
+				if (meses.size() >= 1) {
+					query.append(" AND  ( ");
+
+					for (int i = 0; i < meses.size(); i++) {
+						MesEnum mes = meses.get(i);
+
+						if (i == 0) {
+							query.append(" MONTH(m.dataVencimento) = " + mes.getId());
+						} else {
+							query.append(" OR MONTH(m.dataVencimento) = " + mes.getId());
+						}
 					}
-					if (mes.equals("Fevereiro")) {
-						query.append(" OR to_char(datavencimento, 'YYYY-MM-DD') LIKE '%-02-%'");
-					}
-					if (mes.equals("Março")) {
-						query.append(" OR to_char(datavencimento, 'YYYY-MM-DD') LIKE '%-03-%'");
-					}
-					if (mes.equals("Abril")) {
-						query.append(" OR to_char(datavencimento, 'YYYY-MM-DD') LIKE '%-04-%'");
-					}
-					if (mes.equals("Maio")) {
-						query.append(" OR to_char(datavencimento, 'YYYY-MM-DD') LIKE '%-05-%'");
-					}
-					if (mes.equals("Junho")) {
-						query.append(" OR to_char(datavencimento, 'YYYY-MM-DD') LIKE '%-06-%'");
-					}
-					if (mes.equals("Julho")) {
-						query.append(" OR to_char(datavencimento, 'YYYY-MM-DD') LIKE '%-07-%'");
-					}
-					if (mes.equals("Agosto")) {
-						query.append(" OR to_char(datavencimento, 'YYYY-MM-DD') LIKE '%-08-%'");
-					}
+					query.append(" ) ");
+
 				}
-				// SELECT * FROM mensalidade WHERE to_char(datavencimento, 'YYYY-MM-DD') LIKE '%-07-%';
 				parametros.remove("meses");
 			}
+
+			if (parametros.get("anos") != null) {
+
+				ArrayList<AnoEnum> anos = (ArrayList<AnoEnum>) parametros.get("anos");
+
+				if (anos.size() >= 1) {
+
+					query.append(" AND  ( ");
+					for (int i = 0; i < anos.size(); i++) {
+						AnoEnum ano = anos.get(i);
+
+						System.out.println(ano.getId());
+						if (i == 0) {
+							query.append(" YEAR(m.dataVencimento) = " + ano.getId());
+						} else {
+							query.append(" OR YEAR(m.dataVencimento) = " + ano.getId());
+						}
+					}
+					query.append(" ) ");
+				}
+				parametros.remove("anos");
+			}
+
 		}
 		List<Mensalidade> lista = em.findWithQuery(query.toString(), parametros, Mensalidade.class);
 		System.out.println(lista);
 		return lista;
-	}
 
+	}
 }

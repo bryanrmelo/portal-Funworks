@@ -63,6 +63,10 @@ public class MensalidadeService {
 		return mensalidadeRepo.atualizar(mensalidade);
 	}
 
+	public int getQuantidadeUsuarios() {
+		return usuarioRepo.getQuantidadeUsuarios();
+	}
+
 	public byte[] getComprovante(Integer id) {
 		return mensalidadeRepo.buscarMensalidade(id).getComprovante();
 	}
