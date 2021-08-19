@@ -59,7 +59,7 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 
 	private Map<String, Object> filtrosSelecionados = new HashMap<String, Object>();
 
-	private List<Usuario> usuarioSelecionados = new ArrayList<Usuario>(1);
+	private List<Usuario> usuariosSelecionados = new ArrayList<Usuario>(1);
 
 	private StreamedContent comprovanteDownload;
 
@@ -138,6 +138,8 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 	public void limparFiltros() {
 		this.filtrosSelecionados.clear();
 		this.filtro = new MensalidadeFilter();
+		System.out.println(usuariosSelecionados.size());
+		System.out.println(usuariosSelecionados);
 		pesquisar();
 	}
 
@@ -213,12 +215,12 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 		this.anosSelecionados = anosSelecionados;
 	}
 
-	public List<Usuario> getUsuarioSelecionados() {
-		return usuarioSelecionados;
+	public List<Usuario> getUsuariosSelecionados() {
+		return usuariosSelecionados;
 	}
 
-	public void setUsuarioSelecionados(List<Usuario> usuarioSelecionados) {
-		this.usuarioSelecionados = usuarioSelecionados;
+	public void setUsuariosSelecionados(List<Usuario> usuariosSelecionados) {
+		this.usuariosSelecionados = usuariosSelecionados;
 	}
 
 	public GridLazyLoader<Mensalidade> getGridLazyLoader() {

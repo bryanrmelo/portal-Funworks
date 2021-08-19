@@ -16,6 +16,7 @@ public class EnumConverter implements Converter {
 		return null;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public String getAsString(FacesContext facesContext, UIComponent uiComponent, Object objeto) {
 		if (objeto instanceof Enum) {

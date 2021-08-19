@@ -1,7 +1,5 @@
 package br.com.keyworks.view.backing;
 
-import static br.com.keyworks.constants.Constants.IMG_CHECK_FALSE;
-import static br.com.keyworks.constants.Constants.IMG_CHECK_TRUE;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Date;
@@ -110,11 +108,11 @@ public class MensalidadeBacking extends AbstractBacking {
 		this.comprovanteDownload = new DefaultStreamedContent(stream, "application/pdf", mensalidade.getNomeComprovante());
 	}
 
-	public String mostrarImagemPagamento(String op) {
-		if (op.equals("Pago")) {
-			return IMG_CHECK_TRUE;
+	public String mostrarNomePagamento(String op) {
+		if (op.equals("pa")) {
+			return "Pago";
 		} else {
-			return IMG_CHECK_FALSE;
+			return "Pendente";
 		}
 	}
 

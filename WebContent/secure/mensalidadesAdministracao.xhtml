@@ -32,8 +32,8 @@
                         <p:outputLabel styleClass="pe-3" for="@next">
                             <b>Ações</b>
                         </p:outputLabel>
-                       
-                        <h:outputText value="#{mensalidadeAdmBack.usuarioSelecionados.size()} de #{mensalidadeAdmBack.getQuantidadeUsuarios()}" />
+
+                        <h:outputText value="#{mensalidadeAdmBack.usuariosSelecionados.size()} de #{mensalidadeAdmBack.getQuantidadeUsuarios()}" />
                     </h:form>
                 </div>
                 <h:form class="mt-3">
@@ -49,7 +49,11 @@
                         lazy="true"
                         emptyMessage="Não há Registros"
                         sortMode="single"
+                        selection="#{mensalidadeAdmBack.usuariosSelecionados}"
+                        rowKey="#{mensalidade.usuario.id}"
+                        selectionPageOnly="false"
                     >
+                        <p:column selectionMode="multiple" style="width: 16px; text-align: center;" />
                         <p:column headerText="ASSOCIADO(A)" style="width: 15%;">
                             <h:outputText value="#{mensalidadeAdmBack.nomeCompleto(mensalidade.usuario.login)}" />
                         </p:column>
@@ -93,7 +97,7 @@
                         <div class="p-2" style="border-bottom: 2px solid black;">
                             <label for="status" class="text-end pe-3"> Status: </label>
                             <p:selectOneRadio value="#{mensalidadeAdmBack.filtro.pagamento}" name="status" unselectable="true">
-								<f:selectItems value="#{mensalidadeAdmBack.getPagoPendenteValues()}" var="s" itemValue="#{s}" itemLabel="#{s.descricao}" />
+                                <f:selectItems value="#{mensalidadeAdmBack.getPagoPendenteValues()}" var="s" itemValue="#{s}" itemLabel="#{s.descricao}" />
                             </p:selectOneRadio>
                         </div>
                         <div class="p-2" style="border-bottom: 2px solid black;">
@@ -154,17 +158,16 @@
                             <h:commandButton styleClass="m-2 botoes cor-gradiente text-white col" action="#{mensalidadeAdmBack.pesquisar()}" value="CONFIRMAR" />​​​​​​​
                         </div>
                     </h:form>
+                    <iframe width="110" height="200" src="https://www.myinstants.com/instant/bem-te-vi-cantando-11870/embed/" frameborder="0" scrolling="no"></iframe>
                 </div>
             </div>
         </div>
     </ui:define>
 </ui:composition>
- <!--  
-                        <p:selectOneMenu styleClass="me-3" id="option" value="#{mensalidadeAdmBack.opcaoAtualizacaoSelecionada}">
-                            <f:selectItem itemLabel="Atualizar Status - Pago" itemValue="pago" />
-                            <f:selectItem itemLabel="Atualizar Status - Pendente" itemValue="pendente" />
-                        </p:selectOneMenu>
-                        <h:commandButton styleClass="botoes cor-gradiente text-white pe-3 me-3" action="#{mensalidadeAdmBack.atualizarUsuarios}" value="Confirmar" />
-						-->
+<!-- <p:selectOneMenu styleClass="me-3" id="option" value="#{mensalidadeAdmBack.opcaoAtualizacaoSelecionada}">
+    <f:selectItem itemLabel="Atualizar Status - Pago" itemValue="pago" />
+    <f:selectItem itemLabel="Atualizar Status - Pendente" itemValue="pendente" />
+</p:selectOneMenu>
+<h:commandButton styleClass="botoes cor-gradiente text-white pe-3 me-3" action="#{mensalidadeAdmBack.atualizarUsuarios}" value="Confirmar" /> -->
 <!--  <h:graphicImage value="data:image/png;base64,#{mensalidadeAdmBack.mostrarImagemPagamento(mensalidade.pagamento)}" style="max-width: 13px; max-height: 13px; text-align: center;" /> -->
 <!--  <f:selectItem itemLabel="#{​​​​​​​msgs.SELECIONE}​​​​​​​" noSelectionOption="true" /> -->

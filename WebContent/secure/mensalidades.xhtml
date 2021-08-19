@@ -60,7 +60,7 @@
                 </p:column>
 
                 <p:column headerText="STATUS" style="width: 10%;" sortBy="#{mensalidade.pagamento}" sortOrder="asc">
-                    <h:graphicImage value="data:image/png;base64,#{mensalidadeBack.mostrarImagemPagamento(mensalidade.pagamento)}" style="max-width: 13px; max-height: 13px; text-align: center;" />
+                    <h:outputText value="#{mensalidadeBack.mostrarNomePagamento(mensalidade.pagamento)}" />
                 </p:column>
             </p:dataTable>
         </h:form>
