@@ -15,6 +15,8 @@ import br.com.keyworks.model.entities.administracao.Mensalidade;
 import br.com.keyworks.model.entities.administracao.Usuario;
 import br.com.keyworks.repository.MensalidadeRepository;
 import br.com.keyworks.repository.UsuarioRepository;
+import br.com.keyworks.view.componentes.GridLazyLoaderDTO;
+import br.com.keyworks.view.componentes.PagedResult;
 
 @Stateless
 public class MensalidadeService {
@@ -77,6 +79,10 @@ public class MensalidadeService {
 
 	public List<Mensalidade> getAllDadosExistentesComFiltros(Map<String, Object> filtrosSelecionados) {
 		return mensalidadeRepo.buscarMensalidadesComFiltro(filtrosSelecionados);
+	}
+
+	public PagedResult<Mensalidade> buscarMensalidades(GridLazyLoaderDTO gridLazyLoaderDTO) {
+		return mensalidadeRepo.buscarMensalidades(gridLazyLoaderDTO);
 	}
 
 }

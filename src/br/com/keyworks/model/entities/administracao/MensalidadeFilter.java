@@ -2,11 +2,12 @@ package br.com.keyworks.model.entities.administracao;
 
 import java.util.List;
 import br.com.keyworks.enumeracoes.MesEnum;
+import br.com.keyworks.enumeracoes.PagoPendenteEnum;
 import br.com.keyworks.enumeracoes.SimNaoEnum;
 
 public class MensalidadeFilter {
 
-	private String pagamento;
+	private PagoPendenteEnum pagamento;
 
 	private SimNaoEnum comprovante;
 
@@ -16,11 +17,11 @@ public class MensalidadeFilter {
 
 	private String associado;
 
-	public String getPagamento() {
+	public PagoPendenteEnum getPagamento() {
 		return pagamento;
 	}
 
-	public void setPagamento(String pagamento) {
+	public void setPagamento(PagoPendenteEnum pagamento) {
 		this.pagamento = pagamento;
 	}
 

@@ -10,15 +10,6 @@ public class EnviarEmailUtil {
 
 	private static String senderName;
 
-	// public static void main(String[] args) {
-	// try {
-	// send("bryan.melo", "c5a9f7a6f227ecb8fc4542e4176b0799");
-	// } catch (EmailException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// }
-
 	public static void send(String destino, String hash) throws EmailException {
 		try {
 			final HtmlEmail email = new HtmlEmail();

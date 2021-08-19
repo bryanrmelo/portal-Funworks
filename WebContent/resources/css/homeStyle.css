@@ -67,7 +67,8 @@ nav p, h3 {
 }
 
 .botoes {
+	border-radius: 8px;
 	min-width: 120px;
-	box-shadow: 5px 5px black;
+	box-shadow: 5px 5px #c1c1c1;
 	font-weight: 500;
 }

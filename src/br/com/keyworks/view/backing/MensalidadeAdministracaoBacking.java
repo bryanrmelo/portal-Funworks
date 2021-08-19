@@ -17,6 +17,7 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import br.com.keyworks.enumeracoes.AnoEnum;
 import br.com.keyworks.enumeracoes.MesEnum;
+import br.com.keyworks.enumeracoes.PagoPendenteEnum;
 import br.com.keyworks.enumeracoes.SimNaoEnum;
 import br.com.keyworks.framework.faces.backing.AbstractBacking;
 import br.com.keyworks.model.entities.administracao.Mensalidade;
@@ -24,6 +25,10 @@ import br.com.keyworks.model.entities.administracao.MensalidadeFilter;
 import br.com.keyworks.model.entities.administracao.Usuario;
 import br.com.keyworks.services.MensalidadeService;
 import br.com.keyworks.services.UsuarioService;
+import br.com.keyworks.view.componentes.GridLazyLoader;
+import br.com.keyworks.view.componentes.GridLazyLoaderDTO;
+import br.com.keyworks.view.componentes.IGridLazyLoader;
+import br.com.keyworks.view.componentes.PagedResult;
 
 @Named("mensalidadeAdmBack")
 @ViewScoped
@@ -43,11 +48,12 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 	@SuppressWarnings("unused")
 	private List<AnoEnum> anos;
 
+	@SuppressWarnings("unused")
+	private List<PagoPendenteEnum> pagamento;
+
 	private List<String> mesesSelecionados;
 
 	private List<String> anosSelecionados;
-
-	private List<Mensalidade> listaMensalidades;
 
 	private MensalidadeFilter filtro = new MensalidadeFilter();
 
@@ -55,14 +61,28 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 
 	private List<Usuario> usuarioSelecionados = new ArrayList<Usuario>(1);
 
-	private String opcaoAtualizacaoSelecionada;
-
 	private StreamedContent comprovanteDownload;
+
+	private GridLazyLoader<Mensalidade> gridLazyLoader;
 
 	@PostConstruct
 	public void init() {
-		listaMensalidades = mensalidadeService.getAllDadosExistentes();
+		// listaMensalidades = mensalidadeService.getAllDadosExistentes();
+		pesquisar();
 
+	}
+
+	public void pesquisar() {
+		gridLazyLoader = new GridLazyLoader<Mensalidade>(new IGridLazyLoader<Mensalidade>() {
+
+			@Override
+			public PagedResult<Mensalidade> load(GridLazyLoaderDTO gridLazyLoaderDTO) {
+
+				gridLazyLoaderDTO.setFilters(salvarFiltros());
+
+				return mensalidadeService.buscarMensalidades(gridLazyLoaderDTO);
+			}
+		});
 	}
 
 	public String nomeParcial(String nome) {
@@ -82,16 +102,24 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 
 	}
 
-	public void downloadComprovante(Mensalidade mensalidade) {
-		InputStream stream = new ByteArrayInputStream(mensalidadeService.getComprovante(mensalidade.getId()));
-		this.setComprovanteDownload(new DefaultStreamedContent(stream, "application/pdf", mensalidade.getNomeComprovante()));
+	public String mostrarNomePagamento(String pagamento) {
+		if (pagamento.equals("pa")) {
+			return "Pago";
+		} else {
+			return "Pendente";
+		}
 	}
 
 	public String mostrarNomeComprovante(Mensalidade mensalidade) {
 		return mensalidadeService.getNomeComprovante(mensalidade.getId());
 	}
 
-	public void salvarFiltros() {
+	public void downloadComprovante(Mensalidade mensalidade) {
+		InputStream stream = new ByteArrayInputStream(mensalidadeService.getComprovante(mensalidade.getId()));
+		this.setComprovanteDownload(new DefaultStreamedContent(stream, "application/pdf", mensalidade.getNomeComprovante()));
+	}
+
+	public Map<String, Object> salvarFiltros() {
 
 		Optional.ofNullable(filtro.getPagamento()).ifPresent(filtro -> filtrosSelecionados.put("pagamento", this.filtro.getPagamento()));
 
@@ -103,12 +131,14 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 
 		Optional.ofNullable(filtro.getAnos()).ifPresent(filtro -> filtrosSelecionados.put("anos", this.filtro.getAnos()));
 
-		listaMensalidades = mensalidadeService.getAllDadosExistentesComFiltros(filtrosSelecionados);
+		return filtrosSelecionados;
+
 	}
 
 	public void limparFiltros() {
 		this.filtrosSelecionados.clear();
-		listaMensalidades = mensalidadeService.getAllDadosExistentesComFiltros(filtrosSelecionados);
+		this.filtro = new MensalidadeFilter();
+		pesquisar();
 	}
 
 	public void atualizarUsuarios() {
@@ -123,12 +153,8 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 		return Arrays.asList(SimNaoEnum.values());
 	}
 
-	public List<Mensalidade> getListaMensalidades() {
-		return listaMensalidades;
-	}
-
-	public void setListaMensalidades(List<Mensalidade> listaMensalidades) {
-		this.listaMensalidades = listaMensalidades;
+	public List<PagoPendenteEnum> getPagoPendenteValues() {
+		return Arrays.asList(PagoPendenteEnum.values());
 	}
 
 	public StreamedContent getComprovanteDownload() {
@@ -195,11 +221,11 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 		this.usuarioSelecionados = usuarioSelecionados;
 	}
 
-	public String getOpcaoAtualizacaoSelecionada() {
-		return opcaoAtualizacaoSelecionada;
+	public GridLazyLoader<Mensalidade> getGridLazyLoader() {
+		return gridLazyLoader;
 	}
 
-	public void setOpcaoAtualizacaoSelecionada(String opcaoAtualizacaoSelecionada) {
-		this.opcaoAtualizacaoSelecionada = opcaoAtualizacaoSelecionada;
+	public void setGridLazyLoader(GridLazyLoader<Mensalidade> gridLazyLoader) {
+		this.gridLazyLoader = gridLazyLoader;
 	}
 }
