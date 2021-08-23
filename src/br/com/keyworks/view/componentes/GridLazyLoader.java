@@ -5,14 +5,11 @@ import java.util.List;
 import java.util.Map;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
-import br.com.keyworks.services.MensalidadeService;
 
 public class GridLazyLoader<T> extends LazyDataModel<T> {
 
 	private static final long serialVersionUID = 1L;
 	private final IGridLazyLoader<T> iGridLazyLoader;
-
-	private MensalidadeService mensalidadeService = new MensalidadeService();
 
 	public GridLazyLoader(IGridLazyLoader<T> iGridLazyLoader) {
 		super();
@@ -32,10 +29,9 @@ public class GridLazyLoader<T> extends LazyDataModel<T> {
 		return pagedResult.getPage();
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public T getRowData(String rowKey) {
-		return (T) mensalidadeService.buscarMensalidadesPorId(rowKey);
+		return super.getRowData(rowKey);
 	}
 
 }

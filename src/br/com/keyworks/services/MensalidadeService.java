@@ -84,4 +84,14 @@ public class MensalidadeService {
 		return mensalidadeRepo.buscarMensalidade(Integer.parseInt(id));
 	}
 
+	public Mensalidade buscarMensalidadesPorId(Integer id) {
+		return mensalidadeRepo.buscarMensalidade(id);
+
+	}
+
+	public void atualizarMensalidade(Mensalidade mensalidade) {
+		mensalidadeRepo.atualizar(mensalidade);
+
+	}
+
 }

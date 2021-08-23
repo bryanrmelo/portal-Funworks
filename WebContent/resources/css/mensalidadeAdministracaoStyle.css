@@ -11,7 +11,7 @@
 	background-color: #c1c1c1 !important;
 }
 
-.mensalidadeTable .ui-chkbox-icon.ui-icon {
+.mensalidadeTable tbody .ui-chkbox-icon.ui-icon {
 	background-color: darkred;
 }
 

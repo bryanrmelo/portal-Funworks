@@ -32,6 +32,9 @@ public class Usuario implements Serializable {
 	@Column(name = "senha", nullable = false)
 	private String senha;
 
+	@Column(name = "tipo")
+	private String tipo;
+
 	@NotNull
 	@Column(name = "nome", nullable = false)
 	private String nome;
@@ -130,6 +133,14 @@ public class Usuario implements Serializable {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 	public String getNome() {

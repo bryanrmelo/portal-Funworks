@@ -88,12 +88,18 @@ public class MensalidadeRepository {
 						// Testa caso se o associado definiu um nome, caso não tenha definido será buscado pelo nome
 						// de
 						// usuario
+
 						parametros.put("associado", usuarioRepo
 										.buscarUsuario(ConverterNomeUtil.converterParaLogin((String) parametros.get("associado"))).getLogin());
 						query.append(" AND UPPER(m.usuario.login) = UPPER(:associado)");
 
 					} catch (NullPointerException | UsuarioNaoEncontradoException e) {
 						query.append(" AND UPPER(m.usuario.nome) = UPPER(:associado)");
+					} catch (ArrayIndexOutOfBoundsException e) {
+						String valor = (String) parametros.get("associado");
+						query.append(" AND UPPER(m.usuario.login) LIKE UPPER(:associado)");
+						parametros.put("associado", "%" + valor + "%");
+
 					}
 				}
 			}

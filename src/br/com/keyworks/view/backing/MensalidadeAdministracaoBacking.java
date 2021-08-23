@@ -144,7 +144,19 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 	}
 
 	public void atualizarUsuarios() {
-		System.out.println("a");
+		for (Usuario usuario : usuariosSelecionados) {
+			if (opcaoAtualizacaoSelecionada.equals("pago")) {
+				Mensalidade mensalidade = mensalidadeService.buscarMensalidadesPorId(usuario.getId());
+				mensalidade.setPagamento("pa");
+				mensalidadeService.atualizarMensalidade(mensalidade);
+			} else
+				if (opcaoAtualizacaoSelecionada.equals("pendente")) {
+					Mensalidade mensalidade = mensalidadeService.buscarMensalidadesPorId(usuario.getId());
+					mensalidade.setPagamento("pe");
+					mensalidadeService.atualizarMensalidade(mensalidade);
+				}
+		}
+		usuariosSelecionados.clear();
 	}
 
 	public Long getQuantidadeUsuarios() {

@@ -79,4 +79,13 @@ public class UsuarioService {
 		}
 	}
 
+	public Usuario getUsuario(String nome) {
+		try {
+			return usuarioRepo.buscarUsuario(nome);
+		} catch (UsuarioNaoEncontradoException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }

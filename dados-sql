@@ -1,0 +1,79 @@
+INSERT INTO usuario (login, senha, nome, celular, whatsapp, endereco, imagem, nascimento, admissao) VALUES ('bryan.melo', '482b564fc44219f99e9d5a26f252c1d8', 'Bryan Ribeiro Melo', 54981341338, 54981341338, 'Rua das Rosas 1040', 463792107, '2003-02-03', '2021-05-12');
+INSERT INTO usuario (login, senha, nome, celular, whatsapp, endereco, nascimento, admissao) VALUES ('bryan.melo', '482b564fc44219f99e9d5a26f252c1d8', 'Bryan Ribeiro Melo', 54981341338, 54981341338, 'Rua das Rosas 1040', '2003-02-03', '2021-05-12');
+
+INSERT INTO usuario (login, senha, tipo) VALUES ('bryan.melo', '482b564fc44219f99e9d5a26f252c1d8', 'A');
+INSERT INTO usuario (login, senha, tipo) VALUES ('bruno.bet', '482b564fc44219f99e9d5a26f252c1d8', 'N');
+INSERT INTO usuario (login, senha, tipo) VALUES ('william.castilhos', '482b564fc44219f99e9d5a26f252c1d8', 'N');
+INSERT INTO usuario (login, senha, tipo) VALUES ('priscila.kuwer', '482b564fc44219f99e9d5a26f252c1d8', 'N');
+INSERT INTO usuario (login, senha, tipo) VALUES ('william.borges', '482b564fc44219f99e9d5a26f252c1d8', 'N');
+INSERT INTO usuario (login, senha, tipo) VALUES ('vinicius.toigo', '482b564fc44219f99e9d5a26f252c1d8', 'N');
+INSERT INTO usuario (login, senha, tipo) VALUES ('sophia.garcia', '482b564fc44219f99e9d5a26f252c1d8', 'N');
+INSERT INTO usuario (login, senha, tipo) VALUES ('mauricio.dalzochio', '482b564fc44219f99e9d5a26f252c1d8', 'N');
+INSERT INTO usuario (login, senha, tipo) VALUES ('rafael.lemos', '482b564fc44219f99e9d5a26f252c1d8', 'N');
+INSERT INTO usuario (login, senha, tipo) VALUES ('nicolas.zanatto', '482b564fc44219f99e9d5a26f252c1d8', 'N');
+INSERT INTO usuario (login, senha, tipo) VALUES ('mauricio.moccelin', '482b564fc44219f99e9d5a26f252c1d8', 'N');
+INSERT INTO usuario (login, senha, tipo) VALUES ('maria.zolet', '482b564fc44219f99e9d5a26f252c1d8', 'N');
+INSERT INTO usuario (login, senha, tipo) VALUES ('eduarda.keller', '482b564fc44219f99e9d5a26f252c1d8', 'N');
+INSERT INTO usuario (login, senha, tipo) VALUES ('daniela.zanatto', '482b564fc44219f99e9d5a26f252c1d8', 'N');
+INSERT INTO usuario (login, senha, tipo) VALUES ('adolfo.gajardo', '482b564fc44219f99e9d5a26f252c1d8', 'N');
+INSERT INTO usuario (login, senha, tipo) VALUES ('teste.teste', '482b564fc44219f99e9d5a26f252c1d8', 'N');
+
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (1, TO_DATE('20210701','YYYYMMDD'), 15, 'pe');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (2, TO_DATE('20210701','YYYYMMDD'), 15, 'pa');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20210701','YYYYMMDD'), 15, 'pa');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (4, TO_DATE('20210701','YYYYMMDD'), 15, 'pa');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (5, TO_DATE('20210701','YYYYMMDD'), 15, 'pe');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (6, TO_DATE('20210701','YYYYMMDD'), 15, 'pa');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (7, TO_DATE('20210701','YYYYMMDD'), 15, 'pa');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (8, TO_DATE('20210701','YYYYMMDD'), 15, 'pe');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (9, TO_DATE('20210701','YYYYMMDD'), 15, 'pa');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (10, TO_DATE('20210701','YYYYMMDD'), 15, 'pa');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (11, TO_DATE('20210701','YYYYMMDD'), 15, 'pe');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (12, TO_DATE('20210701','YYYYMMDD'), 15, 'pe');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (13, TO_DATE('20210701','YYYYMMDD'), 15, 'pe');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (14, TO_DATE('20210701','YYYYMMDD'), 15, 'pa');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (15, TO_DATE('20210701','YYYYMMDD'), 15, 'pa');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (16, TO_DATE('20210701','YYYYMMDD'), 15, 'pe');
+
+
+
+
+
+
+
+
+--Inserts 01/01/2021 até 01/12/2021
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20210101','YYYYMMDD'), 15, 'Pago');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20210201','YYYYMMDD'), 15, 'Pago');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20210301','YYYYMMDD'), 15, 'Pago');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20210401','YYYYMMDD'), 15, 'Pago');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20210501','YYYYMMDD'), 15, 'Pago');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20210601','YYYYMMDD'), 15, 'Pago');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20210701','YYYYMMDD'), 15, 'Pago');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20210801','YYYYMMDD'), 15, 'Pendente');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20210901','YYYYMMDD'), 15, 'Pendente');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20211001','YYYYMMDD'), 15, 'Pendente');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20211101','YYYYMMDD'), 15, 'Pendente');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20211201','YYYYMMDD'), 15, 'Pendente');
+
+-- Inserts 01/05/2021 até 01/12/2022
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20210501','YYYYMMDD'), 15, 'Pago');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20210601','YYYYMMDD'), 15, 'Pago');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20210701','YYYYMMDD'), 15, 'Pago');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20210801','YYYYMMDD'), 15, 'pa');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20210901','YYYYMMDD'), 15, 'Pendente');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20211001','YYYYMMDD'), 15, 'Pendente');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20211101','YYYYMMDD'), 15, 'Pendente');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20211201','YYYYMMDD'), 15, 'Pendente');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20220101','YYYYMMDD'), 15, 'Pendente');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20220201','YYYYMMDD'), 15, 'Pendente');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20220301','YYYYMMDD'), 15, 'Pendente');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20220401','YYYYMMDD'), 15, 'Pendente');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20220501','YYYYMMDD'), 15, 'Pendente');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20220601','YYYYMMDD'), 15, 'Pendente');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20220701','YYYYMMDD'), 15, 'Pendente');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20220801','YYYYMMDD'), 15, 'Pendente');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20220901','YYYYMMDD'), 15, 'Pendente');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20221001','YYYYMMDD'), 15, 'Pendente');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20221101','YYYYMMDD'), 15, 'Pendente');
+INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20221201','YYYYMMDD'), 15, 'Pendente');

@@ -5,6 +5,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import br.com.keyworks.framework.faces.backing.AbstractBacking;
+import br.com.keyworks.model.entities.administracao.Usuario;
 import br.com.keyworks.services.UsuarioService;
 
 @Named("templateBack")
@@ -21,9 +22,12 @@ public class TemplateBacking extends AbstractBacking {
 
 	private String nome;
 
+	private Usuario usuario;
+
 	@PostConstruct
 	public void Init() {
 		this.nome = sessao.getNome();
+		this.usuario = (usuarioService.getUsuario(nome));
 	}
 
 	public String nomeParcial() {
@@ -32,6 +36,14 @@ public class TemplateBacking extends AbstractBacking {
 
 	public String nomeCompleto() {
 		return usuarioService.gerenciarNomeParaView("completo", nome);
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }
