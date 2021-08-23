@@ -71,6 +71,8 @@ SELECT * FROM logtrocarsenhas;
 
 SELECT * FROM mensalidade ORDER BY id ASC ;
 
+UPDATE mensalidade SET pagamento = 'pa' WHERE id = 1;
+
 DELETE FROM mensalidade WHERE idusuario = 3;''
 
 SELECT * FROM mensalidade m JOIN usuario u ON m.idusuario = u.id WHERE u.login = 'bryan.melo';

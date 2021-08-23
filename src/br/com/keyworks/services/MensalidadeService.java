@@ -64,7 +64,7 @@ public class MensalidadeService {
 		return mensalidadeRepo.atualizar(mensalidade);
 	}
 
-	public int getQuantidadeUsuarios() {
+	public Long getQuantidadeUsuarios() {
 		return usuarioRepo.getQuantidadeUsuarios();
 	}
 
@@ -78,6 +78,10 @@ public class MensalidadeService {
 
 	public PagedResult<Mensalidade> buscarMensalidades(GridLazyLoaderDTO gridLazyLoaderDTO) {
 		return mensalidadeRepo.buscarMensalidades(gridLazyLoaderDTO);
+	}
+
+	public Mensalidade buscarMensalidadesPorId(String id) {
+		return mensalidadeRepo.buscarMensalidade(Integer.parseInt(id));
 	}
 
 }

@@ -143,7 +143,7 @@ public class MensalidadeRepository {
 
 		}
 
-		query.append(" ORDER BY m.id");
+		query.append(" ORDER BY m.usuario.login ASC, m.dataVencimento ASC");
 
 		return em.findPageWithQuery(query.toString(), gridLazyLoaderDTO.getFilters(), Mensalidade.class, gridLazyLoaderDTO.getFirst(),
 						gridLazyLoaderDTO.getPageSize());

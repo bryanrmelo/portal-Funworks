@@ -59,11 +59,13 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 
 	private Map<String, Object> filtrosSelecionados = new HashMap<String, Object>();
 
-	private List<Usuario> usuariosSelecionados = new ArrayList<Usuario>(1);
+	private List<Usuario> usuariosSelecionados = new ArrayList<Usuario>();
 
 	private StreamedContent comprovanteDownload;
 
 	private GridLazyLoader<Mensalidade> gridLazyLoader;
+
+	private String opcaoAtualizacaoSelecionada;
 
 	@PostConstruct
 	public void init() {
@@ -121,33 +123,31 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 
 	public Map<String, Object> salvarFiltros() {
 
-		Optional.ofNullable(filtro.getPagamento()).ifPresent(filtro -> filtrosSelecionados.put("pagamento", this.filtro.getPagamento()));
+		Optional.ofNullable(filtro.getPagamento()).ifPresent(filtro -> this.filtrosSelecionados.put("pagamento", this.filtro.getPagamento()));
 
-		Optional.ofNullable(filtro.getComprovante()).ifPresent(filtro -> filtrosSelecionados.put("comprovante", this.filtro.getComprovante()));
+		Optional.ofNullable(filtro.getComprovante()).ifPresent(filtro -> this.filtrosSelecionados.put("comprovante", this.filtro.getComprovante()));
 
-		Optional.ofNullable(filtro.getAssociado()).ifPresent(filtro -> filtrosSelecionados.put("associado", this.filtro.getAssociado()));
+		Optional.ofNullable(filtro.getAssociado()).ifPresent(filtro -> this.filtrosSelecionados.put("associado", this.filtro.getAssociado()));
 
-		Optional.ofNullable(filtro.getMeses()).ifPresent(filtro -> filtrosSelecionados.put("meses", this.filtro.getMeses()));
+		Optional.ofNullable(filtro.getMeses()).ifPresent(filtro -> this.filtrosSelecionados.put("meses", this.filtro.getMeses()));
 
-		Optional.ofNullable(filtro.getAnos()).ifPresent(filtro -> filtrosSelecionados.put("anos", this.filtro.getAnos()));
+		Optional.ofNullable(filtro.getAnos()).ifPresent(filtro -> this.filtrosSelecionados.put("anos", this.filtro.getAnos()));
 
-		return filtrosSelecionados;
+		return this.filtrosSelecionados;
 
 	}
 
 	public void limparFiltros() {
 		this.filtrosSelecionados.clear();
 		this.filtro = new MensalidadeFilter();
-		System.out.println(usuariosSelecionados.size());
-		System.out.println(usuariosSelecionados);
 		pesquisar();
 	}
 
 	public void atualizarUsuarios() {
-
+		System.out.println("a");
 	}
 
-	public int getQuantidadeUsuarios() {
+	public Long getQuantidadeUsuarios() {
 		return mensalidadeService.getQuantidadeUsuarios();
 	}
 
@@ -229,5 +229,13 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 
 	public void setGridLazyLoader(GridLazyLoader<Mensalidade> gridLazyLoader) {
 		this.gridLazyLoader = gridLazyLoader;
+	}
+
+	public String getOpcaoAtualizacaoSelecionada() {
+		return opcaoAtualizacaoSelecionada;
+	}
+
+	public void setOpcaoAtualizacaoSelecionada(String opcaoAtualizacaoSelecionada) {
+		this.opcaoAtualizacaoSelecionada = opcaoAtualizacaoSelecionada;
 	}
 }

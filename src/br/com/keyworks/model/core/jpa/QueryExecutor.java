@@ -52,7 +52,8 @@ public class QueryExecutor<E> {
 	 */
 
 	@SuppressWarnings("rawtypes")
-	public QueryExecutor(EntityManager em, QueryType queryType, String queryNameOrSQL, Class entityClass, Integer start, Integer limit, Map parameters) {
+	public QueryExecutor(EntityManager em, QueryType queryType, String queryNameOrSQL, Class entityClass, Integer start, Integer limit,
+					Map parameters) {
 		this(em, queryType, queryNameOrSQL, entityClass);
 		this.start = start;
 		this.limit = limit;

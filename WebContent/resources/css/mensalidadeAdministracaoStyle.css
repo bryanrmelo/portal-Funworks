@@ -5,3 +5,21 @@
 .filtro-box-header {
 	outline: 2px solid black;
 }
+
+.ui-state-highlight {
+	background-image: url() !important;
+	background-color: #c1c1c1 !important;
+}
+
+.mensalidadeTable .ui-chkbox-icon.ui-icon {
+	background-color: darkred;
+}
+
+td, th {
+	font-size: 12px;
+}
+
+.acao-box {
+	margin-top: 30px;
+	margin-bottom: 50px;
+}
