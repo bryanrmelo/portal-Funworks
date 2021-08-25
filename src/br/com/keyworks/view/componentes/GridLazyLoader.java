@@ -29,9 +29,4 @@ public class GridLazyLoader<T> extends LazyDataModel<T> {
 		return pagedResult.getPage();
 	}
 
-	@Override
-	public T getRowData(String rowKey) {
-		return super.getRowData(rowKey);
-	}
-
 }

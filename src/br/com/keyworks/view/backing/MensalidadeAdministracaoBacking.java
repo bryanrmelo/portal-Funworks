@@ -13,6 +13,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import br.com.keyworks.enumeracoes.AnoEnum;
@@ -67,6 +68,8 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 
 	private String opcaoAtualizacaoSelecionada;
 
+	private List<Mensalidade> listaMensalidades = new ArrayList<Mensalidade>();
+
 	@PostConstruct
 	public void init() {
 		// listaMensalidades = mensalidadeService.getAllDadosExistentes();
@@ -75,8 +78,9 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 	}
 
 	public void pesquisar() {
-		gridLazyLoader = new GridLazyLoader<Mensalidade>(new IGridLazyLoader<Mensalidade>() {
+		System.out.println(listaMensalidades);
 
+		gridLazyLoader = new GridLazyLoader<Mensalidade>(new IGridLazyLoader<Mensalidade>() {
 			@Override
 			public PagedResult<Mensalidade> load(GridLazyLoaderDTO gridLazyLoaderDTO) {
 
@@ -84,7 +88,35 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 
 				return mensalidadeService.buscarMensalidades(gridLazyLoaderDTO);
 			}
-		});
+		}) {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public Mensalidade getRowData(String rowKey) {
+
+				for (Mensalidade mensalidade : listaMensalidades) {
+					if (mensalidade.getId().equals(Integer.parseInt(rowKey))) {
+						return mensalidade;
+					}
+				}
+				return null;
+
+			}
+
+			@Override
+			public Object getRowKey(Mensalidade mensalidade) {
+				return mensalidade.getId();
+			}
+		};
+	}
+
+	public void onRowSelect(SelectEvent event) {
+		this.listaMensalidades.add((Mensalidade) event.getObject());
+	}
+
+	public void onRowUnselect(SelectEvent event) {
+		this.listaMensalidades.remove((Mensalidade) event.getObject());
 	}
 
 	public String nomeParcial(String nome) {
@@ -143,15 +175,13 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 		pesquisar();
 	}
 
-	public void atualizarUsuarios() {
-		for (Usuario usuario : usuariosSelecionados) {
+	public void atualizarMensalidades() {
+		for (Mensalidade mensalidade : listaMensalidades) {
 			if (opcaoAtualizacaoSelecionada.equals("pago")) {
-				Mensalidade mensalidade = mensalidadeService.buscarMensalidadesPorId(usuario.getId());
 				mensalidade.setPagamento("pa");
 				mensalidadeService.atualizarMensalidade(mensalidade);
 			} else
 				if (opcaoAtualizacaoSelecionada.equals("pendente")) {
-					Mensalidade mensalidade = mensalidadeService.buscarMensalidadesPorId(usuario.getId());
 					mensalidade.setPagamento("pe");
 					mensalidadeService.atualizarMensalidade(mensalidade);
 				}
@@ -249,5 +279,13 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 
 	public void setOpcaoAtualizacaoSelecionada(String opcaoAtualizacaoSelecionada) {
 		this.opcaoAtualizacaoSelecionada = opcaoAtualizacaoSelecionada;
+	}
+
+	public List<Mensalidade> getListaMensalidades() {
+		return listaMensalidades;
+	}
+
+	public void setListaMensalidades(List<Mensalidade> listaMensalidades) {
+		this.listaMensalidades = listaMensalidades;
 	}
 }

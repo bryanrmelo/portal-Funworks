@@ -94,4 +94,8 @@ public class MensalidadeService {
 
 	}
 
+	public Mensalidade buscarMensalidade(Mensalidade mensalidade) {
+		return mensalidadeRepo.buscarMensalidade(mensalidade.getId());
+	}
+
 }
