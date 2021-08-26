@@ -77,7 +77,7 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 			@Override
 			public PagedResult<Mensalidade> load(GridLazyLoaderDTO gridLazyLoaderDTO) {
 
-				gridLazyLoaderDTO.setFilters(salvarFiltros());
+				gridLazyLoaderDTO.setFilters(setFiltros());
 
 				return mensalidadeService.buscarMensalidades(gridLazyLoaderDTO);
 			}
@@ -106,7 +106,11 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 		});
 	}
 
-	public Map<String, Object> salvarFiltros() {
+	public void salvarFiltros() {
+		this.filtrosSelecionados = setFiltros();
+	}
+
+	public Map<String, Object> setFiltros() {
 
 		Optional.ofNullable(filtro.getPagamento()).ifPresent(filtro -> this.filtrosSelecionados.put("pagamento", this.filtro.getPagamento()));
 
@@ -131,15 +135,20 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 	public void atualizarMensalidades() {
 		for (Mensalidade mensalidade : mensalidadesSelecionadas) {
 			if (opcaoAtualizacaoSelecionada.equals("pago")) {
-				mensalidade.setPagamento("pa");
-				mensalidadeService.atualizarMensalidade(mensalidade);
+				if (mensalidade.getComprovante() != null) {
+					mensalidade.setPagamento("pa");
+					mensalidadeService.atualizarMensalidade(mensalidade);
+					mostrarMensangemAtualizacaoPagoPendente(mensalidadesSelecionadas);
+				} else {
+					FacesMessageUtils.addErrorMessage("Mensalidade não possui comprovante.");
+				}
 			} else
 				if (opcaoAtualizacaoSelecionada.equals("pendente")) {
 					mensalidade.setPagamento("pe");
 					mensalidadeService.atualizarMensalidade(mensalidade);
+					mostrarMensangemAtualizacaoPagoPendente(mensalidadesSelecionadas);
 				}
 		}
-		mostrarMensangemAtualizacaoPagoPendente(mensalidadesSelecionadas);
 
 		mensalidadesSelecionadas.clear();
 	}
@@ -173,11 +182,6 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 		return mensalidadeService.getNomeComprovante(mensalidade.getId());
 	}
 
-	public void downloadComprovante(Mensalidade mensalidade) {
-		InputStream stream = new ByteArrayInputStream(mensalidadeService.getComprovante(mensalidade.getId()));
-		this.setComprovanteDownload(new DefaultStreamedContent(stream, "application/pdf", mensalidade.getNomeComprovante()));
-	}
-
 	private void mostrarMensangemAtualizacaoPagoPendente(List<Mensalidade> mensalidadesSelecionadas) {
 		StringBuilder string = new StringBuilder();
 		string.append("Mensalidades atualizadas: ");
@@ -186,6 +190,11 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 							+ dataFormatada(mensalidade.getDataVencimento()) + "	");
 		}
 		FacesMessageUtils.addInfoMessage(string.toString());
+	}
+
+	public void downloadComprovante(Mensalidade mensalidade) {
+		InputStream stream = new ByteArrayInputStream(mensalidadeService.getComprovante(mensalidade.getId()));
+		this.setComprovanteDownload(new DefaultStreamedContent(stream, "application/pdf", mensalidade.getNomeComprovante()));
 	}
 
 	public Long getQuantidadeUsuarios() {
