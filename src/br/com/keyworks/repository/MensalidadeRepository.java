@@ -55,7 +55,7 @@ public class MensalidadeRepository {
 
 		Map<String, Object> parametros = gridLazyLoaderDTO.getFilteredFilters();
 
-		StringBuilder query = new StringBuilder("SELECT m FROM Mensalidade m  ");
+		StringBuilder query = new StringBuilder("SELECT m FROM Mensalidade m");
 		if (parametros.size() > 0) {
 			query.append(" WHERE 1 = 1");
 			//

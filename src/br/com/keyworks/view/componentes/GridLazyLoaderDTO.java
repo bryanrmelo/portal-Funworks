@@ -1,6 +1,5 @@
 package br.com.keyworks.view.componentes;
 
-
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -151,9 +150,8 @@ public class GridLazyLoaderDTO {
 
 	@Override
 	public String toString() {
-		return "GridLazyLoaderDTO [first=" + first + ", pageSize=" + pageSize + ", sortField=" + sortField + ", sortOrder=" + sortOrder
-						+ ", filters=" + filters + "]";
+		return "GridLazyLoaderDTO [first=" + first + ", pageSize=" + pageSize + ", sortField=" + sortField + ", sortOrder=" + sortOrder + ", filters="
+						+ filters + "]";
 	}
-
 
 }
