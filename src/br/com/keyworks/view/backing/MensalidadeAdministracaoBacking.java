@@ -51,10 +51,6 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 	@SuppressWarnings("unused")
 	private List<PagoPendenteEnum> pagamento;
 
-	private List<String> mesesSelecionados;
-
-	private List<String> anosSelecionados;
-
 	private MensalidadeFilter filtro = new MensalidadeFilter();
 
 	private Map<String, Object> filtrosSelecionados = new HashMap<String, Object>();
@@ -67,19 +63,15 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 
 	private String opcaoAtualizacaoSelecionada;
 
-	private List<Mensalidade> selectedProducts;
-
 	private List<Mensalidade> listaMensalidades = new ArrayList<Mensalidade>();
 
 	@PostConstruct
 	public void init() {
-		// listaMensalidades = mensalidadeService.getAllDadosExistentes();
 		pesquisar();
 
 	}
 
 	public void pesquisar() {
-		System.out.println(mensalidadesSelecionadas);
 
 		setGridLazyLoader(new GridLazyLoader<Mensalidade>(new IGridLazyLoader<Mensalidade>() {
 			@Override
@@ -114,6 +106,44 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 		});
 	}
 
+	public Map<String, Object> salvarFiltros() {
+
+		Optional.ofNullable(filtro.getPagamento()).ifPresent(filtro -> this.filtrosSelecionados.put("pagamento", this.filtro.getPagamento()));
+
+		Optional.ofNullable(filtro.getComprovante()).ifPresent(filtro -> this.filtrosSelecionados.put("comprovante", this.filtro.getComprovante()));
+
+		Optional.ofNullable(filtro.getAssociado()).ifPresent(filtro -> this.filtrosSelecionados.put("associado", this.filtro.getAssociado()));
+
+		Optional.ofNullable(filtro.getMeses()).ifPresent(filtro -> this.filtrosSelecionados.put("meses", this.filtro.getMeses()));
+
+		Optional.ofNullable(filtro.getAnos()).ifPresent(filtro -> this.filtrosSelecionados.put("anos", this.filtro.getAnos()));
+
+		return this.filtrosSelecionados;
+
+	}
+
+	public void limparFiltros() {
+		this.filtrosSelecionados.clear();
+		this.filtro = new MensalidadeFilter();
+		pesquisar();
+	}
+
+	public void atualizarMensalidades() {
+		for (Mensalidade mensalidade : mensalidadesSelecionadas) {
+			if (opcaoAtualizacaoSelecionada.equals("pago")) {
+				mensalidade.setPagamento("pa");
+				mensalidadeService.atualizarMensalidade(mensalidade);
+			} else
+				if (opcaoAtualizacaoSelecionada.equals("pendente")) {
+					mensalidade.setPagamento("pe");
+					mensalidadeService.atualizarMensalidade(mensalidade);
+				}
+		}
+		mostrarMensangemAtualizacaoPagoPendente(mensalidadesSelecionadas);
+
+		mensalidadesSelecionadas.clear();
+	}
+
 	public String nomeParcial(String nome) {
 		return usuarioService.gerenciarNomeParaView("parcial", nome);
 	}
@@ -146,45 +176,6 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 	public void downloadComprovante(Mensalidade mensalidade) {
 		InputStream stream = new ByteArrayInputStream(mensalidadeService.getComprovante(mensalidade.getId()));
 		this.setComprovanteDownload(new DefaultStreamedContent(stream, "application/pdf", mensalidade.getNomeComprovante()));
-	}
-
-	public Map<String, Object> salvarFiltros() {
-
-		Optional.ofNullable(filtro.getPagamento()).ifPresent(filtro -> this.filtrosSelecionados.put("pagamento", this.filtro.getPagamento()));
-
-		Optional.ofNullable(filtro.getComprovante()).ifPresent(filtro -> this.filtrosSelecionados.put("comprovante", this.filtro.getComprovante()));
-
-		Optional.ofNullable(filtro.getAssociado()).ifPresent(filtro -> this.filtrosSelecionados.put("associado", this.filtro.getAssociado()));
-
-		Optional.ofNullable(filtro.getMeses()).ifPresent(filtro -> this.filtrosSelecionados.put("meses", this.filtro.getMeses()));
-
-		Optional.ofNullable(filtro.getAnos()).ifPresent(filtro -> this.filtrosSelecionados.put("anos", this.filtro.getAnos()));
-
-		return this.filtrosSelecionados;
-
-	}
-
-	public void limparFiltros() {
-		this.filtrosSelecionados.clear();
-		this.filtro = new MensalidadeFilter();
-		// this.listaMensalidades = mensalidadeService.getAllDadosExistentes();
-		pesquisar();
-	}
-
-	public void atualizarMensalidades() {
-		for (Mensalidade mensalidade : mensalidadesSelecionadas) {
-			if (opcaoAtualizacaoSelecionada.equals("pago")) {
-				mensalidade.setPagamento("pa");
-				mensalidadeService.atualizarMensalidade(mensalidade);
-			} else
-				if (opcaoAtualizacaoSelecionada.equals("pendente")) {
-					mensalidade.setPagamento("pe");
-					mensalidadeService.atualizarMensalidade(mensalidade);
-				}
-		}
-		mostrarMensangemAtualizacaoPagoPendente(mensalidadesSelecionadas);
-
-		mensalidadesSelecionadas.clear();
 	}
 
 	private void mostrarMensangemAtualizacaoPagoPendente(List<Mensalidade> mensalidadesSelecionadas) {
@@ -241,28 +232,12 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 		this.meses = meses;
 	}
 
-	public List<String> getMesesSelecionados() {
-		return mesesSelecionados;
-	}
-
-	public void setMesesSelecionados(List<String> mesesSelecionados) {
-		this.mesesSelecionados = mesesSelecionados;
-	}
-
 	public List<AnoEnum> getAnos() {
 		return Arrays.asList(AnoEnum.values());
 	}
 
 	public void setAnos(List<AnoEnum> anos) {
 		this.anos = anos;
-	}
-
-	public List<String> getAnosSelecionados() {
-		return anosSelecionados;
-	}
-
-	public void setAnosSelecionados(List<String> anosSelecionados) {
-		this.anosSelecionados = anosSelecionados;
 	}
 
 	public List<Mensalidade> getMensalidadesSelecionadas() {
@@ -297,11 +272,4 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 		this.gridLazyLoader = gridLazyLoader;
 	}
 
-	public List<Mensalidade> getSelectedProducts() {
-		return selectedProducts;
-	}
-
-	public void setSelectedProducts(List<Mensalidade> selectedProducts) {
-		this.selectedProducts = selectedProducts;
-	}
 }

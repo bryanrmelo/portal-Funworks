@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import br.com.keyworks.enumeracoes.AnoEnum;
 import br.com.keyworks.enumeracoes.MesEnum;
 import br.com.keyworks.enumeracoes.PagoPendenteEnum;
@@ -27,9 +28,14 @@ public class MensalidadeRepository {
 	@Inject
 	private UsuarioRepository usuarioRepo;
 
-	public List<Mensalidade> buscarMensalidadesPorId(Integer id) {
+	public List<Mensalidade> buscarMensalidadesPorIdUsuario(Integer id) {
 		String jpql = "SELECT m FROM Mensalidade m WHERE idUsuario = :idUsuario ORDER BY id ASC";
 		return em.createQuery(jpql, Mensalidade.class).setParameter("idUsuario", id).getResultList();
+	}
+
+	public Mensalidade buscarMensalidadePorId(Integer id) {
+		String jpql = "SELECT m FROM Mensalidade m WHERE id = :id";
+		return em.createQuery(jpql, Mensalidade.class).setParameter("id", id).getSingleResult();
 	}
 
 	public List<Mensalidade> buscarMensalidades() {
@@ -37,15 +43,12 @@ public class MensalidadeRepository {
 		return em.createQuery(jpql, Mensalidade.class).getResultList();
 	}
 
-	public Mensalidade buscarMensalidade(Integer id) {
-		String jpql = "SELECT m FROM Mensalidade m WHERE id = :id";
-		return em.createQuery(jpql, Mensalidade.class).setParameter("id", id).getSingleResult();
-	}
-
+	@Transactional
 	public void salvar(Mensalidade mensalidade) {
 		em.persist(mensalidade);
 	}
 
+	@Transactional
 	public Mensalidade atualizar(Mensalidade mensalidade) {
 		return em.merge(mensalidade);
 	}
@@ -58,10 +61,6 @@ public class MensalidadeRepository {
 		StringBuilder query = new StringBuilder("SELECT m FROM Mensalidade m");
 		if (parametros.size() > 0) {
 			query.append(" WHERE 1 = 1");
-			//
-			// if (parameters.containsKey("associado")) {
-			// queryString.append(" AND e.usuario.nome = :associado ");
-			// }
 
 			if (parametros.get("pagamento") != null) {
 				PagoPendenteEnum e = (PagoPendenteEnum) parametros.get("pagamento");

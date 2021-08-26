@@ -29,7 +29,7 @@ public class MensalidadeService {
 	public List<Mensalidade> getDadosExistentes(String nome) {
 		try {
 			Usuario usuario = usuarioRepo.buscarUsuario(nome);
-			return mensalidadeRepo.buscarMensalidadesPorId(usuario.getId());
+			return mensalidadeRepo.buscarMensalidadesPorIdUsuario(usuario.getId());
 		} catch (UsuarioNaoEncontradoException e) {
 
 		}
@@ -69,11 +69,11 @@ public class MensalidadeService {
 	}
 
 	public byte[] getComprovante(Integer id) {
-		return mensalidadeRepo.buscarMensalidade(id).getComprovante();
+		return mensalidadeRepo.buscarMensalidadePorId(id).getComprovante();
 	}
 
 	public String getNomeComprovante(Integer id) {
-		return mensalidadeRepo.buscarMensalidade(id).getNomeComprovante();
+		return mensalidadeRepo.buscarMensalidadePorId(id).getNomeComprovante();
 	}
 
 	public PagedResult<Mensalidade> buscarMensalidades(GridLazyLoaderDTO gridLazyLoaderDTO) {
@@ -81,11 +81,11 @@ public class MensalidadeService {
 	}
 
 	public Mensalidade buscarMensalidadesPorId(String id) {
-		return mensalidadeRepo.buscarMensalidade(Integer.parseInt(id));
+		return mensalidadeRepo.buscarMensalidadePorId(Integer.parseInt(id));
 	}
 
 	public Mensalidade buscarMensalidadesPorId(Integer id) {
-		return mensalidadeRepo.buscarMensalidade(id);
+		return mensalidadeRepo.buscarMensalidadePorId(id);
 
 	}
 
@@ -95,7 +95,7 @@ public class MensalidadeService {
 	}
 
 	public Mensalidade buscarMensalidade(Mensalidade mensalidade) {
-		return mensalidadeRepo.buscarMensalidade(mensalidade.getId());
+		return mensalidadeRepo.buscarMensalidadePorId(mensalidade.getId());
 	}
 
 }
