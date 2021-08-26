@@ -12,7 +12,7 @@ import br.com.keyworks.model.core.qualifier.DataRepository;
 import br.com.keyworks.model.entities.administracao.RecuperacaoSenha;
 
 @Stateless
-public class RecuperacaoSenhaRepository {
+public class SenhaRepository {
 
 	@Inject
 	@DataRepository

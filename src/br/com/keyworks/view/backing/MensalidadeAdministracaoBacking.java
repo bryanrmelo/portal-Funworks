@@ -24,7 +24,9 @@ import br.com.keyworks.model.entities.administracao.Mensalidade;
 import br.com.keyworks.model.entities.administracao.MensalidadeFilter;
 import br.com.keyworks.services.MensalidadeService;
 import br.com.keyworks.services.UsuarioService;
+import br.com.keyworks.util.ExpiracaoUtil;
 import br.com.keyworks.util.FacesMessageUtils;
+import br.com.keyworks.util.LogoutUtil;
 import br.com.keyworks.view.componentes.GridLazyLoader;
 import br.com.keyworks.view.componentes.GridLazyLoaderDTO;
 import br.com.keyworks.view.componentes.IGridLazyLoader;
@@ -41,6 +43,9 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 
 	@Inject
 	private UsuarioService usuarioService;
+
+	@Inject
+	private IdentidadeSessao sessao;
 
 	@SuppressWarnings("unused")
 	private List<MesEnum> meses;
@@ -68,6 +73,9 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 	@PostConstruct
 	public void init() {
 		pesquisar();
+		if (!ExpiracaoUtil.ValidaExpiracao(sessao.getDataCriacao())) {
+			LogoutUtil.logout();
+		}
 
 	}
 

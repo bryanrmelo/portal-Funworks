@@ -41,12 +41,7 @@ public class AlterarSenhaLogadoBacking extends AbstractBacking {
 	public void ini() {
 		this.nome = sessao.getNome();
 		if (!ExpiracaoUtil.ValidaExpiracao(sessao.getDataCriacao())) {
-			FacesMessageUtils.addErrorMessage("Sessão expirada!");
-			try {
-				LogoutUtil.logout();
-			} catch (Exception e) {
-
-			}
+			LogoutUtil.logout();
 		}
 	}
 

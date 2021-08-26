@@ -134,7 +134,6 @@ public class MensalidadeRepository {
 					for (int i = 0; i < anos.size(); i++) {
 						AnoEnum ano = anos.get(i);
 
-						System.out.println(ano.getId());
 						if (i == 0) {
 							query.append(" YEAR(m.dataVencimento) = " + ano.getId());
 						} else {

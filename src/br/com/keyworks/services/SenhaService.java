@@ -17,7 +17,7 @@ import br.com.keyworks.model.entities.administracao.HistoricoSenha;
 import br.com.keyworks.model.entities.administracao.RecuperacaoSenha;
 import br.com.keyworks.model.entities.administracao.Usuario;
 import br.com.keyworks.repository.HistoricoRepository;
-import br.com.keyworks.repository.RecuperacaoSenhaRepository;
+import br.com.keyworks.repository.SenhaRepository;
 import br.com.keyworks.repository.UsuarioRepository;
 import br.com.keyworks.util.EnviarEmailUtil;
 import br.com.keyworks.util.RandomStringGenerator;
@@ -31,7 +31,7 @@ public class SenhaService {
 	private UsuarioRepository usuarioRepo;
 
 	@Inject
-	private RecuperacaoSenhaRepository recuperacaoSenhaRepo;
+	private SenhaRepository recuperacaoSenhaRepo;
 
 	@Inject
 	private HistoricoRepository historicoRepo;

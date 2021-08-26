@@ -52,4 +52,10 @@ public class UsuarioRepository {
 		em.merge(usuario);
 	}
 
+	@Transactional
+	public void registrar(Usuario usuario) {
+		em.persist(usuario);
+
+	}
+
 }

@@ -32,7 +32,7 @@ public class LoginBacking extends AbstractBacking {
 	private SenhaService senhaService;
 
 	@Inject
-	private IdentidadeSessao idSessao;
+	private IdentidadeSessao idSessao = new IdentidadeSessao();
 
 	private String nome;
 
@@ -79,8 +79,8 @@ public class LoginBacking extends AbstractBacking {
 					} catch (ServletException e) {
 						e.printStackTrace();
 					}
-					idSessao.setNome(nome);
-					idSessao.setDataCriacao(new Date());
+					this.idSessao.setNome(nome);
+					this.idSessao.setDataCriacao(new Date());
 					return "/secure/home.xhtml?faces-redirect=true";
 				} else {
 					System.out.println("Login falhou!!");
@@ -125,7 +125,7 @@ public class LoginBacking extends AbstractBacking {
 			return true;
 		} else {
 
-			return true;
+			return false;
 		}
 	}
 

@@ -2,7 +2,7 @@ package br.com.keyworks.enumeracoes;
 
 public enum ContaEnum {
 
-	ADMINISTRADOR("A", "ADMINISTRADOR"), PADRAO("N", "PADRAO");
+	ADMINISTRADOR("A", "Administrador"), PADRAO("N", "Padrão");
 
 	private String id;
 	private String descricao;

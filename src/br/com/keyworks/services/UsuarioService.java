@@ -4,10 +4,14 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import br.com.keyworks.enumeracoes.SimNaoEnum;
 import br.com.keyworks.exceptions.AlteracaoConcluidaException;
+import br.com.keyworks.exceptions.SenhaInvalidaException;
+import br.com.keyworks.exceptions.SenhaTamanhoInvalidoException;
 import br.com.keyworks.exceptions.UsuarioNaoEncontradoException;
 import br.com.keyworks.model.entities.administracao.Usuario;
 import br.com.keyworks.repository.UsuarioRepository;
 import br.com.keyworks.util.ConverterNomeUtil;
+import br.com.keyworks.util.SenhaUtil;
+import br.com.keyworks.util.StringToMD5Converter;
 
 @Stateless
 public class UsuarioService {
@@ -86,6 +90,29 @@ public class UsuarioService {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	public void registrar(Usuario usuario) throws SenhaInvalidaException, SenhaTamanhoInvalidoException, UsuarioNaoEncontradoException {
+		if (validar(usuario.getSenha()))
+			try {
+				ConverterNomeUtil.converterPrimeiroNome(usuario.getLogin());
+				usuario.setSenha(StringToMD5Converter.convertStringToMd5(usuario.getSenha()));
+				usuarioRepo.registrar(usuario);
+
+			} catch (NullPointerException e) {
+				throw new UsuarioNaoEncontradoException();
+			}
+	}
+
+	public boolean validar(String senha) throws SenhaInvalidaException, SenhaTamanhoInvalidoException {
+		if (!SenhaUtil.validarSenha(senha, "^.{8,60}$")) {
+			throw new SenhaTamanhoInvalidoException();
+		}
+		if (!SenhaUtil.validarSenha(senha, "^(?=.*?[a-z])(?=.*?[0-9])(?!.*?[A-Z])(?!.*[!@#$%^&*()/_+={};':\"|,.<>?]).{8,}$")) {
+			throw new SenhaInvalidaException();
+		}
+		return true;
+
 	}
 
 }

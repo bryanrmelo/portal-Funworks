@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "usuario")
-@SequenceGenerator(name = "UsuarioSeq", sequenceName = "USUARIO_SEQ", allocationSize = 1)
+@SequenceGenerator(name = "UsuarioSeq", sequenceName = "USUARIO_ID_SEQ", allocationSize = 1)
 
 public class Usuario implements Serializable {
 
@@ -35,18 +35,15 @@ public class Usuario implements Serializable {
 	@Column(name = "tipo")
 	private String tipo;
 
-	@NotNull
 	@Column(name = "nome", nullable = false)
 	private String nome;
 
 	@Column(name = "email")
 	private String email;
 
-	@NotNull
 	@Column(name = "celular", nullable = false)
 	private String celular;
 
-	@NotNull
 	@Column(name = "whatsapp", nullable = false)
 	private String whatsapp;
 
@@ -54,18 +51,15 @@ public class Usuario implements Serializable {
 	@Column(name = "imagem")
 	private byte[] image;
 
-	@NotNull
 	@Column(name = "endereco", nullable = false)
 	private String endereco;
 
-	@NotNull
 	@Column(name = "nascimento", nullable = false)
 	private String nascimento;
 
 	@Column(name = "estadoCivil")
 	private String estadoCivil;
 
-	@NotNull
 	@Column(name = "admissao", nullable = false)
 	private String admissao;
 

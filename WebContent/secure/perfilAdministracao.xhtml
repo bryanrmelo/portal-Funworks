@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    template="/WEB-INF/templates/homeTemplate.xhtml"
+>
+    <ui:define name="content">
+        <title>Portal - Registrar Perfil</title>
+
+        <h:form>
+            <div class="container-fluid cor-gradiente borda mt-2">
+                <div>
+                    <h2 class="text-white m-0 p-3">
+                        <h:outputText value="Perfis > Administração" />
+                    </h2>
+                </div>
+            </div>
+            <div class="p-2">
+                <h:outputLabel value="Usuário" for="usuario" />
+                <h:inputText name="usuario" value="#{perfilAdmBack.usuario.login}" />
+            </div>
+            <div class="p-2">
+                <h:outputLabel value="Senha" for="senha" />
+                <h:inputText name="senha" value="#{perfilAdmBack.usuario.senha}" />
+            </div>
+            <div class="p-2">
+                <h:outputLabel value="Tipo" for="tipo" />
+                <p:selectOneMenu value="#{perfilAdmBack.usuario.tipo}" converter="enumConverter">
+                	<f:selectItems value="#{perfilAdmBack.tipos}" var="tipo" itemValue="#{tipo}" itemLabel="#{tipo.descricao}" />
+                </p:selectOneMenu>
+            </div>
+            <h:commandButton styleClass="botoes cor-gradiente text-white" action="#{perfilAdmBack.registrar()}" value="REGISTRAR" />
+        </h:form>
+    </ui:define>
+</ui:composition>
