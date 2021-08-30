@@ -2,13 +2,12 @@
 
 2. Adicionar a seguinte definição de datasource no arquivo "standalone.xml":
 
-	<datasource jndi-name="java:jboss/datasources/tomasi-ds" pool-name="tomasi-ds" enabled="true" use-java-context="true">
-		<connection-url>jdbc:postgresql://192.168.1.208/tomasi_desenv</connection-url>
-		<driver-class>org.postgresql.Driver</driver-class>
-		<driver>postgresql-9.3-1102.jdbc41.jar</driver>
+	<datasource jndi-name="java:jboss/datasources/portal-transparencia-ds" pool-name="portal-transparencia-ds" enabled="true" use-java-context="true">
+		<connection-url>jdbc:postgresql://192.168.1.219/Portal_Transparencia_Bryan</connection-url>
+		<driver>org.postgresql</driver>
 		<security>
 			<user-name>postgres</user-name>
-			<password>postgres</password>
+			<password>kwP0stgr3s!</password>
 		</security>
 		<validation>
 			<validate-on-match>false</validate-on-match>
@@ -20,3 +19,9 @@
 			<share-prepared-statements>false</share-prepared-statements>
 		</statement>
 	</datasource>
+	
+	<drivers>
+		<driver name="org.postgresql" module="org.postgresql">
+			<xa-datasource-class>org.postgresql.xa.PGXADataSource</xa-datasource-class>
+		</driver>
+	</drivers>

@@ -83,7 +83,6 @@ public class LoginBacking extends AbstractBacking {
 					this.idSessao.setDataCriacao(new Date());
 					return "/secure/home.xhtml?faces-redirect=true";
 				} else {
-					System.out.println("Login falhou!!");
 					return "/public/login.xhtml?faces-redirect=true";
 				}
 			} else {

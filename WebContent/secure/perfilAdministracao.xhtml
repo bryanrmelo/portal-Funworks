@@ -6,34 +6,39 @@
     xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
     xmlns:p="http://primefaces.org/ui"
-    template="/WEB-INF/templates/homeTemplate.xhtml"
+    template="/WEB-INF/templates/basicTemplate.xhtml"
 >
     <ui:define name="content">
+    	<link rel="stylesheet" href="../resources/css/editarStyle.css" />
         <title>Portal - Registrar Perfil</title>
-
+        <div class="container-fluid cor-gradiente borda mt-2">
+            <h2 class="text-white m-0 p-3">
+                <h:outputText value="Perfis > Administração" />
+            </h2>
+        </div>
         <h:form>
-            <div class="container-fluid cor-gradiente borda mt-2">
-                <div>
-                    <h2 class="text-white m-0 p-3">
-                        <h:outputText value="Perfis > Administração" />
-                    </h2>
+            <div class="container borda" style="margin-top: 100px;">
+                <div class="p-4" style="margin: auto; width: 50%;">
+                    <div class="p-2">
+                        <h:outputLabel value="Usuário:" for="usuario" class="label-stretch"/>
+                        <h:inputText id="usuario" value="#{perfilAdmBack.usuario.login}" required="true" requiredMessage="É preciso especificar um login!" styleClass="float-end" style="width: 70%"/>
+                    </div>
+                    <div class="p-2">
+                        <h:outputLabel value="Senha:" for="senha" class="label-stretch"/>
+                        <h:inputText id="senha" value="#{perfilAdmBack.usuario.senha}" required="true" requiredMessage="É preciso especificar uma senha!" styleClass="float-end" style="width: 70%"/>
+                    </div>
+                    <div class="p-2">
+                        <h:outputLabel value="Tipo:" for="tipo" class="label-stretch" />
+                        <p:selectOneRadio value="#{perfilAdmBack.usuario.tipo}" converter="enumConverter" id="tipo" required="true" requiredMessage="É preciso selecionar um tipo de conta!" styleClass="d-inline align-middle">
+                            <f:selectItems value="#{perfilAdmBack.tipos}" var="tipo" itemValue="#{tipo}" itemLabel="#{tipo.descricao}" />
+                        </p:selectOneRadio>
+                    </div>
+                    <div class="p-2 float-middle">
+                    	<h:commandButton styleClass="botoes cor-gradiente text-white" action="#{perfilAdmBack.registrar()}" value="REGISTRAR" />
+                    </div>
                 </div>
             </div>
-            <div class="p-2">
-                <h:outputLabel value="Usuário" for="usuario" />
-                <h:inputText name="usuario" value="#{perfilAdmBack.usuario.login}" />
-            </div>
-            <div class="p-2">
-                <h:outputLabel value="Senha" for="senha" />
-                <h:inputText name="senha" value="#{perfilAdmBack.usuario.senha}" />
-            </div>
-            <div class="p-2">
-                <h:outputLabel value="Tipo" for="tipo" />
-                <p:selectOneMenu value="#{perfilAdmBack.usuario.tipo}" converter="enumConverter">
-                	<f:selectItems value="#{perfilAdmBack.tipos}" var="tipo" itemValue="#{tipo}" itemLabel="#{tipo.descricao}" />
-                </p:selectOneMenu>
-            </div>
-            <h:commandButton styleClass="botoes cor-gradiente text-white" action="#{perfilAdmBack.registrar()}" value="REGISTRAR" />
         </h:form>
+        <p:messages id="messages" showDetail="false" closable="true" />
     </ui:define>
 </ui:composition>
