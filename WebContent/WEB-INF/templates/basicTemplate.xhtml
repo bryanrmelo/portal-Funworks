@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+>
+    <h:head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" href="../resources/imagens/fun-icon.png" />
+        <link rel="stylesheet" href="../resources/css/homeStyle.css" />
+        <link rel="stylesheet" href="../resources/css/facesMessageStyle.css" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+        <link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css" />
+
+        <style>
+            body {
+                background-color: #e1e1e1;
+                font-family: "Roboto", sans-serif;
+            }
+
+            .dropdown-toggle::after {
+                display: none;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <div class="wrapper">
+            <!-- Navbar -->
+            <nav class="navbar navbar-light navbar-expand-lg cor-gradiente">
+            
+                <div class="container-fluid">
+                
+                    <a class="navbar-brand" href="../secure/home.xhtml"> 
+                    	<img src="../resources/imagens/funworks-logo.png" alt="Logo Funworks" width="160px" /> 
+                    </a>
+                    
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    
+                        <ul class="navbar-nav col-12">
+                        
+                            <li class="nav-item col">
+                                <h3 class="m-0 text-white text-center">Portal da Transparência</h3>
+                            </li>
+                            
+                            <li class="nav-item col-1">
+                                <p class="text-white mt-1">
+                                    <i class="fas fa-user" style="padding-right: 5px;"></i>
+                                    <h:outputText value="Olá, #{templateBack.nomeParcial()}" />
+                                </p>
+                            </li>
+                            
+                            <li class="nav-item dropdown col-1" style="list-style-type: none;">
+                                <p class="dropdown-toggle text-white align-text-top mt-1" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Configurações <i class="fas fa-cog"></i></p>
+                                
+                                <ul class="dropdown-menu p-2 mt-1" aria-labelledby="navbarDropdown">
+                                
+                                    <li>
+                                        <a class="dropdown-item m-0" href="../secure/home.xhtml"> Página inicial <i class="fas fa-home float-end"></i> </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <a class="dropdown-item m-0 mt-2" href="../secure/recuperarSenhaLogado.xhtml"> Alterar senha <i class="fas fa-key float-end"></i> </a>
+                                    </li>
+                                    
+                                    <li>
+                                        <h:form class="m-0">
+                                            <p:commandLink styleClass="dropdown-item m-0 mt-2" action="#{login.logout()}"> Sair <i class="fas fa-sign-out-alt float-end"></i> </p:commandLink>
+                                        </h:form>
+                                    </li>
+                                    
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- Navbar vertical -->
+            <div class="d-flex align-items-stretch barra-cima">
+	                <div class="sidebar-size">
+	                    <div class="nav navbar-expand-lg mb-0">
+	                        <div class="vertical-nav" id="sidebar">
+	                            <div class="collapse navbar-collapse nav-responsiva" id="navbarSupportedContent" aria-expanded="true">
+	                                <ul class="flex-column mb-0 p-0 dropdown-menu-lista">
+	                                
+	                                    <li class="nav-item">
+	                                        <a href="../secure/sobre.xhtml" class="nav-link text-dark ps-2 ms-0 me-0"> <b>A Funworks</b> </a>
+	                                    </li>
+	                                    
+	                                    <li class="nav-item dropdown">
+	                                    
+	                                        <p class="dropdown-toggle nav-link text-dark pe-5 ps-2 ms-0 me-0" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+	                                            <b>Mensalidades</b> <i class="fas fa-angle-down float-end ps-2" />
+	                                        </p>
+	                                        
+	                                        <ul class="dropdown-menu borda" aria-labelledby="navbarDropdown">
+	                                            <li><a class="dropdown-item mb-2 m-0 ps-3 pe-3" href="../secure/mensalidades.xhtml"> Minhas Mensalidades </a></li>
+	                                            <ui:fragment rendered="#{templateBack.usuario.tipo eq 'A'}">
+	                                                <li><a class="dropdown-item m-0 ps-3 pe-3" href="../secure/mensalidadesAdministracao.xhtml"> Administração </a></li>
+	                                            </ui:fragment>
+	                                        </ul>
+	                                    </li>
+	                                    
+	                                    <li class="nav-item dropdown">
+	                                        <p class="dropdown-toggle nav-link text-dark pe-5 ps-2 ms-0 me-0" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+	                                            <b>Meu Cadastro</b> <i class="fas fa-angle-down ps-2" />
+	                                        </p>
+	                                        
+	                                        <ul class="dropdown-menu borda" aria-labelledby="navbarDropdown">
+	                                            <li><a class="dropdown-item mb-2 m-0 ps-3 pe-3" href="../secure/editarPerfil.xhtml"> Editar Perfil </a></li>
+	                                            <ui:fragment rendered="#{templateBack.usuario.tipo eq 'A'}">
+	                                                <li><a class="dropdown-item m-0 ps-3 pe-3" href="../secure/perfilAdministracao.xhtml"> Administração </a></li>
+	                                            </ui:fragment>
+	                                        </ul>
+	                                    </li>
+	                                </ul>
+	                            </div>
+	                        </div>
+                    </div>
+                </div>
+                <!-- Conteúdo -->
+                <div class="col" style="border-left: 2px solid black;">
+	                <div class="p-4 flex-fill div-conteudo">
+	                    <!-- Conteúdo da página -->
+	                    <ui:insert name="content">Conteudo</ui:insert>
+	                </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://kit.fontawesome.com/46fef06780.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    </h:body>
+</html>
