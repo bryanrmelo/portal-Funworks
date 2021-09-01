@@ -58,4 +58,9 @@ public class UsuarioRepository {
 
 	}
 
+	public Usuario buscarUsuarioPorId(Integer id) {
+		String jpql = "select u from Usuario u where id = :id";
+		return em.createQuery(jpql, Usuario.class).setParameter("id", id).getSingleResult();
+	}
+
 }

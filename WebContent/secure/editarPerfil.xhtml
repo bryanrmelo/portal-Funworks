@@ -24,8 +24,8 @@
             <p:messages id="messages" showDetail="false" closable="true" />
             <h:form class="p-3 mb-0" enctype="multipart/form-data">
                 <!-- Informações principais -->
-                <div class="row d-flex">
-                    <div class="flex-fill col-10">
+                <div class="row d-flex flex-column">
+                    <div>
                         <div class="row">
                             <div class="form-group col p-0">
                                 <div class="form-control border-0 p-0">
@@ -151,9 +151,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex-fill col-2">
-                        <h:graphicImage value="data:image/jpg;base64,#{editar.getImagemAtual()}" styleClass="mb-3" style="max-width: 160px; max-height: 200px; border: 4px solid black; display: block;" />
-                        <p:fileUpload mode="simple" skinSimple="true" label="Carregar imagem" value="#{editar.imagem}" />
+                    <div>
+                    	<div style="width: 50%; margin: auto; margin-top: 20px;">
+	                        <h:graphicImage value="data:image/jpg;base64,#{editar.getImagemAtual()}" styleClass="mb-3" style="max-width: 160px; max-height: 200px; border: 4px solid black; display: block;" />
+	                        <p:fileUpload styleClass="botoes" mode="simple" skinSimple="true" label="Carregar imagem" value="#{editar.imagem}" />
+                        </div>
                     </div>
                 </div>
                 <!-- Informações adicionais -->

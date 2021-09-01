@@ -36,12 +36,6 @@ INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (15
 INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (16, TO_DATE('20210701','YYYYMMDD'), 15, 'pe');
 
 
-
-
-
-
-
-
 --Inserts 01/01/2021 até 01/12/2021
 INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20210101','YYYYMMDD'), 15, 'Pago');
 INSERT INTO mensalidade (idusuario, datavencimento, valor, pagamento) VALUES (3, TO_DATE('20210201','YYYYMMDD'), 15, 'Pago');

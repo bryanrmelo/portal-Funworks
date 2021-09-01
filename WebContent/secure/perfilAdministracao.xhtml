@@ -20,20 +20,32 @@
             <div class="container borda" style="margin-top: 100px;">
                 <div class="p-4" style="margin: auto; width: 50%;">
                     <div class="p-2">
-                        <h:outputLabel value="Usuário:" for="usuario" class="label-stretch"/>
+                         <label for="usuario" class="label-stretch">
+                        	<b>Usuário *:</b>
+                        </label>
                         <h:inputText id="usuario" value="#{perfilAdmBack.usuario.login}" required="true" requiredMessage="É preciso especificar um login!" styleClass="float-end" style="width: 70%"/>
                     </div>
                     <div class="p-2">
-                        <h:outputLabel value="Senha:" for="senha" class="label-stretch"/>
+                        <label for="senha" class="label-stretch">
+                        	<b>Senha *:</b>
+                        </label>
                         <h:inputText id="senha" value="#{perfilAdmBack.usuario.senha}" required="true" requiredMessage="É preciso especificar uma senha!" styleClass="float-end" style="width: 70%"/>
                     </div>
                     <div class="p-2">
-                        <h:outputLabel value="Tipo:" for="tipo" class="label-stretch" />
+                        <label for="email" class="label-stretch">
+                        	<b>Email:</b>
+                        </label>
+                        <h:inputText id="email" value="#{perfilAdmBack.usuario.email}" required="false" styleClass="float-end" style="width: 70%"/>
+                    </div>
+                    <div class="p-2">
+                        <label for="tipo" class="label-stretch">
+                        	<b>Tipo *:</b>
+                        </label>
                         <p:selectOneRadio value="#{perfilAdmBack.usuario.tipo}" converter="enumConverter" id="tipo" required="true" requiredMessage="É preciso selecionar um tipo de conta!" styleClass="d-inline align-middle">
                             <f:selectItems value="#{perfilAdmBack.tipos}" var="tipo" itemValue="#{tipo}" itemLabel="#{tipo.descricao}" />
                         </p:selectOneRadio>
                     </div>
-                    <div class="p-2 float-middle">
+                    <div class="p-2 mt-3 d-flex justify-content-center">
                     	<h:commandButton styleClass="botoes cor-gradiente text-white" action="#{perfilAdmBack.registrar()}" value="REGISTRAR" />
                     </div>
                 </div>

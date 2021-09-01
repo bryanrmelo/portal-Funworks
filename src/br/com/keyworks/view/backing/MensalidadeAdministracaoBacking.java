@@ -70,6 +70,8 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 
 	private List<Mensalidade> listaMensalidades = new ArrayList<Mensalidade>();
 
+	private Date dataNovaMensalidade;
+
 	@PostConstruct
 	public void init() {
 		pesquisar();
@@ -200,6 +202,10 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 		FacesMessageUtils.addInfoMessage(string.toString());
 	}
 
+	public void criarNovaMensalidade() {
+		mensalidadeService.criarNovaMensalidade(gridLazyLoader.getWrappedData(), dataNovaMensalidade);
+	}
+
 	public void downloadComprovante(Mensalidade mensalidade) {
 		InputStream stream = new ByteArrayInputStream(mensalidadeService.getComprovante(mensalidade.getId()));
 		this.setComprovanteDownload(new DefaultStreamedContent(stream, "application/pdf", mensalidade.getNomeComprovante()));
@@ -287,6 +293,14 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 
 	public void setGridLazyLoader(GridLazyLoader<Mensalidade> gridLazyLoader) {
 		this.gridLazyLoader = gridLazyLoader;
+	}
+
+	public Date getDataNovaMensalidade() {
+		return dataNovaMensalidade;
+	}
+
+	public void setDataNovaMensalidade(Date dataNovaMensalidade) {
+		this.dataNovaMensalidade = dataNovaMensalidade;
 	}
 
 }

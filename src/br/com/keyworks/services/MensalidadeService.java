@@ -98,4 +98,9 @@ public class MensalidadeService {
 		return mensalidadeRepo.buscarMensalidadePorId(mensalidade.getId());
 	}
 
+	public void criarNovaMensalidade(List<Mensalidade> lista, Date data) {
+		mensalidadeRepo.criarNovaMensalidade(lista, data);
+
+	}
+
 }

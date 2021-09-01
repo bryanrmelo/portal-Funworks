@@ -1,6 +1,7 @@
 package br.com.keyworks.repository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.Stateless;
@@ -113,7 +114,7 @@ public class MensalidadeRepository {
 						MesEnum mes = meses.get(i);
 
 						if (i == 0) {
-							query.append(" MONTH(m.dataVencimento) = " + mes.getId());
+							query.append("MONTH(m.dataVencimento) = " + mes.getId());
 						} else {
 							query.append(" OR MONTH(m.dataVencimento) = " + mes.getId());
 						}
@@ -135,7 +136,7 @@ public class MensalidadeRepository {
 						AnoEnum ano = anos.get(i);
 
 						if (i == 0) {
-							query.append(" YEAR(m.dataVencimento) = " + ano.getId());
+							query.append("YEAR(m.dataVencimento) = " + ano.getId());
 						} else {
 							query.append(" OR YEAR(m.dataVencimento) = " + ano.getId());
 						}
@@ -151,6 +152,23 @@ public class MensalidadeRepository {
 
 		return em.findPageWithQuery(query.toString(), gridLazyLoaderDTO.getFilters(), Mensalidade.class, gridLazyLoaderDTO.getFirst(),
 						gridLazyLoaderDTO.getPageSize());
+
+	}
+
+	public void criarNovaMensalidade(List<Mensalidade> lista, Date data) {
+		ArrayList<Integer> listaIdParaAdicionar = new ArrayList<Integer>();
+
+		for (int i = 0; i < lista.size(); i++) {
+			if (!(listaIdParaAdicionar.contains(lista.get(i).getUsuario().getId()))) {
+				listaIdParaAdicionar.add(lista.get(i).getUsuario().getId());
+			}
+
+		}
+		for (Integer id : listaIdParaAdicionar) {
+
+			Mensalidade mensalidade = new Mensalidade(usuarioRepo.buscarUsuarioPorId(id), data);
+			em.persist(mensalidade);
+		}
 
 	}
 }

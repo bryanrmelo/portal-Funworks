@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "mensalidade")
-@SequenceGenerator(name = "MensalidadeSeq", sequenceName = "MENSALIDADE_SEQ", allocationSize = 1)
+@SequenceGenerator(name = "MensalidadeSeq", sequenceName = "MENSALIDADE_ID_SEQ", allocationSize = 1)
 public class Mensalidade implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -48,6 +48,17 @@ public class Mensalidade implements Serializable {
 
 	@Column(name = "pagamento")
 	private String pagamento;
+
+	public Mensalidade() {
+
+	}
+
+	public Mensalidade(Usuario usuario, Date data) {
+		this.usuario = usuario;
+		this.dataVencimento = data;
+		this.valor = (double) 15;
+		this.pagamento = "pe";
+	}
 
 	public Integer getId() {
 		return id;

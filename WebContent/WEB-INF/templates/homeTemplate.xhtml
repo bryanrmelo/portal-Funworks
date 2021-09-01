@@ -46,14 +46,14 @@
                                 <h3 class="m-0 text-white text-center">Portal da Transparência</h3>
                             </li>
 
-                            <li class="nav-item col-1">
+                            <li class="nav-item col-2">
                                 <p class="text-white mt-1">
                                     <i class="fas fa-user" style="padding-right: 5px;"></i>
                                     <h:outputText value="Olá, #{home.nomeParcial()}" />
                                 </p>
                             </li>
 
-                            <li class="nav-item dropdown col-1" style="list-style-type: none;">
+                            <li class="nav-item dropdown col-2" style="list-style-type: none;">
                                 <p class="dropdown-toggle text-white align-text-top mt-1" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Configurações <i class="fas fa-cog"></i></p>
 
                                 <ul class="dropdown-menu p-2 mt-1" aria-labelledby="navbarDropdown">
@@ -87,28 +87,19 @@
                                         <a href="../secure/sobre.xhtml" class="nav-link text-dark ps-2 ms-0 me-0"> <b>A Funworks</b> </a>
                                     </li>
 
-                                    <li class="nav-item dropdown">
-                                        <p class="dropdown-toggle nav-link text-dark pe-5 ps-2 ms-0 me-0" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <b>Mensalidades</b> <i class="fas fa-angle-down float-end ps-2" />
-                                        </p>
-
-                                        <ul class="dropdown-menu borda" aria-labelledby="navbarDropdown">
-                                            <li><a class="dropdown-item mb-2 m-0 ps-3 pe-3" href="../secure/mensalidades.xhtml"> Minhas Mensalidades </a></li>
-                                            <ui:fragment rendered="#{templateBack.usuario.tipo eq 'A'}">
-                                                <li><a class="dropdown-item m-0 ps-3 pe-3" href="../secure/mensalidadesAdministracao.xhtml"> Administração </a></li>
-                                            </ui:fragment>
-                                        </ul>
-                                    </li>
+                                    <li class="nav-item">
+	                                        <a href="../secure/mensalidades.xhtml" class="nav-link text-dark ps-2 ms-0 me-0"> <b>Mensalidades</b> </a>
+	                                </li>
 
                                     <li class="nav-item dropdown">
                                         <p class="dropdown-toggle nav-link text-dark pe-5 ps-2 ms-0 me-0" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <b>Meu Cadastro</b> <i class="fas fa-angle-down ps-2" />
+                                            <b>Cadastro</b> <i class="fas fa-angle-down ps-2" />
                                         </p>
 
                                         <ul class="dropdown-menu borda" aria-labelledby="navbarDropdown">
                                             <li><a class="dropdown-item mb-2 m-0 ps-3 pe-3" href="../secure/editarPerfil.xhtml"> Editar Perfil </a></li>
                                             <ui:fragment rendered="#{templateBack.usuario.tipo eq 'A'}">
-                                                <li><a class="dropdown-item m-0 ps-3 pe-3" href="../secure/perfilAdministracao.xhtml"> Administração </a></li>
+                                                <li><a class="dropdown-item m-0 ps-3 pe-3" href="../secure/perfilAdministracao.xhtml"> Cadastra Perfil </a></li>
                                             </ui:fragment>
                                         </ul>
                                     </li>
@@ -119,7 +110,7 @@
                 </div>
                 <!-- Conteúdo -->
                 <div class="col" style="border-left: 2px solid black;">
-                    <div class="p-4 flex-fill div-conteudo">
+                    <div class="p-4 div-conteudo" style="align-items: stretch;">
                         <!-- Conteúdo da página -->
                         <ui:insert name="content">Conteudo</ui:insert>
                     </div>
