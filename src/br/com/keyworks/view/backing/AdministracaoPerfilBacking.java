@@ -12,6 +12,7 @@ import br.com.keyworks.exceptions.SenhaTamanhoInvalidoException;
 import br.com.keyworks.exceptions.UsuarioNaoEncontradoException;
 import br.com.keyworks.framework.faces.backing.AbstractBacking;
 import br.com.keyworks.model.entities.administracao.Usuario;
+import br.com.keyworks.services.MensalidadeService;
 import br.com.keyworks.services.UsuarioService;
 import br.com.keyworks.util.FacesMessageUtils;
 
@@ -26,6 +27,9 @@ public class AdministracaoPerfilBacking extends AbstractBacking {
 
 	@Inject
 	private UsuarioService usuarioService;
+
+	@Inject
+	private MensalidadeService mensalidadeService;
 
 	private Usuario usuario = new Usuario();
 
@@ -45,13 +49,18 @@ public class AdministracaoPerfilBacking extends AbstractBacking {
 	public void registrar() {
 		try {
 			usuarioService.registrar(usuario);
+			mensalidadeService.criarMensalidadesParaUsuarioNovo(usuario);
+			usuario = new Usuario();
 		} catch (SenhaInvalidaException e) {
 			FacesMessageUtils.addErrorMessage(e.getMessage());
 		} catch (SenhaTamanhoInvalidoException e) {
 			FacesMessageUtils.addErrorMessage(e.getMessage());
 		} catch (UsuarioNaoEncontradoException e) {
 			FacesMessageUtils.addErrorMessage(e.getMessage());
+		} catch (Exception e) {
+			FacesMessageUtils.addErrorMessage("Erro!");
 		}
+
 	}
 
 	public Usuario getUsuario() {

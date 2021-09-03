@@ -9,6 +9,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import org.primefaces.model.UploadedFile;
+import br.com.keyworks.exceptions.MensalidadeExistenteException;
 import br.com.keyworks.exceptions.UsuarioNaoEncontradoException;
 import br.com.keyworks.model.entities.administracao.Mensalidade;
 import br.com.keyworks.model.entities.administracao.Usuario;
@@ -98,8 +99,13 @@ public class MensalidadeService {
 		return mensalidadeRepo.buscarMensalidadePorId(mensalidade.getId());
 	}
 
-	public void criarNovaMensalidade(List<Mensalidade> lista, Date data) {
+	public void criarNovaMensalidade(List<Mensalidade> lista, Date data) throws MensalidadeExistenteException {
 		mensalidadeRepo.criarNovaMensalidade(lista, data);
+
+	}
+
+	public void criarMensalidadesParaUsuarioNovo(Usuario usuario) {
+		mensalidadeRepo.criarMensalidadesParaUsuarioNovo(usuario);
 
 	}
 

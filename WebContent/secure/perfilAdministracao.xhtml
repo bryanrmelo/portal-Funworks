@@ -29,13 +29,19 @@
                         <label for="senha" class="label-stretch">
                         	<b>Senha *:</b>
                         </label>
-                        <h:inputText id="senha" value="#{perfilAdmBack.usuario.senha}" required="true" requiredMessage="É preciso especificar uma senha!" styleClass="float-end" style="width: 70%"/>
+                        <p:password id="senha" value="#{perfilAdmBack.usuario.senha}" required="true" requiredMessage="É preciso especificar uma senha!" styleClass="float-end" style="width: 70%"/>
                     </div>
                     <div class="p-2">
                         <label for="email" class="label-stretch">
                         	<b>Email:</b>
                         </label>
                         <h:inputText id="email" value="#{perfilAdmBack.usuario.email}" required="false" styleClass="float-end" style="width: 70%"/>
+                    </div>
+                    <div class="p-2">
+                        <label for="admissao" class="label-stretch">
+                            <b>Admissão: *</b>
+                        </label>
+                        <p:calendar styleClass="float-end" style="width: 70%" converter="DateConverter" pattern="yyyy/MM/dd" value="#{perfilAdmBack.usuario.admissao}" showOn="button" required="true" requiredMessage="É necessário inserir uma data de admissão!" />
                     </div>
                     <div class="p-2">
                         <label for="tipo" class="label-stretch">

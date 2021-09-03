@@ -87,9 +87,24 @@
                                         <a href="../secure/sobre.xhtml" class="nav-link text-dark ps-2 ms-0 me-0"> <b>A Funworks</b> </a>
                                     </li>
 
-                                    <li class="nav-item">
+                                    <ui:fragment rendered="#{templateBack.usuario.tipo eq 'N'}">
+	                                    <li class="nav-item">
 	                                        <a href="../secure/mensalidades.xhtml" class="nav-link text-dark ps-2 ms-0 me-0"> <b>Mensalidades</b> </a>
-	                                </li>
+	                                    </li>
+	                                    </ui:fragment>
+	                                    
+	                                    <ui:fragment rendered="#{templateBack.usuario.tipo eq 'A'}">
+	                                    <li class="nav-item dropdown">
+	                                        <p class="dropdown-toggle nav-link text-dark pe-5 ps-2 ms-0 me-0" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+	                                            <b>Mensalidades</b> <i class="fas fa-angle-down ps-2" />
+	                                        </p>
+	                                        
+	                                        <ul class="dropdown-menu borda" aria-labelledby="navbarDropdown">
+	                                            <li><a class="dropdown-item mb-2 m-0 ps-3 pe-3" href="../secure/mensalidades.xhtml"> Minhas Mensalidades </a></li>
+	                                            <li><a class="dropdown-item m-0 ps-3 pe-3" href="../secure/mensalidades.xhtml"> Administrar Mensalidades </a></li>
+	                                        </ul>
+	                                    </li>
+	                                    </ui:fragment>
 
                                     <li class="nav-item dropdown">
                                         <p class="dropdown-toggle nav-link text-dark pe-5 ps-2 ms-0 me-0" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -99,7 +114,7 @@
                                         <ul class="dropdown-menu borda" aria-labelledby="navbarDropdown">
                                             <li><a class="dropdown-item mb-2 m-0 ps-3 pe-3" href="../secure/editarPerfil.xhtml"> Editar Perfil </a></li>
                                             <ui:fragment rendered="#{templateBack.usuario.tipo eq 'A'}">
-                                                <li><a class="dropdown-item m-0 ps-3 pe-3" href="../secure/perfilAdministracao.xhtml"> Cadastra Perfil </a></li>
+                                                <li><a class="dropdown-item m-0 ps-3 pe-3" href="../secure/perfilAdministracao.xhtml"> Cadastrar Perfil </a></li>
                                             </ui:fragment>
                                         </ul>
                                     </li>

@@ -37,15 +37,10 @@
                             <h:outputText id="tamanhoLista" value="#{mensalidadeAdmBack.mensalidadesSelecionadas.size()} de #{mensalidadeAdmBack.getQuantidadeUsuarios()} selecionados">
                                 <p:autoUpdate />
                             </h:outputText>
-                            <div class="float-end">
-	                            <h:form>
-	                            	<p:calendar converter="DateConverter" pattern="yyyy/MM/dd" value="#{mensalidadeAdmBack.dataNovaMensalidade}" showOn="button" required="true" requiredMessage="É necessário adicionar a data das mensalidades!" />
-	                            	<h:commandButton styleClass="botoes cor-gradiente text-white" action="#{mensalidadeAdmBack.criarNovaMensalidade()}" value="NOVA MENSALIDADE" />
-	                         	</h:form>
-                         	</div>
+                           
                         </div>
                         <div style="margin-bottom: 50px;">
-                            <p:messages id="messages" showDetail="false" closable="true" />
+                            <p:messages id="messages2" showDetail="false" closable="true" />
                         </div>
                         <p:dataTable
                             id="mensalidadeTable"
@@ -59,8 +54,7 @@
                             emptyMessage="Não há registros!"
                             selection="#{mensalidadeAdmBack.mensalidadesSelecionadas}"
                             rowKey="#{mensalidade.id}"
-                            selectionMode="multiple"
-                        >
+                            selectionMode="multiple">
                             <p:ajax event="rowSelect" update="formulario" process="formulario" />
                             <p:ajax event="rowUnselect" update="formulario" process="formulario" />
 
@@ -93,6 +87,12 @@
                             </p:column>
                         </p:dataTable>
                     </h:form>
+                   	<div class="float-end">
+                      	<h:form>
+                       		<p:calendar converter="DateConverter" pattern="yyyy/MM/dd" value="#{mensalidadeAdmBack.dataNovaMensalidade}" showOn="button" required="false" requiredMessage="É necessário adicionar a data das mensalidades!" />
+                       		<h:commandButton styleClass="botoes cor-gradiente text-white" action="#{mensalidadeAdmBack.criarNovaMensalidade()}" value="NOVA MENSALIDADE" />
+                    	</h:form>
+					</div>
                 </div>
                 <div class="m-2 col-3 flex-fill">
                     <div class="m-2 borda">
@@ -101,7 +101,9 @@
                         </div>
                         <h:form class="m-0">
                             <div class="p-2" style="border-bottom: 2px solid black;">
-                                <label for="status" class="text-end pe-3"> Status: </label>
+                                <label for="status" class="text-end pe-3"> 
+                                	Status 
+                                </label>
                                 <p:selectOneRadio value="#{mensalidadeAdmBack.filtro.pagamento}" name="status" unselectable="true">
                                     <f:selectItems value="#{mensalidadeAdmBack.getPagoPendenteValues()}" var="s" itemValue="#{s}" itemLabel="#{s.descricao}" noSelectionOption="true" />
                                 </p:selectOneRadio>
@@ -128,8 +130,7 @@
                                     filterMatchMode="startsWith"
                                     panelStyle="width: 30rem"
                                     scrollHeight="250"
-                                    converter="enumConverter"
-                                >
+                                    converter="enumConverter">
                                     <f:selectItems value="#{mensalidadeAdmBack.meses}" var="mes" itemValue="#{mes}" itemLabel="#{mes.descricao}" />
                                 </p:selectCheckboxMenu>
                             </div>
@@ -147,8 +148,7 @@
                                     filterMatchMode="startsWith"
                                     panelStyle="width: 30rem"
                                     scrollHeight="250"
-                                    converter="enumConverter"
-                                >
+                                    converter="enumConverter">
                                     <f:selectItems value="#{mensalidadeAdmBack.anos}" var="ano" itemValue="#{ano}" itemLabel="#{ano.descricao}" />
                                 </p:selectCheckboxMenu>
                             </div>
@@ -165,6 +165,7 @@
                             </div>
                         </h:form>
                         <!--  <iframe width="110" height="200" src="https://www.myinstants.com/instant/bem-te-vi-cantando-11870/embed/" frameborder="0" scrolling="no"></iframe>-->
+                       
                     </div>
                 </div>
             </div>

@@ -1,8 +1,12 @@
 package br.com.keyworks.repository;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -11,10 +15,12 @@ import br.com.keyworks.enumeracoes.AnoEnum;
 import br.com.keyworks.enumeracoes.MesEnum;
 import br.com.keyworks.enumeracoes.PagoPendenteEnum;
 import br.com.keyworks.enumeracoes.SimNaoEnum;
+import br.com.keyworks.exceptions.MensalidadeExistenteException;
 import br.com.keyworks.exceptions.UsuarioNaoEncontradoException;
 import br.com.keyworks.model.core.jpa.EntityManagerExtended;
 import br.com.keyworks.model.core.qualifier.DataRepository;
 import br.com.keyworks.model.entities.administracao.Mensalidade;
+import br.com.keyworks.model.entities.administracao.Usuario;
 import br.com.keyworks.util.ConverterNomeUtil;
 import br.com.keyworks.view.componentes.GridLazyLoaderDTO;
 import br.com.keyworks.view.componentes.PagedResult;
@@ -155,7 +161,18 @@ public class MensalidadeRepository {
 
 	}
 
-	public void criarNovaMensalidade(List<Mensalidade> lista, Date data) {
+	@Transactional
+	public void criarNovaMensalidade(List<Mensalidade> lista, Date data) throws MensalidadeExistenteException {
+
+		LocalDate mesAtual = data.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+		for (Mensalidade m : lista) {
+			LocalDate mes = m.getDataVencimento().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			if (mes.getMonthValue() == mesAtual.getMonthValue()) {
+				throw new MensalidadeExistenteException();
+			}
+		}
+
 		ArrayList<Integer> listaIdParaAdicionar = new ArrayList<Integer>();
 
 		for (int i = 0; i < lista.size(); i++) {
@@ -168,6 +185,20 @@ public class MensalidadeRepository {
 
 			Mensalidade mensalidade = new Mensalidade(usuarioRepo.buscarUsuarioPorId(id), data);
 			em.persist(mensalidade);
+		}
+
+	}
+
+	@Transactional
+	public void criarMensalidadesParaUsuarioNovo(Usuario usuario) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd kk:mm:ss z yyyy", Locale.ENGLISH);
+		LocalDate startDate = LocalDate.parse(usuario.getAdmissao(), formatter);
+		LocalDate endDate = LocalDate.parse(new Date().toString(), formatter);
+
+		while (startDate.isBefore(endDate)) {
+			Mensalidade mensalidade = new Mensalidade(usuario, Date.from(startDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+			em.persist(mensalidade);
+			startDate = startDate.plusMonths(1);
 		}
 
 	}

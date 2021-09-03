@@ -2,6 +2,7 @@ package br.com.keyworks.services;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import br.com.keyworks.enumeracoes.ContaEnum;
 import br.com.keyworks.enumeracoes.SimNaoEnum;
 import br.com.keyworks.exceptions.AlteracaoConcluidaException;
 import br.com.keyworks.exceptions.SenhaInvalidaException;
@@ -10,6 +11,7 @@ import br.com.keyworks.exceptions.UsuarioNaoEncontradoException;
 import br.com.keyworks.model.entities.administracao.Usuario;
 import br.com.keyworks.repository.UsuarioRepository;
 import br.com.keyworks.util.ConverterNomeUtil;
+import br.com.keyworks.util.FacesMessageUtils;
 import br.com.keyworks.util.SenhaUtil;
 import br.com.keyworks.util.StringToMD5Converter;
 
@@ -97,10 +99,18 @@ public class UsuarioService {
 			try {
 				ConverterNomeUtil.converterPrimeiroNome(usuario.getLogin());
 				usuario.setSenha(StringToMD5Converter.convertStringToMd5(usuario.getSenha()));
+				if (usuario.getTipo().equals(ContaEnum.ADMINISTRADOR.getDescricao())) {
+					usuario.setTipo(ContaEnum.ADMINISTRADOR.getId());
+				} else {
+					usuario.setTipo(ContaEnum.PADRAO.getId());
+				}
+
 				usuarioRepo.registrar(usuario);
 
 			} catch (NullPointerException e) {
 				throw new UsuarioNaoEncontradoException();
+			} catch (Exception e) {
+				FacesMessageUtils.addErrorMessage("Erro");
 			}
 	}
 

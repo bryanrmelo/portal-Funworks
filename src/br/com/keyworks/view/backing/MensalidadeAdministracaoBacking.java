@@ -2,6 +2,8 @@ package br.com.keyworks.view.backing;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -13,17 +15,20 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.apache.commons.mail.EmailException;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import br.com.keyworks.enumeracoes.AnoEnum;
 import br.com.keyworks.enumeracoes.MesEnum;
 import br.com.keyworks.enumeracoes.PagoPendenteEnum;
 import br.com.keyworks.enumeracoes.SimNaoEnum;
+import br.com.keyworks.exceptions.MensalidadeExistenteException;
 import br.com.keyworks.framework.faces.backing.AbstractBacking;
 import br.com.keyworks.model.entities.administracao.Mensalidade;
 import br.com.keyworks.model.entities.administracao.MensalidadeFilter;
 import br.com.keyworks.services.MensalidadeService;
 import br.com.keyworks.services.UsuarioService;
+import br.com.keyworks.util.EnviarEmailUtil;
 import br.com.keyworks.util.ExpiracaoUtil;
 import br.com.keyworks.util.FacesMessageUtils;
 import br.com.keyworks.util.LogoutUtil;
@@ -148,6 +153,7 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 				if (mensalidade.getComprovante() != null) {
 					mensalidade.setPagamento("pa");
 					mensalidadeService.atualizarMensalidade(mensalidade);
+					enviarEmailConfirmacao(mensalidade.getUsuario().getLogin(), mensalidade.getDataVencimento());
 					mostrarMensangemAtualizacaoPagoPendente(mensalidadesSelecionadas);
 				} else {
 					FacesMessageUtils.addErrorMessage("Mensalidade não possui comprovante.");
@@ -161,6 +167,16 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 		}
 
 		mensalidadesSelecionadas.clear();
+	}
+
+	private void enviarEmailConfirmacao(String login, Date data) {
+		try {
+			LocalDate mes = data.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			EnviarEmailUtil.send(login, mes.getMonth());
+		} catch (EmailException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	public String nomeParcial(String nome) {
@@ -203,7 +219,11 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 	}
 
 	public void criarNovaMensalidade() {
-		mensalidadeService.criarNovaMensalidade(gridLazyLoader.getWrappedData(), dataNovaMensalidade);
+		try {
+			mensalidadeService.criarNovaMensalidade(gridLazyLoader.getWrappedData(), dataNovaMensalidade);
+		} catch (MensalidadeExistenteException e) {
+			FacesMessageUtils.addErrorMessage(e.getMessage());
+		}
 	}
 
 	public void downloadComprovante(Mensalidade mensalidade) {
