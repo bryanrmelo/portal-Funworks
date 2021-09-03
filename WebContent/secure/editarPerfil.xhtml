@@ -90,7 +90,9 @@
                                     <label for="nascimento" class="col label-stretch text-end pe-3">
                                         <b>Nascimento: *</b>
                                     </label>
-                                    <p:inputText value="#{editar.usuario.nascimento}" styleClass="col-4" required="true" requiredMessage="É necessário a data de nascimento!" type="date" autocomplete="off" name="nascimento" />
+                                    <!-- <p:inputText value="#{editar.usuario.nascimento}" styleClass="col-4" required="true" requiredMessage="É necessário a data de nascimento!" type="date" autocomplete="off" name="nascimento" /> -->
+									<p:calendar converter="DateConverter" pattern="yyyy/MM/dd" value="#{editar.usuario.nascimento}" styleClass="col-4" showOn="button" required="true" requiredMessage="É necessário a data de nascimento!" />
+                                    
                                 </div>
                             </div>
                             <div class="form-group col p-0">
@@ -146,7 +148,7 @@
                                     <label for="admissao" class="col label-stretch text-end pe-3">
                                         <b>Admissão: *</b>
                                     </label>
-                                    <p:inputText value="#{editar.usuario.admissao}" styleClass="col" required="true" requiredMessage="É necessário inserir uma data de admissão!" type="date" autocomplete="off" name="admissao" />
+                                    <p:calendar converter="DateConverter" pattern="yyyy/MM/dd" value="#{editar.usuario.admissao}" styleClass="col-4" showOn="button" required="true" requiredMessage="É necessário inserir uma data de admissão!" />
                                 </div>
                             </div>
                         </div>

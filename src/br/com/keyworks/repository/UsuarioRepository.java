@@ -1,5 +1,6 @@
 package br.com.keyworks.repository;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -61,6 +62,12 @@ public class UsuarioRepository {
 	public Usuario buscarUsuarioPorId(Integer id) {
 		String jpql = "select u from Usuario u where id = :id";
 		return em.createQuery(jpql, Usuario.class).setParameter("id", id).getSingleResult();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Usuario> buscarUsuarios() {
+		String jpql = "SELECT u FROM Usuario u";
+		return em.createQuery(jpql).getResultList();
 	}
 
 }

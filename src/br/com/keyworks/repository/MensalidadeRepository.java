@@ -2,11 +2,9 @@ package br.com.keyworks.repository;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -162,28 +160,30 @@ public class MensalidadeRepository {
 	}
 
 	@Transactional
-	public void criarNovaMensalidade(List<Mensalidade> lista, Date data) throws MensalidadeExistenteException {
+	public void criarNovaMensalidade(List<Mensalidade> listaMensalidades, Date data) throws MensalidadeExistenteException {
 
-		LocalDate mesAtual = data.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		LocalDate dataAtual = data.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-		for (Mensalidade m : lista) {
-			LocalDate mes = m.getDataVencimento().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-			if (mes.getMonthValue() == mesAtual.getMonthValue()) {
+		List<Usuario> listaUsuarios = usuarioRepo.buscarUsuarios();
+
+		for (Mensalidade m : listaMensalidades) {
+			int mes = m.getDataVencimento().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().getMonthValue();
+			if (mes == dataAtual.getMonthValue()) {
 				throw new MensalidadeExistenteException();
 			}
 		}
 
 		ArrayList<Integer> listaIdParaAdicionar = new ArrayList<Integer>();
 
-		for (int i = 0; i < lista.size(); i++) {
-			if (!(listaIdParaAdicionar.contains(lista.get(i).getUsuario().getId()))) {
-				listaIdParaAdicionar.add(lista.get(i).getUsuario().getId());
+		for (int i = 0; i < listaUsuarios.size(); i++) {
+			if (!(listaIdParaAdicionar.contains(listaUsuarios.get(i).getId()))) {
+				listaIdParaAdicionar.add(listaUsuarios.get(i).getId());
 			}
 
 		}
 		for (Integer id : listaIdParaAdicionar) {
 
-			Mensalidade mensalidade = new Mensalidade(usuarioRepo.buscarUsuarioPorId(id), data);
+			Mensalidade mensalidade = new Mensalidade(listaMensalidades.get(id).getUsuario(), data);
 			em.persist(mensalidade);
 		}
 
@@ -191,14 +191,20 @@ public class MensalidadeRepository {
 
 	@Transactional
 	public void criarMensalidadesParaUsuarioNovo(Usuario usuario) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd kk:mm:ss z yyyy", Locale.ENGLISH);
-		LocalDate startDate = LocalDate.parse(usuario.getAdmissao(), formatter);
-		LocalDate endDate = LocalDate.parse(new Date().toString(), formatter);
+		LocalDate startDate = usuario.getAdmissao().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		LocalDate endDate = new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		List<Mensalidade> lista = buscarMensalidades();
 
 		while (startDate.isBefore(endDate)) {
-			Mensalidade mensalidade = new Mensalidade(usuario, Date.from(startDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
-			em.persist(mensalidade);
-			startDate = startDate.plusMonths(1);
+			for (Mensalidade m : lista) {
+				LocalDate data = m.getDataVencimento().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+				if (startDate.getMonthValue() == data.getMonthValue()) {
+					Mensalidade mensalidade = new Mensalidade(usuario, Date.from(startDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+					em.persist(mensalidade);
+					startDate = startDate.plusMonths(1);
+					break;
+				}
+			}
 		}
 
 	}

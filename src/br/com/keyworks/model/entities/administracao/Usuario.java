@@ -1,6 +1,7 @@
 package br.com.keyworks.model.entities.administracao;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -54,14 +57,16 @@ public class Usuario implements Serializable {
 	@Column(name = "endereco", nullable = false)
 	private String endereco;
 
-	@Column(name = "nascimento", nullable = false)
-	private String nascimento;
+	@Column(name = "nascimento", nullable = true)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date nascimento;
 
 	@Column(name = "estadoCivil")
 	private String estadoCivil;
 
-	@Column(name = "admissao", nullable = false)
-	private String admissao;
+	@Column(name = "admissao", nullable = true)
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date admissao;
 
 	@Column(name = "genero")
 	private String genero;
@@ -185,11 +190,11 @@ public class Usuario implements Serializable {
 		this.image = image;
 	}
 
-	public String getNascimento() {
+	public Date getNascimento() {
 		return nascimento;
 	}
 
-	public void setNascimento(String nascimento) {
+	public void setNascimento(Date nascimento) {
 		this.nascimento = nascimento;
 	}
 
@@ -201,11 +206,11 @@ public class Usuario implements Serializable {
 		this.estadoCivil = estadoCivil;
 	}
 
-	public String getAdmissao() {
+	public Date getAdmissao() {
 		return admissao;
 	}
 
-	public void setAdmissao(String admissao) {
+	public void setAdmissao(Date admissao) {
 		this.admissao = admissao;
 	}
 

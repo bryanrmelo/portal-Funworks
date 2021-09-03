@@ -3,7 +3,6 @@ package br.com.keyworks.view.converters;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.FacesConverter;
@@ -34,18 +33,19 @@ public class DateConverter implements javax.faces.convert.Converter {
 
 	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
-		Date date = null;
+		Date date = (Date) value;
 		SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
-		if (value.getClass().equals(String.class)) {
-			try {
-				SimpleDateFormat format2 = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy", Locale.ENGLISH);
-				date = format2.parse((String) value);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-		} else {
-			date = (Date) value;
-		}
 		return format.format(date);
+
+		// if (value.getClass().equals(String.class)) {
+		// try {
+		// SimpleDateFormat format2 = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy", Locale.ENGLISH);
+		// date = format2.parse((String) value);
+		// } catch (ParseException e) {
+		// e.printStackTrace();
+		// }
+		// } else {
+		// }
+
 	}
 }
