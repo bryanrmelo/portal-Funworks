@@ -17,6 +17,7 @@ import org.primefaces.model.UploadedFile;
 import br.com.keyworks.enumeracoes.MesEnum;
 import br.com.keyworks.enumeracoes.PagoPendenteEnum;
 import br.com.keyworks.enumeracoes.SimNaoEnum;
+import br.com.keyworks.exceptions.CriacaoMensalidadeFalhouException;
 import br.com.keyworks.exceptions.MensalidadeExistenteException;
 import br.com.keyworks.exceptions.UsuarioNaoEncontradoException;
 import br.com.keyworks.model.entities.administracao.Mensalidade;
@@ -212,7 +213,7 @@ public class MensalidadeService {
 
 		List<Mensalidade> mensalidades = mensalidadeRepo.getMensalidades();
 
-		List<Usuario> listaUsuarios = usuarioRepo.getUsuarios();
+		List<Usuario> usuarios = usuarioRepo.getUsuarios();
 
 		List<Mensalidade> mensalidadesParaAdicionar = new ArrayList<Mensalidade>();
 
@@ -225,15 +226,15 @@ public class MensalidadeService {
 
 		HashMap<Integer, Usuario> idMap = new HashMap<Integer, Usuario>();
 
-		for (int i = 0; i < listaUsuarios.size(); i++) {
-			if (!(idMap.containsValue(listaUsuarios.get(i)))) {
-				idMap.put(i, listaUsuarios.get(i));
+		for (int i = 0; i < usuarios.size(); i++) {
+			if (!(idMap.containsValue(usuarios.get(i)))) {
+				idMap.put(i, usuarios.get(i));
 			}
 
 		}
 
 		for (int i = 0; i < idMap.size(); i++) {
-			Mensalidade mensalidade = new Mensalidade(listaUsuarios.get(i), data);
+			Mensalidade mensalidade = new Mensalidade(usuarios.get(i), data);
 			mensalidadesParaAdicionar.add(mensalidade);
 
 		}
@@ -241,28 +242,51 @@ public class MensalidadeService {
 
 	}
 
-	public void createMensalidades(Usuario usuario) {
+	public void createMensalidades(Usuario usuario) throws CriacaoMensalidadeFalhouException {
+
 		List<Date> datas = mensalidadeRepo.getDatas();
+
 		LocalDate startDate = usuario.getAdmissao().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
 		LocalDate endDate = datas.get(datas.size() - 1).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
 		LocalDate date = startDate;
+
 		List<Mensalidade> mensalidades = new ArrayList<Mensalidade>();
 
-		while (startDate.minusMonths(1).isBefore(endDate)) {
+		if (startDate.isBefore(endDate)) {
+			while (startDate.minusMonths(1).isBefore(endDate)) {
 
-			for (Date d : datas) {
-				LocalDate data = d.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-				if (startDate.getMonthValue() == data.getMonthValue() && startDate.getYear() == data.getYear()) {
-					Mensalidade mensalidade = new Mensalidade(usuario, Date.from(data.atStartOfDay(ZoneId.systemDefault()).toInstant()));
-					mensalidades.add(mensalidade);
-					break;
+				for (Date d : datas) {
+					LocalDate data = d.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+					if (startDate.getMonthValue() == data.getMonthValue() && startDate.getYear() == data.getYear()) {
+						Mensalidade mensalidade = new Mensalidade(usuario, Date.from(data.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+						mensalidades.add(mensalidade);
+						break;
+					}
 				}
+				startDate = startDate.plusMonths(1);
 			}
-			startDate = startDate.plusMonths(1);
+		} else {
+			while (startDate.plusMonths(1).isAfter(endDate)) {
+
+				for (Date d : datas) {
+					LocalDate data = d.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+					if (startDate.getMonthValue() == data.getMonthValue() && startDate.getYear() == data.getYear()) {
+						Mensalidade mensalidade = new Mensalidade(usuario, Date.from(data.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+						mensalidades.add(mensalidade);
+						break;
+					}
+				}
+				startDate = startDate.minusMonths(1);
+			}
 		}
 		System.out.println(date.compareTo(endDate));
 		System.out.println(startDate.minusMonths(1).compareTo(endDate));
-		if (date.compareTo(endDate) < startDate.compareTo(endDate))
+		if (date.compareTo(endDate) <= startDate.compareTo(endDate))
 			mensalidadeRepo.persistList(mensalidades);
+		else {
+			throw new CriacaoMensalidadeFalhouException();
+		}
 	}
 }

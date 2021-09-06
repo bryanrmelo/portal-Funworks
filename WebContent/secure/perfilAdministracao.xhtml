@@ -23,13 +23,13 @@
                          <label for="usuario" class="label-stretch">
                         	<b>Usuário *:</b>
                         </label>
-                        <h:inputText id="usuario" value="#{perfilAdmBack.usuario.login}" required="true" requiredMessage="É preciso especificar um login!" styleClass="float-end" style="width: 70%"/>
+                        <h:inputText id="usuario" value="#{perfilAdmBack.usuario.login}" autocomplete="off" required="true" requiredMessage="É preciso especificar um login!" styleClass="float-end" style="width: 70%"/>
                     </div>
                     <div class="p-2">
                         <label for="senha" class="label-stretch">
                         	<b>Senha *:</b>
                         </label>
-                        <p:password id="senha" value="#{perfilAdmBack.usuario.senha}" required="true" requiredMessage="É preciso especificar uma senha!" styleClass="float-end" style="width: 70%"/>
+                        <p:password id="senha" value="#{perfilAdmBack.usuario.senha}" autocomplete="off" required="true" requiredMessage="É preciso especificar uma senha!" styleClass="float-end" style="width: 70%"/>
                     </div>
                     <div class="p-2">
                         <label for="email" class="label-stretch">
