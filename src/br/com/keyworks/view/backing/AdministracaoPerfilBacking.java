@@ -49,7 +49,7 @@ public class AdministracaoPerfilBacking extends AbstractBacking {
 	public void registrar() {
 		try {
 			usuarioService.registrar(usuario);
-			mensalidadeService.criarMensalidadesParaUsuarioNovo(usuario);
+			mensalidadeService.createMensalidades(usuario);
 			usuario = new Usuario();
 		} catch (SenhaInvalidaException e) {
 			FacesMessageUtils.addErrorMessage(e.getMessage());

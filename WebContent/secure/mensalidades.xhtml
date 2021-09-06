@@ -89,7 +89,7 @@
                     </h:form>
                    	<div class="float-end">
                       	<h:form>
-                       		<p:calendar converter="DateConverter" pattern="yyyy/MM/dd" value="#{mensalidadeAdmBack.dataNovaMensalidade}" showOn="button" required="false" requiredMessage="É necessário adicionar a data das mensalidades!" />
+                       		<p:calendar converter="DateConverter" pattern="yyyy/MM/dd" value="#{mensalidadeAdmBack.dataNovaMensalidade}" showOn="button" required="true" requiredMessage="É necessário adicionar a data das mensalidades!" />
                        		<h:commandButton styleClass="botoes cor-gradiente text-white" action="#{mensalidadeAdmBack.criarNovaMensalidade()}" value="NOVA MENSALIDADE" />
                     	</h:form>
 					</div>
@@ -147,9 +147,8 @@
                                     filter="true"
                                     filterMatchMode="startsWith"
                                     panelStyle="width: 30rem"
-                                    scrollHeight="250"
-                                    converter="enumConverter">
-                                    <f:selectItems value="#{mensalidadeAdmBack.anos}" var="ano" itemValue="#{ano}" itemLabel="#{ano.descricao}" />
+                                    scrollHeight="250">
+                                    <f:selectItems value="#{mensalidadeAdmBack.anos}" var="ano" itemValue="#{ano}" itemLabel="#{ano}" />
                                 </p:selectCheckboxMenu>
                             </div>
                             <div class="p-2">

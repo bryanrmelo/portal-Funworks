@@ -16,7 +16,7 @@ public class HistoricoRepository {
 	private EntityManagerExtended em;
 
 	@Transactional
-	public void salvarLog(HistoricoSenha hs) throws PersistenceException {
+	public void persist(HistoricoSenha hs) throws PersistenceException {
 		em.persist(hs);
 	}
 

@@ -38,7 +38,7 @@ public class SenhaService {
 
 	public void recuperar(String login)
 					throws EmailException, UsuarioNaoEncontradoException, NullPointerException, PersistenceException, NaoValidoException {
-		if (usuarioRepo.buscarUsuario(login) != null) {
+		if (usuarioRepo.getUsuario(login) != null) {
 
 			// String hashLogin = StringToMD5Converter.convertStringToMd5(login);
 			String hashLogin = StringToMD5Converter.convertStringToMd5(RandomStringGenerator.getAlphaNumericString(8));
@@ -46,29 +46,29 @@ public class SenhaService {
 			// Testa se ainda não expirou e atualiza
 			if (recuperacaoSenhaRepo.validarRecuperacaoSenhaPorLogin(login)) {
 
-				RecuperacaoSenha rpSalvo = recuperacaoSenhaRepo.buscarPorLogin(login);
+				RecuperacaoSenha rpSalvo = recuperacaoSenhaRepo.getSenhaByLogin(login);
 				RecuperacaoSenha rpSenha = new RecuperacaoSenha(login, hashLogin);
-				recuperacaoSenhaRepo.removerRecuperacaoSenha(rpSalvo);
-				recuperacaoSenhaRepo.salvarRecuperacaoSenha(rpSenha);
+				recuperacaoSenhaRepo.remove(rpSalvo);
+				recuperacaoSenhaRepo.persist(rpSenha);
 
 				EnviarEmailUtil.send(rpSenha.getLogin(), rpSenha.getHash());
 
 				// Testa se existe e cria uma nova recuperação e salva
 			} else
-				if (recuperacaoSenhaRepo.buscarPorLogin(login) == null) {
+				if (recuperacaoSenhaRepo.getSenhaByLogin(login) == null) {
 
 					RecuperacaoSenha rpSenha = new RecuperacaoSenha(login, hashLogin);
 
-					recuperacaoSenhaRepo.salvarRecuperacaoSenha(rpSenha);
+					recuperacaoSenhaRepo.persist(rpSenha);
 					EnviarEmailUtil.send(rpSenha.getLogin(), rpSenha.getHash());
 
 					// Caso não seja inválido, valida através da criação uma nova requisição válida
 				} else {
-					RecuperacaoSenha rpSalvo = recuperacaoSenhaRepo.buscarPorLogin(login);
+					RecuperacaoSenha rpSalvo = recuperacaoSenhaRepo.getSenhaByLogin(login);
 					rpSalvo.setAtivo(true);
 					rpSalvo.setDataCriacao(new Date());
-					recuperacaoSenhaRepo.removerRecuperacaoSenha(rpSalvo);
-					recuperacaoSenhaRepo.salvarRecuperacaoSenha(rpSalvo);
+					recuperacaoSenhaRepo.remove(rpSalvo);
+					recuperacaoSenhaRepo.persist(rpSalvo);
 
 					EnviarEmailUtil.send(rpSalvo.getLogin(), rpSalvo.getHash());
 				}
@@ -86,21 +86,21 @@ public class SenhaService {
 
 				if (validar(novaSenha)) {
 
-					RecuperacaoSenha rpSalvo = recuperacaoSenhaRepo.buscarPorHash(hash);
+					RecuperacaoSenha rpSalvo = recuperacaoSenhaRepo.getSenhaByHash(hash);
 
 					if (rpSalvo.isAtivo() && recuperacaoSenhaRepo.validarRecuperacaoSenhaPorHash(hash)) {
 
-						Usuario usuario = usuarioRepo.buscarUsuario(rpSalvo.getLogin());
+						Usuario usuario = usuarioRepo.getUsuario(rpSalvo.getLogin());
 						HistoricoSenha historico = new HistoricoSenha(rpSalvo.getLogin());
 
 						usuario.setSenha(StringToMD5Converter.convertStringToMd5(novaSenha));
 
-						usuarioRepo.alterar(usuario);
+						usuarioRepo.merge(usuario);
 
 						rpSalvo.setAtivo(false);
 
-						recuperacaoSenhaRepo.salvarRecuperacaoSenha(rpSalvo);
-						historicoRepo.salvarLog(historico);
+						recuperacaoSenhaRepo.persist(rpSalvo);
+						historicoRepo.persist(historico);
 
 						throw new AlteracaoConcluidaException();
 
@@ -129,12 +129,12 @@ public class SenhaService {
 
 				if (validar(novaSenha)) {
 
-					Usuario usuario = usuarioRepo.buscarUsuario(nome);
+					Usuario usuario = usuarioRepo.getUsuario(nome);
 					usuario.setSenha(StringToMD5Converter.convertStringToMd5(confirmarSenha));
-					usuarioRepo.alterar(usuario);
+					usuarioRepo.merge(usuario);
 
 					HistoricoSenha historico = new HistoricoSenha(nome);
-					historicoRepo.salvarLog(historico);
+					historicoRepo.persist(historico);
 
 					throw new AlteracaoConcluidaException();
 				} else {

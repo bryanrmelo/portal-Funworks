@@ -24,7 +24,7 @@ public class UsuarioService {
 	// Editar perfil
 	public void editar(Usuario usuario) throws AlteracaoConcluidaException {
 		verificarQuantidadeEObservacao(usuario);
-		usuarioRepo.alterar(usuario);
+		usuarioRepo.merge(usuario);
 		throw new AlteracaoConcluidaException();
 
 	}
@@ -50,7 +50,7 @@ public class UsuarioService {
 
 	public Usuario getDadosExistentes(String login) {
 		try {
-			return usuarioRepo.buscarUsuario(login);
+			return usuarioRepo.getUsuario(login);
 		} catch (UsuarioNaoEncontradoException e) {
 			e.printStackTrace();
 		}
@@ -61,8 +61,8 @@ public class UsuarioService {
 	// Gerenciamento de nomes
 	public String gerenciarNomeParaView(String opcao, String nome) {
 		try {
-			if (testarExistenciaNomeCompleto(usuarioRepo.buscarUsuario(nome)) && opcao.equals("completo")) {
-				return usuarioRepo.buscarUsuario(nome).getNome();
+			if (testarExistenciaNomeCompleto(usuarioRepo.getUsuario(nome)) && opcao.equals("completo")) {
+				return usuarioRepo.getUsuario(nome).getNome();
 			} else {
 				if (opcao.equals("parcial")) {
 					return ConverterNomeUtil.converterPrimeiroNome(nome);
@@ -87,7 +87,7 @@ public class UsuarioService {
 
 	public Usuario getUsuario(String nome) {
 		try {
-			return usuarioRepo.buscarUsuario(nome);
+			return usuarioRepo.getUsuario(nome);
 		} catch (UsuarioNaoEncontradoException e) {
 			e.printStackTrace();
 			return null;
@@ -105,7 +105,7 @@ public class UsuarioService {
 					usuario.setTipo(ContaEnum.PADRAO.getId());
 				}
 
-				usuarioRepo.registrar(usuario);
+				usuarioRepo.persist(usuario);
 
 			} catch (NullPointerException e) {
 				throw new UsuarioNaoEncontradoException();

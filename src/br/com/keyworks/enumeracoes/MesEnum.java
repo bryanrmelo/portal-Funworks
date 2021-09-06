@@ -2,15 +2,15 @@ package br.com.keyworks.enumeracoes;
 
 public enum MesEnum {
 
-	JANEIRO("01", "Janeiro"),
-	FEVEREIRO("02", "Fevereiro"),
-	MARÇO("03", "Março"),
-	ABRIL("04", "Abril"),
-	MAIO("05", "Maio"),
-	JUNHO("06", "Junho"),
-	JULHO("07", "Julho"),
-	AGOSTO("08", "Agosto"),
-	SETEMBRO("09", "Setembro"),
+	JANEIRO("1", "Janeiro"),
+	FEVEREIRO("2", "Fevereiro"),
+	MARÇO("3", "Março"),
+	ABRIL("4", "Abril"),
+	MAIO("5", "Maio"),
+	JUNHO("6", "Junho"),
+	JULHO("7", "Julho"),
+	AGOSTO("8", "Agosto"),
+	SETEMBRO("9", "Setembro"),
 	OUTUBRO("10", "Outubro"),
 	NOVEMBRO("11", "Novembro"),
 	DEZEMBRO("12", "Dezembro");

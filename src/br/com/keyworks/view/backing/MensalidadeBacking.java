@@ -47,7 +47,7 @@ public class MensalidadeBacking extends AbstractBacking {
 	@PostConstruct
 	public void Init() {
 		this.nome = sessao.getNome();
-		this.listaMensalidades = mensalidadeService.getDadosExistentes(nome);
+		this.listaMensalidades = mensalidadeService.getMensalidadeByUsuario(nome);
 	}
 
 	public String nomeParcial() {
@@ -78,7 +78,7 @@ public class MensalidadeBacking extends AbstractBacking {
 	public void listenerObservacaoEdit(CellEditEvent event) {
 		Mensalidade mensalidade = listaMensalidades.get(event.getRowIndex());
 		mensalidade.setObservacao((String) event.getNewValue());
-		mensalidadeService.salvarObservacao(mensalidade);
+		mensalidadeService.updateObservacao(mensalidade);
 
 	}
 

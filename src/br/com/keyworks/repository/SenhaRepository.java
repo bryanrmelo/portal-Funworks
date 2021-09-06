@@ -18,7 +18,7 @@ public class SenhaRepository {
 	@DataRepository
 	private EntityManagerExtended em;
 
-	public RecuperacaoSenha buscarPorLogin(String login) throws NullPointerException {
+	public RecuperacaoSenha getSenhaByLogin(String login) throws NullPointerException {
 		try {
 			String jpql = "SELECT r FROM RecuperacaoSenha r WHERE login = :login";
 			RecuperacaoSenha rp = em.createQuery(jpql, RecuperacaoSenha.class).setParameter("login", login).getSingleResult();
@@ -28,7 +28,7 @@ public class SenhaRepository {
 		}
 	}
 
-	public RecuperacaoSenha buscarPorHash(String hash) throws NullPointerException {
+	public RecuperacaoSenha getSenhaByHash(String hash) throws NullPointerException {
 		try {
 			String jpql = "SELECT r FROM RecuperacaoSenha r WHERE hash = :hash";
 			RecuperacaoSenha rp = em.createQuery(jpql, RecuperacaoSenha.class).setParameter("hash", hash).getSingleResult();
@@ -40,7 +40,7 @@ public class SenhaRepository {
 
 	public boolean validarRecuperacaoSenhaPorLogin(String login) throws NaoValidoException {
 		try {
-			RecuperacaoSenha recuperar = buscarPorLogin(login);
+			RecuperacaoSenha recuperar = getSenhaByLogin(login);
 			if (recuperar != null) {
 				if ((new Date().getTime() - recuperar.getDataCriacao().getTime()) < 900000) {
 					return true;
@@ -54,7 +54,7 @@ public class SenhaRepository {
 
 	public boolean validarRecuperacaoSenhaPorHash(String hash) throws NaoValidoException {
 		try {
-			RecuperacaoSenha recuperar = buscarPorHash(hash);
+			RecuperacaoSenha recuperar = getSenhaByHash(hash);
 			if (recuperar != null) {
 				if ((new Date().getTime() - recuperar.getDataCriacao().getTime()) < 900000) {
 					return true;
@@ -67,13 +67,13 @@ public class SenhaRepository {
 	}
 
 	@Transactional
-	public void salvarRecuperacaoSenha(RecuperacaoSenha rpSenha) throws PersistenceException {
+	public void persist(RecuperacaoSenha rpSenha) throws PersistenceException {
 		em.persist(rpSenha);
 
 	}
 
 	@Transactional
-	public void removerRecuperacaoSenha(RecuperacaoSenha rpSenha) {
+	public void remove(RecuperacaoSenha rpSenha) {
 		em.remove(rpSenha);
 
 	}

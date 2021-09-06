@@ -18,7 +18,6 @@ import javax.inject.Named;
 import org.apache.commons.mail.EmailException;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
-import br.com.keyworks.enumeracoes.AnoEnum;
 import br.com.keyworks.enumeracoes.MesEnum;
 import br.com.keyworks.enumeracoes.PagoPendenteEnum;
 import br.com.keyworks.enumeracoes.SimNaoEnum;
@@ -55,13 +54,10 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 	@SuppressWarnings("unused")
 	private List<MesEnum> meses;
 
-	@SuppressWarnings("unused")
-	private List<AnoEnum> anos;
+	private List<String> anos;
 
 	@SuppressWarnings("unused")
 	private List<PagoPendenteEnum> pagamento;
-
-	private MensalidadeFilter filtro = new MensalidadeFilter();
 
 	private Map<String, Object> filtrosSelecionados = new HashMap<String, Object>();
 
@@ -73,6 +69,8 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 
 	private String opcaoAtualizacaoSelecionada;
 
+	private MensalidadeFilter filtro = new MensalidadeFilter();
+
 	private List<Mensalidade> listaMensalidades = new ArrayList<Mensalidade>();
 
 	private Date dataNovaMensalidade;
@@ -83,7 +81,7 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 		if (!ExpiracaoUtil.ValidaExpiracao(sessao.getDataCriacao())) {
 			LogoutUtil.logout();
 		}
-
+		this.anos = mensalidadeService.getAnos();
 	}
 
 	public void pesquisar() {
@@ -94,7 +92,7 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 
 				gridLazyLoaderDTO.setFilters(setFiltros());
 
-				return mensalidadeService.buscarMensalidades(gridLazyLoaderDTO);
+				return mensalidadeService.getMensalidades(gridLazyLoaderDTO);
 			}
 		}) {
 
@@ -152,7 +150,7 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 			if (opcaoAtualizacaoSelecionada.equals("pago")) {
 				if (mensalidade.getComprovante() != null) {
 					mensalidade.setPagamento("pa");
-					mensalidadeService.atualizarMensalidade(mensalidade);
+					mensalidadeService.updateMensalidade(mensalidade);
 					enviarEmailConfirmacao(mensalidade.getUsuario().getLogin(), mensalidade.getDataVencimento());
 					mostrarMensangemAtualizacaoPagoPendente(mensalidadesSelecionadas);
 				} else {
@@ -161,7 +159,7 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 			} else
 				if (opcaoAtualizacaoSelecionada.equals("pendente")) {
 					mensalidade.setPagamento("pe");
-					mensalidadeService.atualizarMensalidade(mensalidade);
+					mensalidadeService.updateMensalidade(mensalidade);
 					mostrarMensangemAtualizacaoPagoPendente(mensalidadesSelecionadas);
 				}
 		}
@@ -220,7 +218,7 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 
 	public void criarNovaMensalidade() {
 		try {
-			mensalidadeService.criarNovaMensalidade(gridLazyLoader.getWrappedData(), dataNovaMensalidade);
+			mensalidadeService.createMensalidade(dataNovaMensalidade);
 		} catch (MensalidadeExistenteException e) {
 			FacesMessageUtils.addErrorMessage(e.getMessage());
 		}
@@ -275,11 +273,11 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 		this.meses = meses;
 	}
 
-	public List<AnoEnum> getAnos() {
-		return Arrays.asList(AnoEnum.values());
+	public List<String> getAnos() {
+		return this.anos;
 	}
 
-	public void setAnos(List<AnoEnum> anos) {
+	public void setAnos(List<String> anos) {
 		this.anos = anos;
 	}
 

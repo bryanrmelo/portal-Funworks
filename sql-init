@@ -78,7 +78,7 @@ UPDATE usuario SET tipo = 'A' WHERE id = 3;
 
 UPDATE mensalidade SET pagamento = 'pa' WHERE id = 1;
 
-DELETE FROM mensalidade WHERE idusuario = 3;
+SELECT FROM mensalidade WHERE idusuario = 24;
 
 SELECT * FROM mensalidade m JOIN usuario u ON m.idusuario = u.id WHERE u.login = 'bryan.melo';
 
@@ -91,6 +91,8 @@ SELECT * FROM Mensalidade m JOIN usuario u ON m.idusuario = u.id WHERE 1 = 1 AND
 SELECT COUNT(*) FROM Usuario;
 
 SELECT * FROM usuario WHERE UPPER(login) LIKE '%B%';
+
+SELECT EXTRACT(MONTH from datavencimento) FROM mensalidade ORDER BY EXTRACT(MONTH from datavencimento) ASC;
 
 
 
