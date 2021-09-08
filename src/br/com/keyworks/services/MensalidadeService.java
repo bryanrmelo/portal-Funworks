@@ -62,7 +62,7 @@ public class MensalidadeService {
 	}
 
 	public void updateObservacao(Mensalidade mensalidade) {
-		mensalidadeRepo.atualizar(mensalidade);
+		mensalidadeRepo.merge(mensalidade);
 	}
 
 	public Mensalidade salvarComprovante(Mensalidade mensalidade, UploadedFile comprovante) {
@@ -72,7 +72,7 @@ public class MensalidadeService {
 
 		}
 		mensalidade.setComprovante(comprovante.getContents());
-		return mensalidadeRepo.atualizar(mensalidade);
+		return mensalidadeRepo.merge(mensalidade);
 	}
 
 	public Long getQuantidadeUsuarios() {
@@ -97,7 +97,7 @@ public class MensalidadeService {
 	}
 
 	public void updateMensalidade(Mensalidade mensalidade) {
-		mensalidadeRepo.atualizar(mensalidade);
+		mensalidadeRepo.merge(mensalidade);
 
 	}
 
@@ -204,7 +204,7 @@ public class MensalidadeService {
 
 		query.append(" ORDER BY m.usuario.login ASC, m.dataVencimento ASC");
 
-		return mensalidadeRepo.buscarMensalidadesLazy(gridLazyLoaderDTO, query.toString());
+		return mensalidadeRepo.getMensalidadesLazy(gridLazyLoaderDTO, query.toString());
 	}
 
 	public void createMensalidade(Date data) throws MensalidadeExistenteException {
@@ -228,7 +228,10 @@ public class MensalidadeService {
 
 		for (int i = 0; i < usuarios.size(); i++) {
 			if (!(idMap.containsValue(usuarios.get(i)))) {
-				idMap.put(i, usuarios.get(i));
+				LocalDate dataAdmissao = usuarios.get(i).getAdmissao().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+				if (dataAdmissao.isBefore(data.toInstant().atZone(ZoneId.systemDefault()).toLocalDate())) {
+					idMap.put(i, usuarios.get(i));
+				}
 			}
 
 		}
@@ -281,8 +284,6 @@ public class MensalidadeService {
 				startDate = startDate.minusMonths(1);
 			}
 		}
-		System.out.println(date.compareTo(endDate));
-		System.out.println(startDate.minusMonths(1).compareTo(endDate));
 		if (date.compareTo(endDate) <= startDate.compareTo(endDate))
 			mensalidadeRepo.persistList(mensalidades);
 		else {

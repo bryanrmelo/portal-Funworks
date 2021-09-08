@@ -1,6 +1,5 @@
 package br.com.keyworks.util;
 
-import java.time.Month;
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
@@ -26,14 +25,14 @@ public class EnviarEmailUtil {
 		}
 	}
 
-	public static void send(String destino, Month mes) throws EmailException {
+	public static void enviar(String destino, String mes) throws EmailException {
 		try {
 			final HtmlEmail email = new HtmlEmail();
 			configureMail(email, destino);
 
 			String nome = ConverterNomeUtil.converterPrimeiroNome(destino) + " " + ConverterNomeUtil.converterUltimoNome(destino);
 
-			setMailVoContent(email, nome, mes);
+			setMailVoContent2(email, nome, mes);
 			email.send();
 		} catch (EmailException e) {
 			e.printStackTrace();
@@ -73,7 +72,7 @@ public class EnviarEmailUtil {
 
 	}
 
-	private static void setMailVoContent(final HtmlEmail email, String nome, Month mes) throws EmailException {
+	private static void setMailVoContent2(final HtmlEmail email, String nome, String mes) throws EmailException {
 
 		StringBuilder builder = new StringBuilder();
 		builder.append("<br><br>");

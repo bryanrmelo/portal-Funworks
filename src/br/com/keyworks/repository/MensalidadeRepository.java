@@ -18,14 +18,14 @@ public class MensalidadeRepository {
 	@DataRepository
 	private EntityManagerExtended em;
 
-	public List<Mensalidade> getMensalidadesByIdUsuario(Integer id) {
-		String jpql = "SELECT m FROM Mensalidade m WHERE idUsuario = :idUsuario ORDER BY id ASC";
-		return em.createQuery(jpql, Mensalidade.class).setParameter("idUsuario", id).getResultList();
-	}
-
 	public Mensalidade getMensalidadeById(Integer id) {
 		String jpql = "SELECT m FROM Mensalidade m WHERE id = :id";
 		return em.createQuery(jpql, Mensalidade.class).setParameter("id", id).getSingleResult();
+	}
+
+	public List<Mensalidade> getMensalidadesByIdUsuario(Integer id) {
+		String jpql = "SELECT m FROM Mensalidade m WHERE idUsuario = :idUsuario ORDER BY id ASC";
+		return em.createQuery(jpql, Mensalidade.class).setParameter("idUsuario", id).getResultList();
 	}
 
 	public List<Mensalidade> getMensalidades() {
@@ -33,7 +33,7 @@ public class MensalidadeRepository {
 		return em.createQuery(jpql, Mensalidade.class).getResultList();
 	}
 
-	public PagedResult<Mensalidade> buscarMensalidadesLazy(GridLazyLoaderDTO gridLazyLoaderDTO, String query) {
+	public PagedResult<Mensalidade> getMensalidadesLazy(GridLazyLoaderDTO gridLazyLoaderDTO, String query) {
 		return em.findPageWithQuery(query.toString(), gridLazyLoaderDTO.getFilters(), Mensalidade.class, gridLazyLoaderDTO.getFirst(),
 						gridLazyLoaderDTO.getPageSize());
 	}
@@ -62,10 +62,11 @@ public class MensalidadeRepository {
 	}
 
 	@Transactional
-	public Mensalidade atualizar(Mensalidade mensalidade) {
+	public Mensalidade merge(Mensalidade mensalidade) {
 		return em.merge(mensalidade);
 	}
 
+	@Transactional
 	public void persistList(List<Mensalidade> mensalidades) {
 		for (Mensalidade m : mensalidades) {
 			em.persist(m);

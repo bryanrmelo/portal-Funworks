@@ -18,6 +18,7 @@ import javax.inject.Named;
 import org.apache.commons.mail.EmailException;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
+import br.com.keyworks.enumeracoes.ContaEnum;
 import br.com.keyworks.enumeracoes.MesEnum;
 import br.com.keyworks.enumeracoes.PagoPendenteEnum;
 import br.com.keyworks.enumeracoes.SimNaoEnum;
@@ -25,6 +26,7 @@ import br.com.keyworks.exceptions.MensalidadeExistenteException;
 import br.com.keyworks.framework.faces.backing.AbstractBacking;
 import br.com.keyworks.model.entities.administracao.Mensalidade;
 import br.com.keyworks.model.entities.administracao.MensalidadeFilter;
+import br.com.keyworks.model.entities.administracao.Usuario;
 import br.com.keyworks.services.MensalidadeService;
 import br.com.keyworks.services.UsuarioService;
 import br.com.keyworks.util.EnviarEmailUtil;
@@ -75,6 +77,8 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 
 	private Date dataNovaMensalidade;
 
+	private String opcao;
+
 	@PostConstruct
 	public void init() {
 		pesquisar();
@@ -82,6 +86,12 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 			LogoutUtil.logout();
 		}
 		this.anos = mensalidadeService.getAnos();
+		Usuario usuario = usuarioService.getUsuario(sessao.getNome());
+		if (usuario.getTipo().equals(ContaEnum.ADMINISTRADOR.getId())) {
+			opcao = "0";
+		} else {
+			opcao = "1";
+		}
 	}
 
 	public void pesquisar() {
@@ -169,8 +179,16 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 
 	private void enviarEmailConfirmacao(String login, Date data) {
 		try {
-			LocalDate mes = data.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-			EnviarEmailUtil.send(login, mes.getMonth());
+			LocalDate mes = data.toInstant().atZone(ZoneId.of("America/Sao_Paulo")).toLocalDate();
+			String mesExtenso = null;
+			System.out.println(mes);
+			for (MesEnum valor : MesEnum.values()) {
+				if (valor.getId().equals(String.valueOf(mes.getMonthValue()))) {
+					mesExtenso = valor.getDescricao();
+				}
+			}
+
+			EnviarEmailUtil.enviar(login, mesExtenso);
 		} catch (EmailException e) {
 			e.printStackTrace();
 		}
@@ -227,6 +245,14 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 	public void downloadComprovante(Mensalidade mensalidade) {
 		InputStream stream = new ByteArrayInputStream(mensalidadeService.getComprovante(mensalidade.getId()));
 		this.setComprovanteDownload(new DefaultStreamedContent(stream, "application/pdf", mensalidade.getNomeComprovante()));
+	}
+
+	public void mudarPagina() {
+		if (opcao.equals("1")) {
+			opcao = "0";
+		} else {
+			opcao = "1";
+		}
 	}
 
 	public Long getQuantidadeUsuarios() {
@@ -319,6 +345,14 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 
 	public void setDataNovaMensalidade(Date dataNovaMensalidade) {
 		this.dataNovaMensalidade = dataNovaMensalidade;
+	}
+
+	public String getOpcao() {
+		return opcao;
+	}
+
+	public void setOpcao(String opcao) {
+		this.opcao = opcao;
 	}
 
 }

@@ -42,7 +42,7 @@ public class EditarPerfilBacking extends AbstractBacking {
 		// Testa se a imagem presente no banco é nula
 		// ou se a imagem no banco é diferente da imagem nova
 		// e se a imagem nova possui algum conteúdo
-		if (usuario.getImage() == null || usuario.getImage() != imagem.getContents() && imagem.getContents().length > 0) {
+		if (usuario.getImage() == null && usuario.getImage() != imagem.getContents() && imagem.getContents().length > 0) {
 			usuario.setImage(imagem.getContents());
 		}
 		try {
