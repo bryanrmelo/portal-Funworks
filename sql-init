@@ -86,13 +86,15 @@ SELECT * FROM mensalidade WHERE 1 = 1 AND to_char(datavencimento, 'YYYY-MM-DD') 
 
 SELECT * FROM Mensalidade m WHERE 1 = 1 AND 1 = 1 OR to_char(datavencimento, 'YYYY-MM-DD') LIKE '2019-%';
 
-SELECT * FROM Mensalidade m JOIN usuario u ON m.idusuario = u.id WHERE 1 = 1 AND UPPER(u.login) = UPPER('rafael.lemos') AND 1 = 1 AND 1 = 1 ;
+SELECT * FROM Mensalidade m JOIN usuario u ON m.idusuario = u.id WHERE 1 = 1 AND UPPER(u.login) = UPPER('bryan.melo') AND 1 = 1 AND 1 = 1 ;
 
 SELECT COUNT(*) FROM Usuario;
 
 SELECT * FROM usuario WHERE UPPER(login) LIKE '%B%';
 
-SELECT EXTRACT(MONTH from datavencimento) FROM mensalidade ORDER BY EXTRACT(MONTH from datavencimento) ASC;
+SELECT DISTINCT EXTRACT(YEAR from datavencimento) FROM mensalidade ORDER BY EXTRACT(YEAR from datavencimento) ASC;
+
+DELETE FROM usuario WHERE id = 2;
 
 
 

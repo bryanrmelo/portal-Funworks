@@ -47,7 +47,7 @@ public class EnviarEmailUtil {
 		senderAddress = "keyworks@desenvolvimento.com.br";
 		senderName = "keyworks@desenvolvimento.com.br";
 		email.setFrom(senderAddress, senderName);
-		email.setSubject("Recuperação de Senha - Funworks");
+		email.setSubject("Funworks");
 		email.addTo(destino + "@keyworks.com.br");
 	}
 

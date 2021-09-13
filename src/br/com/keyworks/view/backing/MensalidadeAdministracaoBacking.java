@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -92,6 +93,7 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 		} else {
 			opcao = "1";
 		}
+
 	}
 
 	public void pesquisar() {
@@ -129,8 +131,34 @@ public class MensalidadeAdministracaoBacking extends AbstractBacking {
 		});
 	}
 
+	@SuppressWarnings({ "unchecked", "unused" })
 	public void salvarFiltros() {
 		this.filtrosSelecionados = setFiltros();
+		for (Entry<String, Object> pair : filtrosSelecionados.entrySet()) {
+			System.out.println(pair.getValue() != null);
+			System.out.println(!(pair.getValue().equals("")));
+
+			boolean mesVazio;
+			boolean anosVazio;
+
+			try {
+				mesVazio = ((List<MesEnum>) pair.getValue()).size() > 0;
+			} catch (Exception e) {
+				mesVazio = true;
+				break;
+			}
+			System.out.println(mesVazio);
+			try {
+				anosVazio = ((ArrayList<String>) pair.getValue()).size() > 0;
+			} catch (Exception e) {
+				anosVazio = true;
+				break;
+			}
+			System.out.println(mesVazio);
+			if (pair.getValue() != null && !(pair.getValue().equals("")) && mesVazio && anosVazio) {
+				System.out.println(pair.getValue());
+			}
+		}
 	}
 
 	public Map<String, Object> setFiltros() {

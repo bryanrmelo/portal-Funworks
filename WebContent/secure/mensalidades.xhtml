@@ -107,6 +107,10 @@
                             <div class="filtro-box-header cor-gradiente">
                                 <h6 class="text-white p-1 m-0">FILTRO</h6>
                             </div>
+                            <h:outputText value="#{mensalidadeAdmBack.filtrosSelecionados.values()}" >
+                            	<p:autoUpdate/>
+                            </h:outputText>
+                            
                             <h:form class="m-0">
                                 <div class="p-2" style="border-bottom: 2px solid black;">
                                     <label for="status" class="text-end pe-3">
